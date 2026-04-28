@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>oh-my-claudecode · 多智能体协同的团队引擎</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--bg-light);
+    font-family: var(--font-body);
+    color: var(--ink);
+  }
+
+  .canvas {
+    width: 100%;
+    height: 100%;
+    padding: var(--space-lg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-md);
+  }
+
+  header {
+    grid-column: 1 / -1;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--accent-rust);
+  }
+
+  .left-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .right-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-small);
+    font-weight: 400;
+    margin-bottom: var(--space-xs);
+    color: var(--ink);
+  }
+
+  .card-content {
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+
+  .mode-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+  }
+
+  .mode-item {
+    padding: var(--space-sm);
+    background: var(--bg-light);
+    border-radius: var(--radius-sm);
+    border-left: 2px solid var(--accent-rust);
+  }
+
+  .mode-name {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--accent-rust);
+    margin-bottom: 4px;
+  }
+
+  .mode-desc {
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+  }
+
+  .highlight-box {
+    background: var(--accent-rust-light);
+    border-left: 3px solid var(--accent-rust);
+    padding: var(--space-sm);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .highlight-box strong {
+    color: var(--accent-rust);
+  }
+
+  .agent-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+  }
+
+  .agent-tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    padding: 4px 12px;
+    background: var(--bg-light);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    color: var(--ink-muted);
+  }
+
+  .pipeline-step {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xs);
+  }
+
+  .pipeline-number {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-rust);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    flex-shrink: 0;
+  }
+
+  .pipeline-content {
+    flex: 1;
+  }
+
+  .pipeline-title {
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .pipeline-desc {
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+  }
+
+  .stats-row {
+    display: flex;
+    gap: var(--space-lg);
+    margin-top: var(--space-sm);
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    color: var(--accent-rust);
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+    margin-top: 4px;
+  }
+
+  .quote {
+    font-family: var(--font-display);
+    font-size: var(--text-small);
+    font-style: italic;
+    color: var(--ink-muted);
+    line-height: 1.4;
+    padding-left: var(--space-sm);
+    border-left: 2px solid var(--accent-rust);
+  }
+
+  .quote-author {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    margin-top: var(--space-sm);
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <header>
+    <div class="eyebrow">Plugin #3</div>
+    <h1>oh-my-claudecode · 多智能体协同的团队引擎</h1>
+  </header>
+
+  <div class="left-col">
+    <div class="card">
+      <div class="card-title">核心理念</div>
+      <div class="card-content">
+        <p style="margin-bottom: 16px;">
+          OMC (oh-my-claudecode) 是目前最流行的 Claude Code 插件（30K+ stars），核心是「多智能体协同」——让多个专业 agent 在共享任务列表上并行工作，像真实团队一样分工协作。
+        </p>
+        <div class="highlight-box">
+          <strong>核心差异：</strong>不是单人工作流，而是团队编排。Team 模式下，plan-prd-exec-verify-fix 五阶段流水线，每个阶段由不同 agent 负责。
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Team 模式流水线</div>
+      <div class="card-content">
+        <div class="pipeline-step">
+          <div class="pipeline-number">1</div>
+          <div class="pipeline-content">
+            <div class="pipeline-title">team-plan</div>
+            <div class="pipeline-desc">Planner agent 分析需求，输出任务分解</div>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-number">2</div>
+          <div class="pipeline-content">
+            <div class="pipeline-title">team-prd</div>
+            <div class="pipeline-desc">Architect agent 设计技术方案，输出 PRD</div>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-number">3</div>
+          <div class="pipeline-content">
+            <div class="pipeline-title">team-exec</div>
+            <div class="pipeline-desc">多个 Executor agent 并行实现不同任务</div>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-number">4</div>
+          <div class="pipeline-content">
+            <div class="pipeline-title">team-verify</div>
+            <div class="pipeline-desc">Verifier agent 检查实现是否符合 PRD</div>
+          </div>
+        </div>
+        <div class="pipeline-step">
+          <div class="pipeline-number">5</div>
+          <div class="pipeline-content">
+            <div class="pipeline-title">team-fix</div>
+            <div class="pipeline-desc">Fixer agent 修复 verify 发现的问题</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-col">
+    <div class="card">
+      <div class="card-title">6 种运行模式</div>
+      <div class="card-content">
+        <div class="mode-grid">
+          <div class="mode-item">
+            <div class="mode-name">Team</div>
+            <div class="mode-desc">推荐模式<br>五阶段流水线</div>
+          </div>
+          <div class="mode-item">
+            <div class="mode-name">Autopilot</div>
+            <div class="mode-desc">单人自主执行<br>最小仪式</div>
+          </div>
+          <div class="mode-item">
+            <div class="mode-name">Ralph</div>
+            <div class="mode-desc">持久模式<br>verify/fix 循环</div>
+          </div>
+          <div class="mode-item">
+            <div class="mode-name">Ultrawork</div>
+            <div class="mode-desc">最大并行<br>批量修复</div>
+          </div>
+          <div class="mode-item">
+            <div class="mode-name">Pipeline</div>
+            <div class="mode-desc">顺序处理<br>严格排序</div>
+          </div>
+          <div class="mode-item">
+            <div class="mode-name">ccg</div>
+            <div class="mode-desc">三模型协同<br>Codex+Gemini</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">32 个专业 Agents</div>
+      <div class="card-content">
+        <div class="agent-list">
+          <span class="agent-tag">planner</span>
+          <span class="agent-tag">architect</span>
+          <span class="agent-tag">executor</span>
+          <span class="agent-tag">verifier</span>
+          <span class="agent-tag">fixer</span>
+          <span class="agent-tag">designer</span>
+          <span class="agent-tag">code-reviewer</span>
+          <span class="agent-tag">debugger</span>
+          <span class="agent-tag">test-engineer</span>
+          <span class="agent-tag">security-reviewer</span>
+          <span class="agent-tag">document-specialist</span>
+          <span class="agent-tag">scientist</span>
+          <span class="agent-tag">tracer</span>
+          <span class="agent-tag">qa-tester</span>
+          <span class="agent-tag">git-master</span>
+          <span class="agent-tag">writer</span>
+        </div>
+        <p style="margin-top: 12px; font-size: var(--text-small); color: var(--ink-muted);">
+          + 16 个更多专业 agent，覆盖架构、测试、安全、文档等领域
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">关键数据</div>
+      <div class="card-content">
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-value">30K+</div>
+            <div class="stat-label">GitHub Stars</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">32</div>
+            <div class="stat-label">专业 Agents</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">219</div>
+            <div class="stat-label">Releases</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="quote">
+        "Don't learn Claude Code. Just use OMC."
+      </div>
+      <div class="quote-author">— OMC 官方 Slogan</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>04 · Skills 详解</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { background: var(--bg-base); }
+  .page { padding: 72px 90px 90px; height: 100%; display: flex; flex-direction: column; }
+  .header { margin-bottom: 44px; }
+  h1 { font-size: 58px; color: var(--text-primary); margin-bottom: 10px; }
+  .desc { font-size: 19px; color: var(--text-secondary); }
+
+  .content { flex: 1; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
+
+  .left { display: flex; flex-direction: column; gap: 20px; }
+
+  .code-block {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 32px;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    line-height: 1.8;
+    flex: 1;
+  }
+
+  .code-comment { color: var(--text-muted); }
+  .code-key     { color: var(--skill-color); }
+  .code-val     { color: var(--hook-color); }
+  .code-str     { color: #fca5a5; }
+  .code-heading { color: var(--text-primary); font-weight: 600; }
+  .code-body    { color: var(--text-secondary); }
+
+  .right { display: flex; flex-direction: column; gap: 18px; }
+
+  .feature-row {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 26px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+  }
+
+  .feature-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: rgba(52,211,153,0.12);
+    border: 1px solid rgba(52,211,153,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+    color: var(--skill-color);
+    font-weight: 700;
+  }
+
+  .feature-text h3 { font-size: 17px; color: var(--text-primary); margin-bottom: 5px; }
+  .feature-text p  { font-size: 15px; color: var(--text-secondary); }
+
+  .invoke-box {
+    background: rgba(52,211,153,0.06);
+    border: 1px solid rgba(52,211,153,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--skill-color);
+    margin-top: auto;
+  }
+  .invoke-box .label { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.1em; }
+</style>
+<script src="../shared/slide-fx.js"></script>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="kicker"><div class="kicker-line"></div><span class="kicker-text">Chapter 03 · Skills</span></div>
+    <h1>Skills：可复用的工作流模板</h1>
+    <p class="desc">Skill 是一个 Markdown 文件，包含知识、工作流或指令，可通过命令调用或由 Claude 自动加载</p>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div style="font-size:13px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:4px;">skills/review/SKILL.md</div>
+      <div class="code-block">
+        <div><span class="code-comment">---</span></div>
+        <div><span class="code-key">name</span>: <span class="code-val">code-review</span></div>
+        <div><span class="code-key">description</span>: <span class="code-str">Review code for quality and security</span></div>
+        <div><span class="code-key">triggers</span>:</div>
+        <div>&nbsp;&nbsp;- <span class="code-str">review</span></div>
+        <div>&nbsp;&nbsp;- <span class="code-str">code quality</span></div>
+        <div><span class="code-key">tools</span>: [Read, Grep, Glob]</div>
+        <div><span class="code-comment">---</span></div>
+        <div>&nbsp;</div>
+        <div><span class="code-heading"># Code Review Skill</span></div>
+        <div>&nbsp;</div>
+        <div><span class="code-body">当用户请求代码审查时，执行以下步骤：</span></div>
+        <div>&nbsp;</div>
+        <div><span class="code-body">1. 读取目标文件，分析代码质量</span></div>
+        <div><span class="code-body">2. 检查安全漏洞（OWASP Top 10）</span></div>
+        <div><span class="code-body">3. 评估性能瓶颈</span></div>
+        <div><span class="code-body">4. 输出结构化报告</span></div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="feature-row">
+        <div class="feature-icon">S</div>
+        <div class="feature-text">
+          <h3>Frontmatter 控制行为</h3>
+          <p>通过 YAML frontmatter 定义触发词、可用工具、描述，Claude 会在合适时机自动加载</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">/</div>
+        <div class="feature-text">
+          <h3>斜杠命令调用</h3>
+          <p>用户输入 <code>/plugin-name:skill-name</code> 直接调用，或 Claude 根据上下文自动触发</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">↗</div>
+        <div class="feature-text">
+          <h3>隔离执行</h3>
+          <p>Skill 可在当前对话运行，也可通过 subagent 在独立上下文中执行，保护主对话窗口</p>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div class="feature-icon">H</div>
+        <div class="feature-text">
+          <h3>内嵌 Hooks</h3>
+          <p>Skill frontmatter 中可定义 Hooks，仅在该 Skill 激活期间生效</p>
+        </div>
+      </div>
+      <div class="invoke-box">
+        <div class="label">调用方式</div>
+        <div>/my-plugin:code-review</div>
+        <div style="color:var(--text-muted);margin-top:4px;"># 或 Claude 自动识别触发词</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-footer">
+  <span>Claude Code Marketplace</span>
+  <span>04 / 15</span>
+</div>
+</body>
+</html>

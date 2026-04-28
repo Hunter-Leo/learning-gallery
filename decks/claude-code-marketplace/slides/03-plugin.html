@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>03 · Plugin 详解</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { background: var(--bg-base); }
+  .page { padding: 72px 90px 90px; height: 100%; display: flex; flex-direction: column; }
+  .header { margin-bottom: 48px; }
+  h1 { font-size: 58px; color: var(--text-primary); margin-bottom: 10px; }
+  .desc { font-size: 19px; color: var(--text-secondary); }
+
+  .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+  .left { display: flex; flex-direction: column; gap: 24px; }
+  .right { display: flex; flex-direction: column; gap: 0; }
+
+  .concept-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 32px;
+  }
+
+  .concept-card h3 {
+    font-size: 20px; color: var(--plugin-color);
+    margin-bottom: 10px;
+  }
+
+  .concept-card p { font-size: 17px; }
+
+  .dir-tree {
+    background: rgba(0,0,0,0.45);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px 36px;
+    font-family: var(--font-mono);
+    font-size: 17px;
+    line-height: 2;
+    flex: 1;
+  }
+
+  .tree-root { color: var(--plugin-color); font-weight: 600; }
+  .tree-dir  { color: var(--agent-color); }
+  .tree-file { color: var(--text-secondary); }
+  .tree-key  { color: var(--hook-color); }
+  .tree-comment { color: var(--text-muted); font-style: italic; }
+  .tree-indent { padding-left: 28px; }
+  .tree-indent2 { padding-left: 56px; }
+
+  .rule-box {
+    margin-top: 20px;
+    background: rgba(167,139,250,0.06);
+    border: 1px solid rgba(167,139,250,0.25);
+    border-radius: 10px;
+    padding: 18px 24px;
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+  .rule-box strong { color: var(--plugin-color); }
+</style>
+<script src="../shared/slide-fx.js"></script>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="kicker"><div class="kicker-line"></div><span class="kicker-text">Chapter 02 · Plugin</span></div>
+    <h1>Plugin：扩展的打包容器</h1>
+    <p class="desc">Plugin 是一个自包含目录，将 Skills、Agents、Hooks、MCP 打包成可安装、可分发的单元</p>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div class="concept-card">
+        <h3>什么是 Plugin？</h3>
+        <p>Plugin 是 Claude Code 的扩展单元。安装后，它的 Skills 自动出现在命令列表，Hooks 自动注册，Commands 变成斜杠命令。</p>
+      </div>
+      <div class="concept-card">
+        <h3>命名空间隔离</h3>
+        <p>Plugin 的 Skills 和 Commands 自动加上命名空间前缀，如 <code>/my-plugin:review</code>，多个 Plugin 可以共存不冲突。</p>
+      </div>
+      <div class="concept-card">
+        <h3>安装方式</h3>
+        <p>通过 <code>/plugin install &lt;repo-url&gt;</code> 安装，或从 Marketplace 的 Discover 标签页一键安装。</p>
+      </div>
+      <div class="rule-box">
+        <strong>关键规则：</strong>只有 <code>plugin.json</code> 放在 <code>.claude-plugin/</code> 目录内。Skills、Hooks、Agents 等所有其他文件放在 Plugin 根目录。
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="dir-tree">
+        <div class="tree-root">my-plugin/</div>
+        <div class="tree-indent">
+          <div class="tree-dir">.claude-plugin/</div>
+          <div class="tree-indent">
+            <div class="tree-file">plugin.json &nbsp;<span class="tree-comment">← 唯一放这里的文件</span></div>
+          </div>
+          <div class="tree-dir">skills/</div>
+          <div class="tree-indent">
+            <div class="tree-file">review/ → SKILL.md</div>
+            <div class="tree-file">deploy/ → SKILL.md</div>
+          </div>
+          <div class="tree-dir">agents/</div>
+          <div class="tree-indent">
+            <div class="tree-file">code-reviewer.md</div>
+          </div>
+          <div class="tree-dir">hooks/</div>
+          <div class="tree-indent">
+            <div class="tree-file">hooks.json</div>
+          </div>
+          <div class="tree-dir">commands/</div>
+          <div class="tree-indent">
+            <div class="tree-file">generate-tests.md</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-footer">
+  <span>Claude Code Marketplace</span>
+  <span>03 / 15</span>
+</div>
+</body>
+</html>

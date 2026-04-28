@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>06 · Hooks 详解</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { background: var(--bg-base); }
+  .page { padding: 72px 90px 90px; height: 100%; display: flex; flex-direction: column; }
+  .header { margin-bottom: 44px; }
+  h1 { font-size: 58px; color: var(--text-primary); margin-bottom: 10px; }
+  .desc { font-size: 19px; color: var(--text-secondary); }
+
+  .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+  .events-grid { display: flex; flex-direction: column; gap: 14px; }
+
+  .event-row {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 24px;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .event-name {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--hook-color);
+    font-weight: 600;
+  }
+
+  .event-desc { font-size: 15px; color: var(--text-secondary); }
+
+  .right { display: flex; flex-direction: column; gap: 20px; }
+
+  .code-block {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 26px;
+    font-family: var(--font-mono);
+    font-size: 13.5px;
+    line-height: 1.65;
+    flex: 1;
+  }
+
+  .ck { color: var(--hook-color); }
+  .cv { color: #fca5a5; }
+  .cm { color: var(--text-muted); }
+  .cs { color: var(--skill-color); }
+
+  .scope-table {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .scope-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 80px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+    align-items: center;
+  }
+  .scope-row:last-child { border-bottom: none; }
+  .scope-row.header { background: rgba(255,255,255,0.04); color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  .scope-file { font-family: var(--font-mono); color: var(--hook-color); font-size: 13px; }
+  .scope-desc { color: var(--text-secondary); }
+  .dot-yes { color: var(--skill-color); font-weight: 700; }
+  .dot-no  { color: var(--text-muted); }
+</style>
+<script src="../shared/slide-fx.js"></script>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="kicker"><div class="kicker-line"></div><span class="kicker-text">Chapter 05 · Hooks</span></div>
+    <h1>Hooks：生命周期自动化</h1>
+    <p class="desc">Hooks 是在 Claude Code 生命周期特定节点自动执行的脚本，提供对行为的确定性控制</p>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div class="events-grid">
+        <div class="event-row">
+          <div class="event-name">PreToolUse</div>
+          <div class="event-desc">工具执行前触发，可<strong style="color:var(--text-primary)">阻止</strong>危险操作</div>
+        </div>
+        <div class="event-row">
+          <div class="event-name">PostToolUse</div>
+          <div class="event-desc">工具成功后触发，执行后续动作（如格式化）</div>
+        </div>
+        <div class="event-row">
+          <div class="event-name">UserPromptExpansion</div>
+          <div class="event-desc">用户提交前，向 prompt 注入额外上下文</div>
+        </div>
+        <div class="event-row">
+          <div class="event-name">SubagentStart / Stop</div>
+          <div class="event-desc">子代理启动/停止时触发，监控并行任务</div>
+        </div>
+        <div class="event-row">
+          <div class="event-name">SessionStart</div>
+          <div class="event-desc">会话开始时注入项目上下文或环境信息</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div style="font-size:13px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:4px;">hooks/hooks.json</div>
+      <div class="code-block">
+        <div>{</div>
+        <div>&nbsp;&nbsp;<span class="ck">"hooks"</span>: [</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;{</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ck">"event"</span>: <span class="cv">"PreToolUse"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ck">"matcher"</span>: {</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ck">"tool"</span>: <span class="cv">"Bash"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ck">"input"</span>: <span class="cv">"git push"</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ck">"command"</span>: <span class="cv">"./scripts/pre-push.sh"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ck">"type"</span>: <span class="cv">"blocking"</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;},</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;{</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ck">"event"</span>: <span class="cv">"PostToolUse"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ck">"matcher"</span>: { <span class="ck">"tool"</span>: <span class="cv">"Write"</span> },</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ck">"command"</span>: <span class="cv">"prettier --write $FILE"</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+        <div>&nbsp;&nbsp;]</div>
+        <div>}</div>
+      </div>
+
+      <div class="scope-table">
+        <div class="scope-row header">
+          <span>配置位置</span><span>作用范围</span><span>可共享</span>
+        </div>
+        <div class="scope-row">
+          <span class="scope-file">~/.claude/settings.json</span>
+          <span class="scope-desc">所有项目</span>
+          <span class="dot-no">✕</span>
+        </div>
+        <div class="scope-row">
+          <span class="scope-file">.claude/settings.json</span>
+          <span class="scope-desc">单个项目</span>
+          <span class="dot-yes">✓</span>
+        </div>
+        <div class="scope-row">
+          <span class="scope-file">Plugin hooks/hooks.json</span>
+          <span class="scope-desc">Plugin 启用时</span>
+          <span class="dot-yes">✓</span>
+        </div>
+        <div class="scope-row">
+          <span class="scope-file">Skill/Agent frontmatter</span>
+          <span class="scope-desc">组件激活期间</span>
+          <span class="dot-yes">✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-footer">
+  <span>Claude Code Marketplace</span>
+  <span>06 / 15</span>
+</div>
+</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>07 · Commands 与 MCP</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { background: var(--bg-base); }
+  .page { padding: 72px 90px 90px; height: 100%; display: flex; flex-direction: column; }
+  .header { margin-bottom: 44px; }
+  h1 { font-size: 58px; color: var(--text-primary); margin-bottom: 10px; }
+  .desc { font-size: 19px; color: var(--text-secondary); }
+
+  .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+
+  .section-title {
+    font-size: 13px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+
+  .section-title .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  .left { display: flex; flex-direction: column; }
+  .right { display: flex; flex-direction: column; }
+
+  .code-block {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px 30px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+  }
+
+  .ck { color: var(--command-color); }
+  .mk { color: var(--mcp-color); }
+  .cv { color: #fca5a5; }
+  .cm { color: var(--text-muted); }
+
+  .feature-list { display: flex; flex-direction: column; gap: 12px; }
+
+  .feature-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+
+  .fi-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; flex-shrink: 0;
+  }
+
+  .fi-cmd { background: rgba(244,114,182,0.12); color: var(--command-color); border: 1px solid rgba(244,114,182,0.25); }
+  .fi-mcp { background: rgba(34,211,238,0.12); color: var(--mcp-color); border: 1px solid rgba(34,211,238,0.25); }
+
+  .fi-text h3 { font-size: 15px; color: var(--text-primary); margin-bottom: 3px; }
+  .fi-text p  { font-size: 14px; color: var(--text-secondary); }
+
+  .divider {
+    width: 1px;
+    background: var(--border);
+    margin: 0 4px;
+  }
+</style>
+<script src="../shared/slide-fx.js"></script>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="kicker"><div class="kicker-line"></div><span class="kicker-text">Chapter 06 · Commands & MCP</span></div>
+    <h1>Commands 与 MCP Servers</h1>
+    <p class="desc">Commands 是用户直接调用的斜杠命令；MCP 是连接外部服务的标准协议层</p>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div class="section-title" style="color:var(--command-color)">
+        <div class="dot" style="background:var(--command-color)"></div>
+        Commands · 斜杠命令
+      </div>
+      <div style="font-size:13px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:6px;">commands/generate-tests.md</div>
+      <div class="code-block">
+        <div><span class="cm">---</span></div>
+        <div><span class="ck">description</span>: Generate unit tests for selected code</div>
+        <div><span class="ck">argument-hint</span>: <span class="cv">"[file-path]"</span></div>
+        <div><span class="cm">---</span></div>
+        <div>&nbsp;</div>
+        <div style="color:var(--text-secondary)">为 $ARGUMENTS 中的文件生成完整的</div>
+        <div style="color:var(--text-secondary)">单元测试，覆盖边界情况和错误路径。</div>
+      </div>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="fi-icon fi-cmd">/</div>
+          <div class="fi-text">
+            <h3>命名空间调用</h3>
+            <p>用户输入 <code>/my-plugin:generate-tests src/auth.ts</code></p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon fi-cmd">$</div>
+          <div class="fi-text">
+            <h3>参数传递</h3>
+            <p>通过 <code>$ARGUMENTS</code> 接收用户输入的参数</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon fi-cmd">≡</div>
+          <div class="fi-text">
+            <h3>Skill vs Command</h3>
+            <p>Command 是扁平 .md 文件；Skill 是含 SKILL.md 的目录，功能更丰富</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="section-title" style="color:var(--mcp-color)">
+        <div class="dot" style="background:var(--mcp-color)"></div>
+        MCP Servers · 外部服务连接
+      </div>
+      <div style="font-size:13px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:6px;">plugin.json → mcpServers</div>
+      <div class="code-block">
+        <div>{</div>
+        <div>&nbsp;&nbsp;<span class="mk">"mcpServers"</span>: {</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="mk">"github"</span>: {</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mk">"command"</span>: <span class="cv">"npx"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mk">"args"</span>: [<span class="cv">"@modelcontextprotocol/server-github"</span>],</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mk">"env"</span>: {</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mk">"GITHUB_TOKEN"</span>: <span class="cv">"${GITHUB_TOKEN}"</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+        <div>&nbsp;&nbsp;}</div>
+        <div>}</div>
+      </div>
+      <div class="feature-list">
+        <div class="feature-item">
+          <div class="fi-icon fi-mcp">⚡</div>
+          <div class="fi-text">
+            <h3>标准协议</h3>
+            <p>MCP 是 Anthropic 开放的工具调用协议，任何服务都可接入</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon fi-mcp">⊕</div>
+          <div class="fi-text">
+            <h3>Plugin 内置</h3>
+            <p>Plugin 安装后，MCP Server 自动注册，无需用户手动配置</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="fi-icon fi-mcp">⊞</div>
+          <div class="fi-text">
+            <h3>常见用途</h3>
+            <p>GitHub、Jira、Slack、数据库、内部 API 等外部系统集成</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-footer">
+  <span>Claude Code Marketplace</span>
+  <span>07 / 15</span>
+</div>
+</body>
+</html>

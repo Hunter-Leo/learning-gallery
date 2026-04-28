@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>13 · 最佳实践</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { background: var(--bg-base); }
+  .page { padding: 72px 90px 90px; height: 100%; display: flex; flex-direction: column; }
+  .header { margin-bottom: 44px; }
+  h1 { font-size: 58px; color: var(--text-primary); margin-bottom: 10px; }
+  .desc { font-size: 19px; color: var(--text-secondary); }
+
+  .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+  .col-title {
+    font-size: 12px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .practices { display: flex; flex-direction: column; gap: 10px; }
+
+  .practice-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex; gap: 14px; align-items: flex-start;
+  }
+
+  .pi-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; flex-shrink: 0;
+  }
+
+  /* 推荐：只用橙色 accent，不用多色 */
+  .pi-do   { background: rgba(245,158,11,0.1); color: var(--claude-orange); border: 1px solid rgba(245,158,11,0.25); }
+  .pi-dont { background: rgba(239,68,68,0.08); color: #f87171;              border: 1px solid rgba(239,68,68,0.18); }
+
+  .pi-body h3 { font-size: 15px; color: var(--text-primary); margin-bottom: 3px; }
+  .pi-body p  { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+</style>
+<script src="../shared/slide-fx.js"></script>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="kicker"><div class="kicker-line"></div><span class="kicker-text">Chapter 12 · Best Practices</span></div>
+    <h1>最佳实践</h1>
+    <p class="desc">构建高质量 Plugin 和 Marketplace 的关键原则</p>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div class="col-title" style="color:var(--claude-orange)">✓ &nbsp;推荐做法</div>
+      <div class="practices">
+        <div class="practice-item">
+          <div class="pi-icon pi-do">1</div>
+          <div class="pi-body">
+            <h3>单一职责原则</h3>
+            <p>每个 Plugin 专注一个领域（代码质量 / Git 工作流 / 测试），避免大而全的「瑞士军刀」</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <div class="pi-icon pi-do">2</div>
+          <div class="pi-body">
+            <h3>Skill description 写精准</h3>
+            <p>description 字段决定 Claude 何时自动加载 Skill，写得越精准，触发越准确，误触发越少</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <div class="pi-icon pi-do">3</div>
+          <div class="pi-body">
+            <h3>blocking Hook 谨慎使用</h3>
+            <p>blocking Hook 会阻止工具执行，只在真正需要拦截时使用，避免影响正常工作流</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <div class="pi-icon pi-do">4</div>
+          <div class="pi-body">
+            <h3>语义化版本号</h3>
+            <p>遵循 semver：patch 修 bug，minor 加功能，major 破坏性变更。Marketplace 依赖版本号追踪更新</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="col-title" style="color:#f87171">✕ &nbsp;常见错误</div>
+      <div class="practices">
+        <div class="practice-item">
+          <div class="pi-icon pi-dont">!</div>
+          <div class="pi-body">
+            <h3>把文件放进 .claude-plugin/</h3>
+            <p>只有 <code>plugin.json</code> 放在 <code>.claude-plugin/</code>。Skills、Hooks 等放在 Plugin 根目录</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <div class="pi-icon pi-dont">!</div>
+          <div class="pi-body">
+            <h3>Agent 中配置 hooks / permissionMode</h3>
+            <p>Plugin 提供的 Agent 不支持 <code>hooks</code>、<code>mcpServers</code>、<code>permissionMode</code> frontmatter，这是安全限制</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <div class="pi-icon pi-dont">!</div>
+          <div class="pi-body">
+            <h3>name 字段用非 kebab-case</h3>
+            <p>Plugin name 必须是 kebab-case（如 <code>code-quality</code>），它会成为所有命令的命名空间前缀</p>
+          </div>
+        </div>
+        <div class="practice-item">
+          <div class="pi-icon pi-dont">!</div>
+          <div class="pi-body">
+            <h3>在 Skill 中硬编码路径</h3>
+            <p>使用 <code>${CLAUDE_PLUGIN_ROOT}</code> 变量引用 Plugin 内的文件，避免绝对路径导致跨机器失效</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-footer">
+  <span>Claude Code Marketplace</span>
+  <span>13 / 15</span>
+</div>
+</body>
+</html>

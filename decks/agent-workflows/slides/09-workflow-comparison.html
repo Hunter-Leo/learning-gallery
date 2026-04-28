@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>工作流对比 · 四种执行模式</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--bg-light);
+    font-family: var(--font-body);
+    color: var(--ink);
+  }
+
+  .canvas {
+    width: 100%;
+    height: 100%;
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    margin-bottom: var(--space-md);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .workflows-container {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+
+  .workflow-card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .workflow-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .workflow-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent-rust);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    flex-shrink: 0;
+  }
+
+  .workflow-meta {
+    flex: 1;
+  }
+
+  .workflow-title {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .workflow-subtitle {
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    margin-top: 2px;
+  }
+
+  .workflow-phases {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .phase {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .phase-marker {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg-light);
+    border: 2px solid var(--accent-rust);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--accent-rust);
+    flex-shrink: 0;
+    font-weight: 600;
+  }
+
+  .phase-content {
+    flex: 1;
+    padding-top: 3px;
+  }
+
+  .phase-title {
+    font-weight: 600;
+    color: var(--ink);
+    font-size: var(--text-body);
+    margin-bottom: 2px;
+  }
+
+  .phase-desc {
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    line-height: 1.4;
+  }
+
+  .phase-connector {
+    width: 2px;
+    height: 12px;
+    background: var(--border-light);
+    margin-left: 13px;
+  }
+
+  .key-point {
+    margin-top: var(--space-sm);
+    padding: var(--space-sm);
+    background: var(--accent-rust-light);
+    border-left: 3px solid var(--accent-rust);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .key-point-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    color: var(--accent-rust);
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+
+  .key-point-text {
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <header>
+    <div class="eyebrow">Workflow Comparison</div>
+    <h1>工作流对比 · 四种执行模式</h1>
+  </header>
+
+  <div class="workflows-container">
+    <!-- Superpowers -->
+    <div class="workflow-card">
+      <div class="workflow-header">
+        <div class="workflow-icon">S</div>
+        <div class="workflow-meta">
+          <div class="workflow-title">Superpowers</div>
+          <div class="workflow-subtitle">强制流程 · 线性执行</div>
+        </div>
+      </div>
+      <div class="workflow-phases">
+        <div class="phase">
+          <div class="phase-marker">1</div>
+          <div class="phase-content">
+            <div class="phase-title">Brainstorming</div>
+            <div class="phase-desc">Socratic 提问澄清需求，输出设计文档</div>
+          </div>
+        </div>
+        <div class="phase-connector"></div>
+        <div class="phase">
+          <div class="phase-marker">2</div>
+          <div class="phase-content">
+            <div class="phase-title">Plan & Execute</div>
+            <div class="phase-desc">拆分任务，创建 worktree，subagent 执行</div>
+          </div>
+        </div>
+        <div class="phase-connector"></div>
+        <div class="phase">
+          <div class="phase-marker">3</div>
+          <div class="phase-content">
+            <div class="phase-title">TDD 循环</div>
+            <div class="phase-desc">RED-GREEN-REFACTOR，强制测试先行</div>
+          </div>
+        </div>
+      </div>
+      <div class="key-point">
+        <div class="key-point-label">核心价值</div>
+        <div class="key-point-text">强制 TDD，测试先行，否则删除代码</div>
+      </div>
+    </div>
+
+    <!-- gstack -->
+    <div class="workflow-card">
+      <div class="workflow-header">
+        <div class="workflow-icon">G</div>
+        <div class="workflow-meta">
+          <div class="workflow-title">gstack</div>
+          <div class="workflow-subtitle">角色切换 · 显式控制</div>
+        </div>
+      </div>
+      <div class="workflow-phases">
+        <div class="phase">
+          <div class="phase-marker">1</div>
+          <div class="phase-content">
+            <div class="phase-title">CEO Review</div>
+            <div class="phase-desc">CEO 视角审视产品价值与方向</div>
+          </div>
+        </div>
+        <div class="phase-connector"></div>
+        <div class="phase">
+          <div class="phase-marker">2</div>
+          <div class="phase-content">
+            <div class="phase-title">Eng & Implement</div>
+            <div class="phase-desc">架构设计 → Claude 编码 → Paranoid 审查</div>
+          </div>
+        </div>
+        <div class="phase-connector"></div>
+        <div class="phase">
+          <div class="phase-marker">3</div>
+          <div class="phase-content">
+            <div class="phase-title">QA & Ship</div>
+            <div class="phase-desc">浏览器自动化测试，确认后发布</div>
+          </div>
+        </div>
+      </div>
+      <div class="key-point">
+        <div class="key-point-label">核心价值</div>
+        <div class="key-point-text">每个阶段显式调用，手动控制节奏</div>
+      </div>
+    </div>
+
+    <!-- oh-my-claudecode -->
+    <div class="workflow-card">
+      <div class="workflow-header">
+        <div class="workflow-icon">O</div>
+        <div class="workflow-meta">
+          <div class="workflow-title">oh-my-claudecode</div>
+          <div class="workflow-subtitle">多智能体 · 并行协同</div>
+        </div>
+      </div>
+      <div class="workflow-phases">
+        <div class="phase">
+          <div class="phase-marker">1</div>
+          <div class="phase-content">
+            <div class="phase-title">Plan & PRD</div>
+            <div class="phase-desc">Planner 分解任务，Architect 输出 PRD</div>
+          </div>
+        </div>
+        <div class="phase-connector"></div>
+        <div class="phase">
+          <div class="phase-marker">2</div>
+          <div class="phase-content">
+            <div class="phase-title">Parallel Execute</div>
+            <div class="phase-desc">多个 Executor 并行实现不同模块</div>
+          </div>
+        </div>
+        <div class="phase-connector"></div>
+        <div class="phase">
+          <div class="phase-marker">3</div>
+          <div class="phase-content">
+            <div class="phase-title">Verify & Fix</div>
+            <div class="phase-desc">Verifier 检查 PRD 符合度，Fixer 修复问题</div>
+          </div>
+        </div>
+      </div>
+      <div class="key-point">
+        <div class="key-point-label">核心价值</div>
+        <div class="key-point-text">多 agent 并行，共享任务列表，团队协作</div>
+      </div>
+    </div>
+
+    <!-- everything-claude-code -->
+    <div class="workflow-card">
+      <div class="workflow-header">
+        <div class="workflow-icon">E</div>
+        <div class="workflow-meta">
+          <div class="workflow-title">everything-claude-code</div>
+          <div class="workflow-subtitle">全栈能力 · 持续学习</div>
+        </div>
+      </div>
+      <div class="workflow-phases">
+        <div class="phase">
+          <div class="phase-marker">1</div>
+          <div class="phase-content">
+            <div class="phase-title">Select & Install</div>
+            <div class="phase-desc">选择 core / general / domain skills</div>
+          </div>
+        </div>
+        <div class="phase-connector"></div>
+        <div class="phase">
+          <div class="phase-marker">2</div>
+          <div class="phase-content">
+            <div class="phase-title">Invoke & Hook</div>
+            <div class="phase-desc">调用 156 skills，hooks 自动触发 TDD/安全扫描</div>
+          </div>
+        </div>
+        <div class="phase-connector"></div>
+        <div class="phase">
+          <div class="phase-marker">3</div>
+          <div class="phase-content">
+            <div class="phase-title">Learn & Reuse</div>
+            <div class="phase-desc">Instinct-based 提取模式，跨平台复用</div>
+          </div>
+        </div>
+      </div>
+      <div class="key-point">
+        <div class="key-point-label">核心价值</div>
+        <div class="key-point-text">最全面，但需选择性安装避免臃肿</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

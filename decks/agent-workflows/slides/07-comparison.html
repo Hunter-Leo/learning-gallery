@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>横向对比 · 四插件能力矩阵</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--bg-light);
+    font-family: var(--font-body);
+    color: var(--ink);
+  }
+
+  .canvas {
+    width: 100%;
+    height: 100%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .table-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .comparison-table {
+    width: 1600px;
+    border-collapse: collapse;
+    background: white;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+  }
+
+  .comparison-table th {
+    background: var(--bg-light);
+    padding: var(--space-sm) var(--space-md);
+    text-align: left;
+    font-family: var(--font-display);
+    font-size: var(--text-small);
+    font-weight: 400;
+    color: var(--ink);
+    border-bottom: 2px solid var(--border-light);
+  }
+
+  .comparison-table th:first-child {
+    width: 180px;
+  }
+
+  .comparison-table td {
+    padding: var(--space-sm) var(--space-md);
+    border-bottom: 1px solid var(--border-light);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    vertical-align: top;
+    line-height: 1.4;
+  }
+
+  .comparison-table tr:last-child td {
+    border-bottom: none;
+  }
+
+  .comparison-table tr:hover td {
+    background: var(--bg-light);
+  }
+
+  .plugin-name {
+    font-family: var(--font-display);
+    font-size: var(--text-body);
+    font-weight: 400;
+    color: var(--accent-rust);
+    margin-bottom: 2px;
+  }
+
+  .plugin-tagline {
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+  }
+
+  .check {
+    color: var(--accent-rust);
+    font-weight: 600;
+  }
+
+  .partial {
+    color: var(--ink-muted);
+  }
+
+  .none {
+    color: var(--ink-muted);
+    opacity: 0.5;
+  }
+
+  .highlight {
+    background: var(--accent-rust-light);
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    color: var(--accent-rust);
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <header>
+    <div class="eyebrow">Feature Comparison</div>
+    <h1>横向对比 · 四插件能力矩阵</h1>
+  </header>
+
+  <div class="table-container">
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>维度</th>
+          <th>
+            <div class="plugin-name">Superpowers</div>
+            <div class="plugin-tagline">流程驱动 · 纪律之师</div>
+          </th>
+          <th>
+            <div class="plugin-name">gstack</div>
+            <div class="plugin-tagline">角色切换 · CEO 工作流</div>
+          </th>
+          <th>
+            <div class="plugin-name">oh-my-claudecode</div>
+            <div class="plugin-tagline">多智能体 · 团队引擎</div>
+          </th>
+          <th>
+            <div class="plugin-name">everything-claude-code</div>
+            <div class="plugin-tagline">企业级 · 全栈方案</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>核心理念</strong></td>
+          <td>强制流程<br>brainstorm → plan → implement</td>
+          <td>认知模式切换<br>8 个角色显式控制</td>
+          <td>多智能体协同<br>Team 流水线</td>
+          <td>全栈能力<br>agents + skills + learning</td>
+        </tr>
+        <tr>
+          <td><strong>Agents 数量</strong></td>
+          <td class="none">无独立 agents</td>
+          <td class="none">无独立 agents</td>
+          <td class="highlight">32 个专业 agents</td>
+          <td class="highlight">38 个 agents</td>
+        </tr>
+        <tr>
+          <td><strong>Skills 数量</strong></td>
+          <td>14 个核心 skills</td>
+          <td>8 个角色 skills</td>
+          <td>内置 skills</td>
+          <td class="highlight">156 个 skills</td>
+        </tr>
+        <tr>
+          <td><strong>强制 TDD</strong></td>
+          <td class="check">✓ 强制执行</td>
+          <td class="partial">可选</td>
+          <td class="partial">可选</td>
+          <td class="partial">可选</td>
+        </tr>
+        <tr>
+          <td><strong>代码审查</strong></td>
+          <td class="check">✓ 任务间自动审查</td>
+          <td class="check">✓ /review 角色</td>
+          <td class="check">✓ code-reviewer agent</td>
+          <td class="check">✓ 内置 hooks</td>
+        </tr>
+        <tr>
+          <td><strong>浏览器自动化</strong></td>
+          <td class="none">—</td>
+          <td class="check">✓ /browse 原生二进制</td>
+          <td class="partial">MCP 集成</td>
+          <td class="partial">MCP 集成</td>
+        </tr>
+        <tr>
+          <td><strong>Git Worktrees</strong></td>
+          <td class="check">✓ 自动创建隔离工作区</td>
+          <td class="none">—</td>
+          <td class="partial">可选</td>
+          <td class="partial">可选</td>
+        </tr>
+        <tr>
+          <td><strong>持续学习</strong></td>
+          <td class="none">—</td>
+          <td class="none">—</td>
+          <td class="none">—</td>
+          <td class="check">✓ Instinct-based learning</td>
+        </tr>
+        <tr>
+          <td><strong>跨平台支持</strong></td>
+          <td>Claude Code</td>
+          <td>Claude Code</td>
+          <td>Claude Code</td>
+          <td class="highlight">Claude Code / Codex / Cursor / Gemini</td>
+        </tr>
+        <tr>
+          <td><strong>GitHub Stars</strong></td>
+          <td>~1,000</td>
+          <td>1,100+</td>
+          <td class="highlight">30,000+</td>
+          <td>~500</td>
+        </tr>
+        <tr>
+          <td><strong>学习曲线</strong></td>
+          <td>中等<br>需理解流程</td>
+          <td>低<br>角色概念直观</td>
+          <td>中等<br>多模式需探索</td>
+          <td>高<br>规模大需选择</td>
+        </tr>
+        <tr>
+          <td><strong>适合团队规模</strong></td>
+          <td>单人 / 小团队</td>
+          <td>单人 / 创业团队</td>
+          <td class="highlight">团队 / 企业</td>
+          <td class="highlight">企业 / 大型项目</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</body>
+</html>

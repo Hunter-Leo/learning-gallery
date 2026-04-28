@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>14 · 官方 Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { background: var(--bg-base); }
+  .page { padding: 72px 90px 90px; height: 100%; display: flex; flex-direction: column; }
+  .header { margin-bottom: 44px; }
+  h1 { font-size: 58px; color: var(--text-primary); margin-bottom: 10px; }
+  .desc { font-size: 19px; color: var(--text-secondary); }
+
+  .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+
+  .left { display: flex; flex-direction: column; gap: 16px; }
+  .right { display: flex; flex-direction: column; gap: 16px; }
+
+  .market-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 28px;
+    flex: 1;
+  }
+
+  .market-card h3 {
+    font-size: 18px; color: var(--marketplace-color);
+    margin-bottom: 6px;
+    font-family: var(--font-mono);
+  }
+
+  .market-card .subtitle {
+    font-size: 14px; color: var(--text-muted);
+    margin-bottom: 16px;
+  }
+
+  .plugin-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .plugin-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+
+  .plugin-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  .plugin-name {
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--text-primary);
+    flex: 1;
+  }
+
+  .plugin-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .submit-box {
+    background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 12px;
+    padding: 22px 26px;
+  }
+
+  .submit-box h3 { font-size: 17px; color: var(--marketplace-color); margin-bottom: 10px; }
+  .submit-box p  { font-size: 15px; color: var(--text-secondary); line-height: 1.65; }
+
+  .submit-steps { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .submit-step  { font-size: 14px; color: var(--text-secondary); display: flex; gap: 10px; }
+  .submit-step .n { color: var(--marketplace-color); font-weight: 700; flex-shrink: 0; }
+</style>
+<script src="../shared/slide-fx.js"></script>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="kicker"><div class="kicker-line"></div><span class="kicker-text">Chapter 13 · Official Marketplace</span></div>
+    <h1>官方 Marketplace 生态</h1>
+    <p class="desc">Anthropic 维护两个官方 Marketplace，并开放社区提交渠道</p>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div class="market-card">
+        <h3>claude-plugins-official</h3>
+        <div class="subtitle">自动可用 · 无需手动添加 · claude.com/plugins</div>
+        <div class="plugin-list">
+          <div class="plugin-row">
+            <div class="plugin-dot" style="background:var(--skill-color)"></div>
+            <div class="plugin-name">commit-commands</div>
+            <div class="plugin-desc">Git commit / push / PR 工作流</div>
+          </div>
+          <div class="plugin-row">
+            <div class="plugin-dot" style="background:var(--agent-color)"></div>
+            <div class="plugin-name">pr-review-toolkit</div>
+            <div class="plugin-desc">专门化 PR 审查 Agent</div>
+          </div>
+          <div class="plugin-row">
+            <div class="plugin-dot" style="background:var(--mcp-color)"></div>
+            <div class="plugin-name">agent-sdk-dev</div>
+            <div class="plugin-desc">Claude Agent SDK 开发工具</div>
+          </div>
+          <div class="plugin-row">
+            <div class="plugin-dot" style="background:var(--hook-color)"></div>
+            <div class="plugin-name">plugin-dev</div>
+            <div class="plugin-desc">Plugin 开发工具包</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="market-card">
+        <h3>claude-code-plugins</h3>
+        <div class="subtitle">示例 Marketplace · 需手动添加</div>
+        <div class="plugin-list">
+          <div class="plugin-row">
+            <div class="plugin-dot" style="background:var(--command-color)"></div>
+            <div class="plugin-name">demo-plugins</div>
+            <div class="plugin-desc">展示 Plugin 系统能力的示例集合</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="submit-box">
+        <h3>提交你的 Plugin 到官方目录</h3>
+        <p>通过官方提交表单，经过质量和安全审核后，Plugin 会被列入 <code>external_plugins/</code> 目录。</p>
+        <div class="submit-steps">
+          <div class="submit-step"><span class="n">1.</span><span>创建 Plugin 并推送到 GitHub 公开仓库</span></div>
+          <div class="submit-step"><span class="n">2.</span><span>确保 plugin.json 包含完整元数据（description、keywords、homepage）</span></div>
+          <div class="submit-step"><span class="n">3.</span><span>在 <code>clau.de/plugin-directory-submission</code> 提交申请</span></div>
+          <div class="submit-step"><span class="n">4.</span><span>等待 Anthropic 团队审核质量和安全标准</span></div>
+          <div class="submit-step"><span class="n">5.</span><span>审核通过后，Plugin 出现在官方 Marketplace</span></div>
+        </div>
+      </div>
+
+      <div class="market-card" style="flex:0">
+        <h3 style="color:var(--agent-color)">企业私有 Marketplace</h3>
+        <div class="subtitle">组织内部分发</div>
+        <p style="font-size:15px;color:var(--text-secondary);line-height:1.65;">
+          企业可搭建私有 Marketplace，通过 managed settings 的 <code>enabledPlugins</code> 强制分发经过审核的 Plugin，确保团队使用统一、安全的扩展集合。
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-footer">
+  <span>Claude Code Marketplace</span>
+  <span>14 / 15</span>
+</div>
+</body>
+</html>

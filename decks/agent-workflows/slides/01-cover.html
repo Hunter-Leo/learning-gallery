@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Claude Code 插件生态 · 封面</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--bg-light);
+    font-family: var(--font-body);
+    color: var(--ink);
+  }
+
+  .canvas {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: var(--space-2xl);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-md);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: 400;
+    line-height: 1.1;
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    max-width: 1200px;
+  }
+
+  .accent-line {
+    width: 120px;
+    height: 3px;
+    background: var(--accent-rust);
+    margin-bottom: var(--space-lg);
+  }
+
+  .subtitle {
+    font-size: var(--text-h3);
+    color: var(--ink-muted);
+    text-align: center;
+    max-width: 900px;
+    line-height: 1.5;
+    margin-bottom: var(--space-xl);
+  }
+
+  .plugins-grid {
+    display: flex;
+    gap: var(--space-lg);
+    margin-top: var(--space-md);
+  }
+
+  .plugin-badge {
+    font-family: var(--font-mono);
+    font-size: var(--text-body);
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    background: white;
+    color: var(--ink);
+    transition: all 0.2s;
+  }
+
+  .plugin-badge:hover {
+    border-color: var(--accent-rust);
+    color: var(--accent-rust);
+  }
+
+  .meta {
+    position: absolute;
+    bottom: var(--space-lg);
+    right: var(--space-lg);
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+    text-align: right;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <div class="eyebrow">Claude Code Workflow Plugins</div>
+
+  <h1>Claude Code 插件生态<br>深度对比指南</h1>
+
+  <div class="accent-line"></div>
+
+  <p class="subtitle">
+    Superpowers · gstack · oh-my-claudecode · everything-claude-code<br>
+    四大主流工作流插件的设计哲学、核心能力与选型建议
+  </p>
+
+  <div class="plugins-grid">
+    <div class="plugin-badge">Superpowers</div>
+    <div class="plugin-badge">gstack</div>
+    <div class="plugin-badge">oh-my-claudecode</div>
+    <div class="plugin-badge">everything-claude-code</div>
+  </div>
+
+  <div class="meta">
+    面向 Claude Code 用户<br>
+    2026-04-28
+  </div>
+</div>
+
+</body>
+</html>

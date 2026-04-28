@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>10 · 实战：从零构建</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { background: var(--bg-base); }
+  .page { padding: 72px 90px 90px; height: 100%; display: flex; flex-direction: column; }
+  .header { margin-bottom: 40px; }
+  h1 { font-size: 58px; color: var(--text-primary); margin-bottom: 10px; }
+  .desc { font-size: 19px; color: var(--text-secondary); }
+
+  .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+  .terminal {
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 14px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    height: 100%;
+  }
+
+  .terminal-bar {
+    background: #161b22;
+    padding: 12px 18px;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+
+  .terminal-title {
+    margin-left: 8px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: rgba(255,255,255,0.4);
+  }
+
+  .terminal-body {
+    padding: 18px 24px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.75;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .t-prompt { color: var(--skill-color); }
+  .t-cmd    { color: var(--text-primary); }
+  .t-out    { color: rgba(255,255,255,0.5); }
+  .t-ok     { color: var(--skill-color); }
+  .t-info   { color: var(--mcp-color); }
+
+  .right { display: flex; flex-direction: column; gap: 16px; }
+
+  .phase-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+
+  .phase-num {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    padding-top: 2px;
+    flex-shrink: 0;
+    width: 24px;
+  }
+
+  .phase-body h3 { font-size: 16px; color: var(--text-primary); margin-bottom: 4px; }
+  .phase-body p  { font-size: 14px; color: var(--text-secondary); }
+</style>
+<script src="../shared/slide-fx.js"></script>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="kicker"><div class="kicker-line"></div><span class="kicker-text">Chapter 09 · Hands-on</span></div>
+    <h1>实战：从零构建一个 Plugin</h1>
+    <p class="desc">以「代码质量检查 Plugin」为例，完整走一遍创建、测试、发布流程</p>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="dot dot-r"></div>
+          <div class="dot dot-y"></div>
+          <div class="dot dot-g"></div>
+          <div class="terminal-title">bash — ~/code-quality-plugin</div>
+        </div>
+        <div class="terminal-body">
+          <div><span class="t-prompt">$</span> <span class="t-cmd">mkdir code-quality-plugin && cd $_</span></div>
+          <div><span class="t-prompt">$</span> <span class="t-cmd">mkdir -p .claude-plugin skills/review agents hooks commands</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-prompt">$</span> <span class="t-cmd">cat > .claude-plugin/plugin.json &lt;&lt;EOF</span></div>
+          <div><span class="t-out">{ "name": "code-quality", "version": "1.0.0" }</span></div>
+          <div><span class="t-out">EOF</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-prompt">$</span> <span class="t-cmd">git init && git add . && git commit -m "init"</span></div>
+          <div><span class="t-ok">✓ Initialized empty Git repository</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-prompt">$</span> <span class="t-cmd">git push origin main</span></div>
+          <div><span class="t-ok">✓ Pushed to github.com/you/code-quality</span></div>
+          <div>&nbsp;</div>
+          <div><span class="t-info"># 在 Claude Code 中安装测试</span></div>
+          <div><span class="t-out">/plugin install github.com/you/code-quality</span></div>
+          <div><span class="t-ok">✓ Plugin installed: code-quality v1.0.0</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="phase-card">
+        <div class="phase-num">01</div>
+        <div class="phase-body">
+          <h3>搭建目录结构</h3>
+          <p>创建 <code>.claude-plugin/</code>、<code>skills/</code>、<code>agents/</code>、<code>hooks/</code> 目录</p>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">02</div>
+        <div class="phase-body">
+          <h3>编写 plugin.json</h3>
+          <p>填写 name（kebab-case）、version、description，声明组件路径</p>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">03</div>
+        <div class="phase-body">
+          <h3>添加 Skill</h3>
+          <p>在 <code>skills/review/SKILL.md</code> 写入 frontmatter + 指令内容</p>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">04</div>
+        <div class="phase-body">
+          <h3>添加 Hook</h3>
+          <p>在 <code>hooks/hooks.json</code> 配置 PreToolUse 阻止危险 git push</p>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">05</div>
+        <div class="phase-body">
+          <h3>本地安装测试</h3>
+          <p>用 <code>/plugin install ./local-path</code> 本地安装，验证功能</p>
+        </div>
+      </div>
+      <div class="phase-card">
+        <div class="phase-num">06</div>
+        <div class="phase-body">
+          <h3>推送并发布到 Marketplace</h3>
+          <p>推送到 GitHub，在 marketplace.json 中添加条目，通知用户更新</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-footer">
+  <span>Claude Code Marketplace</span>
+  <span>10 / 15</span>
+</div>
+</body>
+</html>

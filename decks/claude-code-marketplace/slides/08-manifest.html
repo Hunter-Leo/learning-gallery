@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>08 · Plugin Manifest</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { background: var(--bg-base); }
+  .page { padding: 72px 90px 90px; height: 100%; display: flex; flex-direction: column; }
+  .header { margin-bottom: 44px; }
+  h1 { font-size: 58px; color: var(--text-primary); margin-bottom: 10px; }
+  .desc { font-size: 19px; color: var(--text-secondary); }
+
+  .content { flex: 1; display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
+
+  .code-block {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 32px;
+    font-family: var(--font-mono);
+    font-size: 15px;
+    line-height: 1.85;
+    height: 100%;
+  }
+
+  .ck { color: var(--plugin-color); }
+  .cv { color: #fca5a5; }
+  .cn { color: var(--hook-color); }
+  .cm { color: var(--text-muted); }
+  .cs { color: var(--skill-color); }
+
+  .right { display: flex; flex-direction: column; gap: 16px; }
+
+  .field-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 22px;
+  }
+
+  .field-name {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    color: var(--plugin-color);
+    margin-bottom: 5px;
+  }
+
+  .field-desc { font-size: 14px; color: var(--text-secondary); }
+
+  .required-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(245,158,11,0.15);
+    color: var(--hook-color);
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  .optional-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.06);
+    color: var(--text-muted);
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+</style>
+<script src="../shared/slide-fx.js"></script>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="kicker"><div class="kicker-line"></div><span class="kicker-text">Chapter 07 · Plugin Manifest</span></div>
+    <h1>Plugin Manifest：plugin.json</h1>
+    <p class="desc">plugin.json 是 Plugin 的身份证，定义名称、版本、组件路径和元数据</p>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div style="font-size:13px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:6px;">.claude-plugin/plugin.json</div>
+      <div class="code-block">
+        <div>{</div>
+        <div>&nbsp;&nbsp;<span class="ck">"name"</span>: <span class="cv">"code-quality"</span>, <span class="cm">// kebab-case，命名空间</span></div>
+        <div>&nbsp;&nbsp;<span class="ck">"version"</span>: <span class="cv">"1.2.0"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="ck">"description"</span>: <span class="cv">"Code quality tools for teams"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="ck">"author"</span>: <span class="cv">"your-github-handle"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="ck">"license"</span>: <span class="cv">"MIT"</span>,</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;&nbsp;<span class="cm">// 组件路径（相对 plugin 根目录）</span></div>
+        <div>&nbsp;&nbsp;<span class="ck">"skills"</span>: <span class="cv">"./skills/"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="ck">"agents"</span>: <span class="cv">"./agents/"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="ck">"hooks"</span>: <span class="cv">"./hooks/hooks.json"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="ck">"commands"</span>: <span class="cv">"./commands/"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="ck">"mcpServers"</span>: {</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="ck">"github"</span>: { <span class="cm">/* ... */</span> }</div>
+        <div>&nbsp;&nbsp;},</div>
+        <div>&nbsp;</div>
+        <div>&nbsp;&nbsp;<span class="cm">// Marketplace 元数据</span></div>
+        <div>&nbsp;&nbsp;<span class="ck">"keywords"</span>: [<span class="cv">"code-quality"</span>, <span class="cv">"review"</span>],</div>
+        <div>&nbsp;&nbsp;<span class="ck">"homepage"</span>: <span class="cv">"https://github.com/you/code-quality"</span></div>
+        <div>}</div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="field-card">
+        <div class="field-name">name <span class="required-badge">必填</span></div>
+        <div class="field-desc">kebab-case 格式，成为所有组件的命名空间前缀。用户调用时输入 <code>/code-quality:review</code></div>
+      </div>
+      <div class="field-card">
+        <div class="field-name">version <span class="required-badge">必填</span></div>
+        <div class="field-desc">语义化版本号，Marketplace 用于追踪更新和自动升级</div>
+      </div>
+      <div class="field-card">
+        <div class="field-name">skills / agents / hooks <span class="optional-badge">可选</span></div>
+        <div class="field-desc">各组件的路径，可以是目录或具体文件。未指定则使用默认目录名</div>
+      </div>
+      <div class="field-card">
+        <div class="field-name">mcpServers <span class="optional-badge">可选</span></div>
+        <div class="field-desc">内联 MCP 配置对象，或指向外部配置文件路径</div>
+      </div>
+      <div class="field-card">
+        <div class="field-name">keywords / homepage <span class="optional-badge">可选</span></div>
+        <div class="field-desc">Marketplace 展示用，帮助用户搜索和发现你的 Plugin</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-footer">
+  <span>Claude Code Marketplace</span>
+  <span>08 / 15</span>
+</div>
+</body>
+</html>

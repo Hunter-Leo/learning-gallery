@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>gstack · 角色切换的 CEO 工作流</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--bg-light);
+    font-family: var(--font-body);
+    color: var(--ink);
+  }
+
+  .canvas {
+    width: 100%;
+    height: 100%;
+    padding: var(--space-lg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-md);
+  }
+
+  header {
+    grid-column: 1 / -1;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--accent-rust);
+  }
+
+  .left-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .right-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-small);
+    font-weight: 400;
+    margin-bottom: var(--space-xs);
+    color: var(--ink);
+  }
+
+  .card-content {
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+
+  .role-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+  }
+
+  .role-item {
+    padding: var(--space-sm);
+    background: var(--bg-light);
+    border-radius: var(--radius-sm);
+    border-left: 2px solid var(--accent-rust);
+  }
+
+  .role-name {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--accent-rust);
+    margin-bottom: 4px;
+  }
+
+  .role-desc {
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+  }
+
+  .highlight-box {
+    background: var(--accent-rust-light);
+    border-left: 3px solid var(--accent-rust);
+    padding: var(--space-sm);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .highlight-box strong {
+    color: var(--accent-rust);
+  }
+
+  .command-list {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+  }
+
+  .command-item {
+    margin-bottom: var(--space-sm);
+    padding-bottom: var(--space-sm);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .command-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .command-name {
+    color: var(--accent-rust);
+    font-weight: 600;
+  }
+
+  .command-desc {
+    color: var(--ink-muted);
+    margin-top: 4px;
+  }
+
+  .quote {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-style: italic;
+    color: var(--ink-muted);
+    line-height: 1.5;
+    padding-left: var(--space-md);
+    border-left: 2px solid var(--accent-rust);
+  }
+
+  .quote-author {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    margin-top: var(--space-sm);
+  }
+
+  .stats-row {
+    display: flex;
+    gap: var(--space-lg);
+    margin-top: var(--space-sm);
+  }
+
+  .stat-item {
+    text-align: center;
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    color: var(--accent-rust);
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <header>
+    <div class="eyebrow">Plugin #2</div>
+    <h1>gstack · 角色切换的 CEO 工作流</h1>
+  </header>
+
+  <div class="left-col">
+    <div class="card">
+      <div class="card-title">核心理念</div>
+      <div class="card-content">
+        <p style="margin-bottom: 16px;">
+          gstack 由 Y Combinator CEO Garry Tan 开发，核心思想是「认知模式切换」——让 Claude 在不同阶段扮演不同角色，从 CEO 的战略视角到 QA 的细节检查，每个角色有明确的职责边界。
+        </p>
+        <div class="highlight-box">
+          <strong>核心差异：</strong>不是自动化流程，而是让 Claude 像「换帽子」一样切换思维模式，每个模式有独立的 prompt 和检查清单。
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">8 个角色 Skills</div>
+      <div class="card-content">
+        <div class="role-grid">
+          <div class="role-item">
+            <div class="role-name">/plan-ceo-review</div>
+            <div class="role-desc">Founder / CEO<br>「我们做对了吗？」</div>
+          </div>
+          <div class="role-item">
+            <div class="role-name">/plan-eng-review</div>
+            <div class="role-desc">Eng Manager<br>「怎么落地？」</div>
+          </div>
+          <div class="role-item">
+            <div class="role-name">/review</div>
+            <div class="role-desc">Paranoid Engineer<br>「哪里会炸？」</div>
+          </div>
+          <div class="role-item">
+            <div class="role-name">/ship</div>
+            <div class="role-desc">Release Engineer<br>「安全着陆」</div>
+          </div>
+          <div class="role-item">
+            <div class="role-name">/browse</div>
+            <div class="role-desc">QA Engineer<br>「真的能用吗？」</div>
+          </div>
+          <div class="role-item">
+            <div class="role-name">/qa</div>
+            <div class="role-desc">QA Lead<br>「系统性测试」</div>
+          </div>
+          <div class="role-item">
+            <div class="role-name">/setup-browser-cookies</div>
+            <div class="role-desc">Session Manager<br>「认证状态」</div>
+          </div>
+          <div class="role-item">
+            <div class="role-name">/retro</div>
+            <div class="role-desc">Team<br>「复盘学习」</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-col">
+    <div class="card">
+      <div class="card-title">典型工作流</div>
+      <div class="card-content">
+        <div class="command-list">
+          <div class="command-item">
+            <div class="command-name">/plan-ceo-review</div>
+            <div class="command-desc">新功能想法 → CEO 视角审视产品价值，找 10-star 方向</div>
+          </div>
+          <div class="command-item">
+            <div class="command-name">/plan-eng-review</div>
+            <div class="command-desc">方向锁定 → Eng Manager 设计架构、数据流、边界情况</div>
+          </div>
+          <div class="command-item">
+            <div class="command-name">/review</div>
+            <div class="command-desc">代码完成 → Paranoid Engineer 找 CI 抓不到的 bug</div>
+          </div>
+          <div class="command-item">
+            <div class="command-name">/browse</div>
+            <div class="command-desc">部署后 → QA 登录、点击、截图，60 秒完整 QA</div>
+          </div>
+          <div class="command-item">
+            <div class="command-name">/ship</div>
+            <div class="command-desc">验证通过 → Release Engineer sync main、跑测试、开 PR</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">适合场景</div>
+      <div class="card-content">
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--accent-rust);">✓</span>
+            创业团队，需要 CEO 视角的产品决策
+          </li>
+          <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--accent-rust);">✓</span>
+            Web 应用，需要浏览器自动化测试
+          </li>
+          <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--accent-rust);">✓</span>
+            单人开发者，想要「虚拟团队」的角色分工
+          </li>
+          <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--accent-rust);">✓</span>
+            需要显式控制每个阶段，而非自动化流程
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">关键数据</div>
+      <div class="card-content">
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-value">1,100+</div>
+            <div class="stat-label">GitHub Stars (24h)</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">8</div>
+            <div class="stat-label">角色 Skills</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">Garry Tan</div>
+            <div class="stat-label">作者 (YC CEO)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>12 · 安装与管理</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { background: var(--bg-base); }
+  .page { padding: 72px 90px 90px; height: 100%; display: flex; flex-direction: column; }
+  .header { margin-bottom: 44px; }
+  h1 { font-size: 58px; color: var(--text-primary); margin-bottom: 10px; }
+  .desc { font-size: 19px; color: var(--text-secondary); }
+
+  .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+
+  .cmd-group { display: flex; flex-direction: column; gap: 10px; }
+
+  .cmd-section-title {
+    font-size: 13px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--text-muted);
+    margin-bottom: 4px; margin-top: 8px;
+  }
+
+  .cmd-row {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+
+  .cmd-line {
+    font-family: var(--font-mono);
+    font-size: 16px;
+    color: var(--skill-color);
+    margin-bottom: 5px;
+  }
+
+  .cmd-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  .right { display: flex; flex-direction: column; gap: 16px; }
+
+  .info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 26px;
+  }
+
+  .info-card h3 { font-size: 17px; color: var(--text-primary); margin-bottom: 8px; }
+  .info-card p  { font-size: 15px; color: var(--text-secondary); line-height: 1.65; }
+
+  .highlight-box {
+    background: rgba(52,211,153,0.06);
+    border: 1px solid rgba(52,211,153,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+  .highlight-box strong { color: var(--skill-color); }
+</style>
+<script src="../shared/slide-fx.js"></script>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="kicker"><div class="kicker-line"></div><span class="kicker-text">Chapter 11 · Install & Manage</span></div>
+    <h1>安装与管理 Plugin</h1>
+    <p class="desc">通过 <code>/plugin</code> 命令管理 Plugin 和 Marketplace 的完整生命周期</p>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div class="cmd-section-title">Plugin 管理</div>
+      <div class="cmd-group">
+        <div class="cmd-row">
+          <div class="cmd-line">/plugin install &lt;repo-url&gt;</div>
+          <div class="cmd-desc">从 Git 仓库安装 Plugin，支持 GitHub / GitLab / 本地路径</div>
+        </div>
+        <div class="cmd-row">
+          <div class="cmd-line">/plugin list</div>
+          <div class="cmd-desc">列出所有已安装的 Plugin 及版本</div>
+        </div>
+        <div class="cmd-row">
+          <div class="cmd-line">/plugin update [name]</div>
+          <div class="cmd-desc">更新指定 Plugin 或所有 Plugin 到最新版本</div>
+        </div>
+        <div class="cmd-row">
+          <div class="cmd-line">/plugin uninstall &lt;name&gt;</div>
+          <div class="cmd-desc">卸载 Plugin，移除所有注册的组件和 Hooks</div>
+        </div>
+      </div>
+
+      <div class="cmd-section-title" style="margin-top:16px;">Marketplace 管理</div>
+      <div class="cmd-group">
+        <div class="cmd-row">
+          <div class="cmd-line">/plugin marketplace add &lt;url&gt;</div>
+          <div class="cmd-desc">订阅一个 Marketplace，拉取插件目录</div>
+        </div>
+        <div class="cmd-row">
+          <div class="cmd-line">/plugin marketplace update</div>
+          <div class="cmd-desc">刷新所有 Marketplace 的插件目录</div>
+        </div>
+        <div class="cmd-row">
+          <div class="cmd-line">/reload-plugins</div>
+          <div class="cmd-desc">更新后重新加载所有 Plugin，使变更生效</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="info-card">
+        <h3>Discover 标签页</h3>
+        <p>在 Claude Code 中运行 <code>/plugin</code> 打开 Discover 标签页，可视化浏览官方 Marketplace 的所有插件，一键安装。</p>
+      </div>
+      <div class="info-card">
+        <h3>自动更新</h3>
+        <p>为 Marketplace 启用 auto-update 后，Claude Code 每次启动时自动检查并更新已安装的 Plugin，有更新时提示运行 <code>/reload-plugins</code>。</p>
+      </div>
+      <div class="info-card">
+        <h3>本地开发安装</h3>
+        <p>开发阶段可用本地路径安装：<code>/plugin install ./my-plugin</code>，无需推送到远程仓库即可测试。</p>
+      </div>
+      <div class="highlight-box">
+        <strong>官方 Marketplace</strong> (<code>claude-plugins-official</code>) 在 Claude Code 启动时自动可用，无需手动添加。访问 <code>claude.com/plugins</code> 查看完整目录。
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-footer">
+  <span>Claude Code Marketplace</span>
+  <span>12 / 15</span>
+</div>
+</body>
+</html>

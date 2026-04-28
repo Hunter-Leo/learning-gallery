@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>四插件定位矩阵</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--bg-light);
+    font-family: var(--font-body);
+    color: var(--ink);
+  }
+
+  .canvas {
+    width: 100%;
+    height: 100%;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .matrix-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .matrix {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--space-md);
+    width: 1400px;
+    height: 700px;
+  }
+
+  .quadrant {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  .quadrant:hover {
+    border-color: var(--accent-rust);
+    box-shadow: var(--shadow-card);
+  }
+
+  .quadrant-label {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .plugin-name {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: 400;
+    margin-bottom: var(--space-sm);
+    color: var(--accent-rust);
+  }
+
+  .plugin-tagline {
+    font-size: var(--text-body);
+    color: var(--ink-muted);
+    margin-bottom: var(--space-md);
+    line-height: 1.5;
+    max-width: 500px;
+  }
+
+  .plugin-stats {
+    display: flex;
+    gap: var(--space-lg);
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .stat-value {
+    font-size: var(--text-h3);
+    color: var(--ink);
+  }
+
+  .stat-label {
+    color: var(--ink-muted);
+    font-size: var(--text-micro);
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <header>
+    <div class="eyebrow">Positioning Matrix</div>
+    <h1>四个插件，四种哲学</h1>
+  </header>
+
+  <div class="matrix-container">
+    <div class="matrix">
+      <!-- Q1: 单人·流程驱动 -->
+      <div class="quadrant">
+        <div class="quadrant-label">单人 · 流程驱动</div>
+        <div class="plugin-name">Superpowers</div>
+        <div class="plugin-tagline">
+          强制 TDD + 代码审查循环<br>
+          适合需要纪律的中大型项目
+        </div>
+        <div class="plugin-stats">
+          <div class="stat">
+            <span class="stat-value">14</span>
+            <span class="stat-label">核心 skills</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">Jesse Vincent</span>
+            <span class="stat-label">作者</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2: 单人·角色切换 -->
+      <div class="quadrant">
+        <div class="quadrant-label">单人 · 角色切换</div>
+        <div class="plugin-name">gstack</div>
+        <div class="plugin-tagline">
+          CEO / Eng Manager / QA 八角色<br>
+          Garry Tan 的实战工作流
+        </div>
+        <div class="plugin-stats">
+          <div class="stat">
+            <span class="stat-value">8</span>
+            <span class="stat-label">角色 skills</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">1,100+</span>
+            <span class="stat-label">GitHub Stars</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3: 团队·多智能体 -->
+      <div class="quadrant">
+        <div class="quadrant-label">团队 · 多智能体</div>
+        <div class="plugin-name">oh-my-claudecode</div>
+        <div class="plugin-tagline">
+          32 个专业 agent 协同<br>
+          Team / Autopilot / Ralph 多模式
+        </div>
+        <div class="plugin-stats">
+          <div class="stat">
+            <span class="stat-value">30K+</span>
+            <span class="stat-label">GitHub Stars</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">32</span>
+            <span class="stat-label">专业 agents</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4: 企业·全栈 -->
+      <div class="quadrant">
+        <div class="quadrant-label">企业 · 全栈</div>
+        <div class="plugin-name">everything-claude-code</div>
+        <div class="plugin-tagline">
+          38 agents + 156 skills + 持续学习<br>
+          Anthropic 黑客松冠军作品
+        </div>
+        <div class="plugin-stats">
+          <div class="stat">
+            <span class="stat-value">156</span>
+            <span class="stat-label">skills</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">10+</span>
+            <span class="stat-label">月实战打磨</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

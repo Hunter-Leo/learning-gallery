@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>最佳实践与常见问题</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--bg-light);
+    font-family: var(--font-body);
+    color: var(--ink);
+  }
+
+  .canvas {
+    width: 100%;
+    height: 100%;
+    padding: var(--space-lg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-md);
+  }
+
+  header {
+    grid-column: 1 / -1;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .left-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .right-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-small);
+    font-weight: 400;
+    margin-bottom: var(--space-xs);
+    color: var(--ink);
+  }
+
+  .practice-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .practice-item {
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .practice-item:last-child {
+    border-bottom: none;
+  }
+
+  .practice-title {
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .practice-title::before {
+    content: "✓";
+    color: var(--accent-rust);
+  }
+
+  .practice-desc {
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    padding-left: 20px;
+  }
+
+  .faq-item {
+    margin-bottom: var(--space-sm);
+  }
+
+  .faq-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .faq-question {
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .faq-question::before {
+    content: "Q";
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-rust);
+    color: white;
+    text-align: center;
+    line-height: 24px;
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    flex-shrink: 0;
+  }
+
+  .faq-answer {
+    font-size: var(--text-body);
+    color: var(--ink-muted);
+    padding-left: 32px;
+    line-height: 1.6;
+  }
+
+  .highlight-box {
+    background: var(--accent-rust-light);
+    border-left: 3px solid var(--accent-rust);
+    padding: var(--space-sm);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+  }
+
+  .highlight-box strong {
+    color: var(--accent-rust);
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <header>
+    <div class="eyebrow">Best Practices & FAQ</div>
+    <h1>最佳实践与常见问题</h1>
+  </header>
+
+  <div class="left-col">
+    <div class="card">
+      <div class="card-title">通用最佳实践</div>
+      <ul class="practice-list">
+        <li class="practice-item">
+          <div class="practice-title">从简单开始</div>
+          <div class="practice-desc">先用 Claude Code 原生能力，遇到瓶颈再引入插件</div>
+        </li>
+        <li class="practice-item">
+          <div class="practice-title">理解插件哲学</div>
+          <div class="practice-desc">每个插件有独特理念，选择与你工作方式匹配的</div>
+        </li>
+        <li class="practice-item">
+          <div class="practice-title">渐进式采用</div>
+          <div class="practice-desc">不要一次性启用所有 skills，按需添加</div>
+        </li>
+        <li class="practice-item">
+          <div class="practice-title">保持 CLAUDE.md 简洁</div>
+          <div class="practice-desc">只保留真正有用的指令，避免信息过载</div>
+        </li>
+        <li class="practice-item">
+          <div class="practice-title">定期清理</div>
+          <div class="practice-desc">移除不再使用的 skills 和 agents，保持环境清爽</div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title">插件特定建议</div>
+      <ul class="practice-list">
+        <li class="practice-item">
+          <div class="practice-title">Superpowers</div>
+          <div class="practice-desc">接受强制 TDD，这是质量保证的核心价值</div>
+        </li>
+        <li class="practice-item">
+          <div class="practice-title">gstack</div>
+          <div class="practice-desc">不要跳过 /plan-ceo-review，产品视角很重要</div>
+        </li>
+        <li class="practice-item">
+          <div class="practice-title">oh-my-claudecode</div>
+          <div class="practice-desc">Team 模式适合大任务，小任务用 Autopilot</div>
+        </li>
+        <li class="practice-item">
+          <div class="practice-title">everything-claude-code</div>
+          <div class="practice-desc">选择性安装，避免 156 skills 全部加载</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="right-col">
+    <div class="card">
+      <div class="card-title">常见问题</div>
+      <div class="faq-item">
+        <div class="faq-question">可以同时使用多个插件吗？</div>
+        <div class="faq-answer">
+          可以，但要注意冲突。建议选择一个主插件，其他作为补充。例如：Superpowers 做主流程 + gstack 的 /browse 做 QA。
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">哪个插件学习曲线最低？</div>
+        <div class="faq-answer">
+          gstack 最低——8 个角色概念直观，每个 skill 独立使用。oh-my-claudecode 次之，官方口号是「Don't learn Claude Code. Just use OMC」。
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">哪个插件适合团队协作？</div>
+        <div class="faq-answer">
+          oh-my-claudecode 的 Team 模式专为团队设计，多 agent 并行 + 共享任务列表。everything-claude-code 适合企业，全栈能力 + 持续学习。
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">插件会影响 Claude Code 性能吗？</div>
+        <div class="faq-answer">
+          会。大量 skills/agents 会增加 prompt 长度。建议选择性安装，定期清理不用的。ECC 的选择性安装模式就是为了解决这个问题。
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">进阶建议</div>
+      <div class="highlight-box">
+        <strong>组合使用策略：</strong><br>
+        1. Superpowers 做主流程（强制 TDD + 代码审查）<br>
+        2. gstack 的 /browse 做浏览器自动化测试<br>
+        3. oh-my-claudecode 的特定 agent 做专业任务（如 security-reviewer）<br>
+        4. everything-claude-code 的 domain skills 做技术栈支持
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

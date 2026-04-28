@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>总结 · 选择适合你的工作流</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--bg-light);
+    font-family: var(--font-body);
+    color: var(--ink);
+  }
+
+  .canvas {
+    width: 100%;
+    height: 100%;
+    padding: var(--space-2xl);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-md);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-hero);
+    font-weight: 400;
+    line-height: 1.1;
+    text-align: center;
+    margin-bottom: var(--space-lg);
+    max-width: 1200px;
+  }
+
+  .accent-line {
+    width: 120px;
+    height: 3px;
+    background: var(--accent-rust);
+    margin-bottom: var(--space-lg);
+  }
+
+  .summary-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-xl);
+    width: 1400px;
+  }
+
+  .summary-card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+    text-align: center;
+    transition: all 0.2s;
+  }
+
+  .summary-card:hover {
+    border-color: var(--accent-rust);
+    box-shadow: var(--shadow-card);
+  }
+
+  .summary-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent-rust);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    margin: 0 auto var(--space-sm);
+  }
+
+  .summary-title {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+
+  .summary-desc {
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+
+  .key-takeaway {
+    font-size: var(--text-h3);
+    color: var(--ink-muted);
+    text-align: center;
+    max-width: 1000px;
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+  }
+
+  .key-takeaway strong {
+    color: var(--accent-rust);
+  }
+
+  .resources {
+    display: flex;
+    gap: var(--space-lg);
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+  }
+
+  .resource-link {
+    color: var(--accent-rust);
+    text-decoration: none;
+  }
+
+  .resource-link:hover {
+    text-decoration: underline;
+  }
+
+  .meta {
+    position: absolute;
+    bottom: var(--space-lg);
+    right: var(--space-lg);
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+    text-align: right;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <div class="eyebrow">Conclusion</div>
+
+  <h1>选择适合你的工作流</h1>
+
+  <div class="accent-line"></div>
+
+  <div class="summary-grid">
+    <div class="summary-card">
+      <div class="summary-icon">S</div>
+      <div class="summary-title">Superpowers</div>
+      <div class="summary-desc">
+        流程驱动<br>
+        强制 TDD<br>
+        单人/小团队
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-icon">G</div>
+      <div class="summary-title">gstack</div>
+      <div class="summary-desc">
+        角色切换<br>
+        CEO 视角<br>
+        创业团队
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-icon">O</div>
+      <div class="summary-title">oh-my-claudecode</div>
+      <div class="summary-desc">
+        多智能体<br>
+        团队协同<br>
+        零学习曲线
+      </div>
+    </div>
+
+    <div class="summary-card">
+      <div class="summary-icon">E</div>
+      <div class="summary-title">everything-claude-code</div>
+      <div class="summary-desc">
+        企业级<br>
+        全栈能力<br>
+        持续学习
+      </div>
+    </div>
+  </div>
+
+  <p class="key-takeaway">
+    <strong>没有最好的插件，只有最适合你的插件。</strong><br>
+    从简单开始，理解插件哲学，渐进式采用，定期清理。
+  </p>
+
+  <div class="resources">
+    <span>GitHub:</span>
+    <a href="https://github.com/aronchick/superpowers" class="resource-link">superpowers</a>
+    <span>·</span>
+    <a href="https://github.com/garrytan/gstack" class="resource-link">gstack</a>
+    <span>·</span>
+    <a href="https://github.com/yeachan-heo/oh-my-claudecode" class="resource-link">oh-my-claudecode</a>
+    <span>·</span>
+    <a href="https://github.com/affaan-m/everything-claude-code" class="resource-link">everything-claude-code</a>
+  </div>
+
+  <div class="meta">
+    Claude Code 插件生态 · 深度对比指南<br>
+    2026-04-28
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>everything-claude-code · 企业级全栈解决方案</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--bg-light);
+    font-family: var(--font-body);
+    color: var(--ink);
+  }
+
+  .canvas {
+    width: 100%;
+    height: 100%;
+    padding: var(--space-lg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-md);
+  }
+
+  header {
+    grid-column: 1 / -1;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--accent-rust);
+  }
+
+  .left-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .right-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-small);
+    font-weight: 400;
+    margin-bottom: var(--space-xs);
+    color: var(--ink);
+  }
+
+  .card-content {
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+
+  .highlight-box {
+    background: var(--accent-rust-light);
+    border-left: 3px solid var(--accent-rust);
+    padding: var(--space-sm);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .highlight-box strong {
+    color: var(--accent-rust);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-sm);
+  }
+
+  .stat-box {
+    text-align: center;
+    padding: var(--space-md);
+    background: var(--bg-light);
+    border-radius: var(--radius-sm);
+  }
+
+  .stat-value {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    color: var(--accent-rust);
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+    margin-top: 4px;
+  }
+
+  .feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .feature-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-rust);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .feature-content {
+    flex: 1;
+  }
+
+  .feature-title {
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .feature-desc {
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+  }
+
+  .domain-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+  }
+
+  .domain-item {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    padding: 4px 8px;
+    background: var(--bg-light);
+    border-radius: var(--radius-sm);
+    color: var(--ink-muted);
+  }
+
+  .quote {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    font-style: italic;
+    color: var(--ink-muted);
+    line-height: 1.5;
+    padding-left: var(--space-md);
+    border-left: 2px solid var(--accent-rust);
+  }
+
+  .quote-author {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    margin-top: var(--space-sm);
+  }
+
+  .install-modes {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: var(--space-sm);
+  }
+
+  .install-mode {
+    flex: 1;
+    padding: var(--space-sm);
+    background: var(--bg-light);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light);
+  }
+
+  .install-mode-title {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--accent-rust);
+    margin-bottom: 4px;
+  }
+
+  .install-mode-desc {
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <header>
+    <div class="eyebrow">Plugin #4</div>
+    <h1>everything-claude-code · 企业级全栈解决方案</h1>
+  </header>
+
+  <div class="left-col">
+    <div class="card">
+      <div class="card-title">核心理念</div>
+      <div class="card-content">
+        <p style="margin-bottom: 16px;">
+          ECC (everything-claude-code) 是 Anthropic 黑客松冠军作品，经过 10+ 个月实战打磨。核心是「全栈能力 + 持续学习」——不只是工作流，而是完整的 AI 工程系统，包含 agents、skills、hooks、MCP 配置、持续学习机制。
+        </p>
+        <div class="highlight-box">
+          <strong>核心差异：</strong>最全面的插件。38 agents + 156 skills + 72 legacy commands + 持续学习系统，覆盖从架构设计到生产部署的全链路。
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">规模数据</div>
+      <div class="card-content">
+        <div class="stats-grid">
+          <div class="stat-box">
+            <div class="stat-value">38</div>
+            <div class="stat-label">Agents</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value">156</div>
+            <div class="stat-label">Skills</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value">72</div>
+            <div class="stat-label">Legacy Commands</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-value">10+</div>
+            <div class="stat-label">月实战打磨</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">核心特性</div>
+      <div class="card-content">
+        <div class="feature-list">
+          <div class="feature-item">
+            <div class="feature-icon">1</div>
+            <div class="feature-content">
+              <div class="feature-title">持续学习系统</div>
+              <div class="feature-desc">Instinct-based learning，自动从实战中提取模式，pass@k 评估</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">2</div>
+            <div class="feature-content">
+              <div class="feature-title">选择性安装</div>
+              <div class="feature-desc">按需安装 core/general/domain skills，避免臃肿</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">3</div>
+            <div class="feature-content">
+              <div class="feature-title">跨平台支持</div>
+              <div class="feature-desc">Claude Code / Codex / Cursor / OpenCode / Gemini</div>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">4</div>
+            <div class="feature-content">
+              <div class="feature-title">生产级 Hooks</div>
+              <div class="feature-desc">TDD、安全扫描、代码审查、自动验证</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-col">
+    <div class="card">
+      <div class="card-title">领域覆盖</div>
+      <div class="card-content">
+        <div class="domain-grid">
+          <div class="domain-item">Python/Django</div>
+          <div class="domain-item">Java Spring Boot</div>
+          <div class="domain-item">React/Next.js</div>
+          <div class="domain-item">TypeScript</div>
+          <div class="domain-item">PyTorch</div>
+          <div class="domain-item">AWS/Cloud</div>
+          <div class="domain-item">Security</div>
+          <div class="domain-item">Documentation</div>
+          <div class="domain-item">Testing</div>
+          <div class="domain-item">MCP Servers</div>
+          <div class="domain-item">Bun Runtime</div>
+          <div class="domain-item">Next.js Turbopack</div>
+        </div>
+        <p style="margin-top: 12px; font-size: var(--text-small); color: var(--ink-muted);">
+          + 更多领域 skills，覆盖主流技术栈
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">安装模式</div>
+      <div class="card-content">
+        <div class="install-modes">
+          <div class="install-mode">
+            <div class="install-mode-title">Core</div>
+            <div class="install-mode-desc">核心 skills<br>新用户推荐</div>
+          </div>
+          <div class="install-mode">
+            <div class="install-mode-title">General</div>
+            <div class="install-mode-desc">通用 skills<br>日常开发</div>
+          </div>
+          <div class="install-mode">
+            <div class="install-mode-title">Domain</div>
+            <div class="install-mode-desc">领域 skills<br>按需选择</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">适合场景</div>
+      <div class="card-content">
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--accent-rust);">✓</span>
+            企业团队，需要全栈能力覆盖
+          </li>
+          <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--accent-rust);">✓</span>
+            多技术栈项目，需要领域专业支持
+          </li>
+          <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--accent-rust);">✓</span>
+            长期项目，需要持续学习积累
+          </li>
+          <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--accent-rust);">✓</span>
+            需要生产级 hooks 和安全扫描
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="quote">
+        "Not just configs. A complete system: skills, instincts, memory optimization, continuous learning, security scanning, and research-first development."
+      </div>
+      <div class="quote-author">— ECC 官方描述</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

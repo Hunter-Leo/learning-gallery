@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>09 · 创建 Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { background: var(--bg-base); }
+  .page { padding: 72px 90px 90px; height: 100%; display: flex; flex-direction: column; }
+  .header { margin-bottom: 44px; }
+  h1 { font-size: 58px; color: var(--text-primary); margin-bottom: 10px; }
+  .desc { font-size: 19px; color: var(--text-secondary); }
+
+  .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+
+  /* 左侧步骤时间轴 */
+  .timeline { display: flex; flex-direction: column; gap: 0; position: relative; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 17px; top: 18px; bottom: 18px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--marketplace-color), rgba(245,158,11,0.1));
+  }
+
+  .tl-step {
+    display: flex; gap: 20px;
+    padding: 0 0 24px 0;
+    position: relative;
+  }
+  .tl-step:last-child { padding-bottom: 0; }
+
+  .tl-num {
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    background: rgba(245,158,11,0.12);
+    border: 1.5px solid var(--marketplace-color);
+    color: var(--marketplace-color);
+    font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-mono);
+    position: relative; z-index: 1;
+  }
+
+  .tl-body { padding-top: 6px; }
+  .tl-body h3 { font-size: 17px; color: var(--text-primary); margin-bottom: 4px; }
+  .tl-body p  { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* 右侧代码 + tip */
+  .right { display: flex; flex-direction: column; gap: 16px; }
+
+  .code-block {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 28px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.8;
+    flex: 1;
+  }
+
+  .mk { color: var(--marketplace-color); }
+  .cv { color: #fca5a5; }
+  .cm { color: var(--text-muted); }
+
+  .tip-box {
+    background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 12px;
+    padding: 18px 22px;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+  .tip-box strong { color: var(--marketplace-color); }
+
+  .cmd-box {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-family: var(--font-mono);
+    font-size: 14px;
+    color: var(--skill-color);
+  }
+  .cmd-box .cm { color: var(--text-muted); display: block; margin-bottom: 6px; font-size: 12px; }
+</style>
+<script src="../shared/slide-fx.js"></script>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="kicker"><div class="kicker-line"></div><span class="kicker-text">Chapter 08 · Marketplace</span></div>
+    <h1>创建 Marketplace</h1>
+    <p class="desc">一个 <code>marketplace.json</code> + 一个 Git 仓库，即可搭建可订阅、可自动更新的插件分发平台</p>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div class="timeline">
+        <div class="tl-step">
+          <div class="tl-num">1</div>
+          <div class="tl-body">
+            <h3>创建 Plugin</h3>
+            <p>构建包含 Skills、Agents、Hooks、MCP 的 Plugin，确保 <code>plugin.json</code> 元数据完整</p>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-num">2</div>
+          <div class="tl-body">
+            <h3>创建 marketplace.json</h3>
+            <p>定义插件目录，列出每个 Plugin 的 Git 来源、分类和标签</p>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-num">3</div>
+          <div class="tl-body">
+            <h3>托管到 GitHub / GitLab</h3>
+            <p>推送到公开或私有 Git 仓库，Marketplace 通过 git clone 分发</p>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-num">4</div>
+          <div class="tl-body">
+            <h3>用户订阅</h3>
+            <p>用户运行 <code>/plugin marketplace add &lt;repo-url&gt;</code> 订阅，在 Discover 标签页浏览安装</p>
+          </div>
+        </div>
+        <div class="tl-step">
+          <div class="tl-num">5</div>
+          <div class="tl-body">
+            <h3>自动更新</h3>
+            <p>启用 auto-update 后，Claude Code 启动时自动拉取最新版本，提示 <code>/reload-plugins</code></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div style="font-size:12px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:6px;">marketplace.json</div>
+      <div class="code-block">
+        <div>{</div>
+        <div>&nbsp;&nbsp;<span class="mk">"name"</span>: <span class="cv">"my-team-marketplace"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="mk">"description"</span>: <span class="cv">"Team plugins catalog"</span>,</div>
+        <div>&nbsp;&nbsp;<span class="mk">"plugins"</span>: [</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;{</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mk">"name"</span>: <span class="cv">"code-quality"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mk">"description"</span>: <span class="cv">"Code review tools"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mk">"source"</span>: {</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mk">"type"</span>: <span class="cv">"git"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mk">"url"</span>: <span class="cv">"https://github.com/you/code-quality"</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;},</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mk">"category"</span>: <span class="cv">"development"</span>,</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mk">"tags"</span>: [<span class="cv">"review"</span>, <span class="cv">"quality"</span>],</div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="mk">"version"</span>: <span class="cv">"1.2.0"</span></div>
+        <div>&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+        <div>&nbsp;&nbsp;]</div>
+        <div>}</div>
+      </div>
+
+      <div class="cmd-box">
+        <span class="cm"># 用户订阅你的 Marketplace</span>
+        /plugin marketplace add github.com/you/marketplace
+      </div>
+
+      <div class="tip-box">
+        <strong>企业用途：</strong>管理员通过 <code>enabledPlugins</code> 在 managed settings 中强制启用 Plugin，通过私有 Marketplace 统一分发经过审核的扩展，确保团队安全合规。
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-footer">
+  <span>Claude Code Marketplace</span>
+  <span>09 / 15</span>
+</div>
+</body>
+</html>

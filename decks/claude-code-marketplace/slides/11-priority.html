@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>11 · 优先级与层级</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { background: var(--bg-base); }
+  .page { padding: 72px 90px 90px; height: 100%; display: flex; flex-direction: column; }
+  .header { margin-bottom: 44px; }
+  h1 { font-size: 58px; color: var(--text-primary); margin-bottom: 10px; }
+  .desc { font-size: 19px; color: var(--text-secondary); }
+
+  .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+
+  .priority-stack { display: flex; flex-direction: column; gap: 10px; }
+
+  .priority-item {
+    border-radius: 12px;
+    padding: 18px 24px;
+    display: flex; align-items: center; gap: 16px;
+    border: 1px solid var(--border);
+  }
+
+  .p-rank {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    width: 28px;
+    flex-shrink: 0;
+  }
+
+  .p-label {
+    font-size: 17px;
+    font-weight: 600;
+    flex: 1;
+  }
+
+  .p-scope {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+
+  .p1 { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.25); }
+  .p1 .p-label { color: var(--hook-color); }
+  .p2 { background: rgba(244,114,182,0.06); border-color: rgba(244,114,182,0.2); }
+  .p2 .p-label { color: var(--command-color); }
+  .p3 { background: rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.2); }
+  .p3 .p-label { color: var(--agent-color); }
+  .p4 { background: rgba(52,211,153,0.06); border-color: rgba(52,211,153,0.2); }
+  .p4 .p-label { color: var(--skill-color); }
+  .p5 { background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.2); }
+  .p5 .p-label { color: var(--plugin-color); }
+
+  .right { display: flex; flex-direction: column; gap: 20px; }
+
+  .rule-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 28px;
+  }
+
+  .rule-card h3 { font-size: 18px; color: var(--text-primary); margin-bottom: 10px; }
+  .rule-card p  { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+
+  .arrow-label {
+    font-size: 12px; color: var(--text-muted);
+    text-align: center; margin: 4px 0;
+    font-family: var(--font-mono);
+  }
+</style>
+<script src="../shared/slide-fx.js"></script>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="kicker"><div class="kicker-line"></div><span class="kicker-text">Chapter 10 · Priority & Layers</span></div>
+    <h1>优先级与层级覆盖</h1>
+    <p class="desc">同名组件存在多个来源时，Claude Code 按固定优先级决定哪个生效</p>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:16px;font-family:var(--font-mono);">Skills / Agents 优先级（高 → 低）</div>
+      <div class="priority-stack">
+        <div class="priority-item p1">
+          <div class="p-rank">#1</div>
+          <div class="p-label">CLI Flag</div>
+          <div class="p-scope">--skill 参数</div>
+        </div>
+        <div class="arrow-label">↓ 被覆盖</div>
+        <div class="priority-item p2">
+          <div class="p-rank">#2</div>
+          <div class="p-label">Project</div>
+          <div class="p-scope">.claude/</div>
+        </div>
+        <div class="arrow-label">↓ 被覆盖</div>
+        <div class="priority-item p3">
+          <div class="p-rank">#3</div>
+          <div class="p-label">User</div>
+          <div class="p-scope">~/.claude/</div>
+        </div>
+        <div class="arrow-label">↓ 被覆盖</div>
+        <div class="priority-item p4">
+          <div class="p-rank">#4</div>
+          <div class="p-label">Plugin</div>
+          <div class="p-scope">已安装插件</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="rule-card">
+        <h3>Skills / Agents：名称覆盖</h3>
+        <p>同名组件按优先级「赢者通吃」——高优先级的定义完全替换低优先级的。项目级 Skill 可以覆盖 Plugin 提供的同名 Skill。</p>
+      </div>
+      <div class="rule-card">
+        <h3>Hooks：全部触发</h3>
+        <p>Hooks 不存在覆盖关系。所有来源（用户、项目、Plugin、Skill frontmatter）的 Hooks 都会注册，匹配事件时<strong style="color:var(--text-primary)">全部触发</strong>。</p>
+      </div>
+      <div class="rule-card">
+        <h3>CLAUDE.md：向上合并</h3>
+        <p>子目录的 CLAUDE.md 与父目录合并，不覆盖。Plugin 的 CLAUDE.md 追加到全局上下文，不替换用户的配置。</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-footer">
+  <span>Claude Code Marketplace</span>
+  <span>11 / 15</span>
+</div>
+</body>
+</html>

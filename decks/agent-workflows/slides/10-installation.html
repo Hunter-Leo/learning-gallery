@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>安装与快速开始</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--bg-light);
+    font-family: var(--font-body);
+    color: var(--ink);
+  }
+
+  .canvas {
+    width: 100%;
+    height: 100%;
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+  }
+
+  header {
+    margin-bottom: var(--space-lg);
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .install-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+
+  .install-card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .install-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-sm);
+    padding-bottom: var(--space-xs);
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .install-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent-rust);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: var(--text-body);
+    flex-shrink: 0;
+  }
+
+  .install-title {
+    font-family: var(--font-display);
+    font-size: var(--text-small);
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .install-subtitle {
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+  }
+
+  .install-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .code-block {
+    background: #1A1A1A;
+    border-radius: var(--radius-sm);
+    padding: var(--space-sm);
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    color: #F0F0F0;
+    overflow-x: auto;
+  }
+
+  .code-comment {
+    color: #8A8A8A;
+  }
+
+  .code-command {
+    color: var(--accent-glow);
+  }
+
+  .install-steps {
+    list-style: none;
+    padding: 0;
+  }
+
+  .install-steps li {
+    padding: 4px 0;
+    padding-left: 16px;
+    position: relative;
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+  }
+
+  .install-steps li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--accent-rust);
+  }
+
+  .quick-start {
+    margin-top: var(--space-xs);
+    padding: var(--space-xs);
+    background: var(--bg-light);
+    border-radius: var(--radius-sm);
+    border-left: 2px solid var(--accent-rust);
+  }
+
+  .quick-start-title {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    color: var(--accent-rust);
+    margin-bottom: 2px;
+  }
+
+  .quick-start-content {
+    font-size: var(--text-micro);
+    color: var(--ink-muted);
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <header>
+    <div class="eyebrow">Installation & Quick Start</div>
+    <h1>安装与快速开始</h1>
+  </header>
+
+  <div class="install-grid">
+    <!-- Superpowers -->
+    <div class="install-card">
+      <div class="install-header">
+        <div class="install-icon">S</div>
+        <div>
+          <div class="install-title">Superpowers</div>
+          <div class="install-subtitle">Plugin Marketplace 安装</div>
+        </div>
+      </div>
+      <div class="install-content">
+        <div class="code-block">
+          <span class="code-comment"># Claude Code 2.0.13+ 通过插件市场安装</span><br>
+          <span class="code-command">/plugin install superpowers</span>
+        </div>
+        <ul class="install-steps">
+          <li>安装后自动激活，无需手动配置</li>
+          <li>在 CLAUDE.md 中添加 superpowers section</li>
+          <li>新任务自动触发 brainstorming 流程</li>
+        </ul>
+        <div class="quick-start">
+          <div class="quick-start-title">快速开始</div>
+          <div class="quick-start-content">
+            直接开始新任务，Claude 会自动进入 brainstorming 模式提问
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- gstack -->
+    <div class="install-card">
+      <div class="install-header">
+        <div class="install-icon">G</div>
+        <div>
+          <div class="install-title">gstack</div>
+          <div class="install-subtitle">Git clone + setup</div>
+        </div>
+      </div>
+      <div class="install-content">
+        <div class="code-block">
+          <span class="code-comment"># 克隆到 skills 目录</span><br>
+          <span class="code-command">git clone https://github.com/garrytan/gstack.git \<br>
+          &nbsp;&nbsp;~/.claude/skills/gstack</span><br><br>
+          <span class="code-comment"># 运行 setup</span><br>
+          <span class="code-command">cd ~/.claude/skills/gstack && ./setup</span>
+        </div>
+        <ul class="install-steps">
+          <li>在 CLAUDE.md 添加 gstack section</li>
+          <li>列出可用 skills: /plan-ceo-review 等</li>
+          <li>可选：复制到项目 .claude/skills/ 共享给团队</li>
+        </ul>
+        <div class="quick-start">
+          <div class="quick-start-title">快速开始</div>
+          <div class="quick-start-content">
+            /plan-ceo-review 开始 CEO 视角审视新功能
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- oh-my-claudecode -->
+    <div class="install-card">
+      <div class="install-header">
+        <div class="install-icon">O</div>
+        <div>
+          <div class="install-title">oh-my-claudecode</div>
+          <div class="install-subtitle">Plugin Marketplace 安装</div>
+        </div>
+      </div>
+      <div class="install-content">
+        <div class="code-block">
+          <span class="code-comment"># 通过插件市场安装</span><br>
+          <span class="code-command">/plugin install oh-my-claudecode</span><br><br>
+          <span class="code-comment"># 或手动安装</span><br>
+          <span class="code-command">git clone https://github.com/yeachan-heo/\<br>
+          &nbsp;&nbsp;oh-my-claudecode.git ~/.claude/skills/omc</span>
+        </div>
+        <ul class="install-steps">
+          <li>安装后运行 /omc-setup 初始化</li>
+          <li>选择运行模式：Team / Autopilot / Ralph</li>
+          <li>32 个 agents 自动可用</li>
+        </ul>
+        <div class="quick-start">
+          <div class="quick-start-title">快速开始</div>
+          <div class="quick-start-content">
+            /team "实现用户认证系统" 开始 Team 模式
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- everything-claude-code -->
+    <div class="install-card">
+      <div class="install-header">
+        <div class="install-icon">E</div>
+        <div>
+          <div class="install-title">everything-claude-code</div>
+          <div class="install-subtitle">选择性安装</div>
+        </div>
+      </div>
+      <div class="install-content">
+        <div class="code-block">
+          <span class="code-comment"># 完整安装</span><br>
+          <span class="code-command">/plugin install everything-claude-code</span><br><br>
+          <span class="code-comment"># 或选择性安装（推荐新用户）</span><br>
+          <span class="code-command">cp -r everything-claude-code/.agents/skills/* \<br>
+          &nbsp;&nbsp;~/.claude/skills/</span>
+        </div>
+        <ul class="install-steps">
+          <li>推荐：先安装 core/general skills</li>
+          <li>按需添加 domain skills（Python/React/AWS）</li>
+          <li>配置 hooks.json 启用 TDD/安全扫描</li>
+        </ul>
+        <div class="quick-start">
+          <div class="quick-start-title">快速开始</div>
+          <div class="quick-start-content">
+            /skill-create 从 git 历史生成新 skill
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

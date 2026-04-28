@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Superpowers · 流程驱动的纪律之师</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1920px;
+    height: 1080px;
+    overflow: hidden;
+    background: var(--bg-light);
+    font-family: var(--font-body);
+    color: var(--ink);
+  }
+
+  .canvas {
+    width: 100%;
+    height: 100%;
+    padding: var(--space-lg);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: var(--space-md);
+  }
+
+  header {
+    grid-column: 1 / -1;
+  }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-sm);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    font-weight: 400;
+    color: var(--accent-rust);
+  }
+
+  .left-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .right-col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  .card {
+    background: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-small);
+    font-weight: 400;
+    margin-bottom: var(--space-xs);
+    color: var(--ink);
+  }
+
+  .card-content {
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    line-height: 1.5;
+  }
+
+  .workflow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .step-number {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--accent-rust);
+    min-width: 32px;
+  }
+
+  .step-content {
+    flex: 1;
+  }
+
+  .step-title {
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .step-desc {
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+  }
+
+  .highlight-box {
+    background: var(--accent-rust-light);
+    border-left: 3px solid var(--accent-rust);
+    padding: var(--space-sm);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .highlight-box strong {
+    color: var(--accent-rust);
+  }
+
+  .skill-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+  }
+
+  .skill-tag {
+    font-family: var(--font-mono);
+    font-size: var(--text-micro);
+    padding: 4px 12px;
+    background: var(--bg-light);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    color: var(--ink-muted);
+  }
+
+  .quote {
+    font-family: var(--font-display);
+    font-size: var(--text-small);
+    font-style: italic;
+    color: var(--ink-muted);
+    line-height: 1.4;
+    padding-left: var(--space-sm);
+    border-left: 2px solid var(--accent-rust);
+  }
+
+  .quote-author {
+    font-family: var(--font-mono);
+    font-size: var(--text-small);
+    color: var(--ink-muted);
+    margin-top: var(--space-sm);
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <header>
+    <div class="eyebrow">Plugin #1</div>
+    <h1>Superpowers · 流程驱动的纪律之师</h1>
+  </header>
+
+  <div class="left-col">
+    <div class="card">
+      <div class="card-title">核心理念</div>
+      <div class="card-content">
+        <p style="margin-bottom: 16px;">
+          Superpowers 的核心哲学是「强制流程」——不是让 Claude 自由发挥，而是通过 14 个 skills 强制执行 brainstorm → plan → implement 的标准流程。
+        </p>
+        <div class="highlight-box">
+          <strong>关键约束：</strong>如果 Claude 尝试在测试之前写实现代码，Superpowers 会强制删除代码并重新开始。
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">标准工作流</div>
+      <div class="card-content">
+        <div class="workflow-step">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <div class="step-title">brainstorming</div>
+            <div class="step-desc">Socratic 式提问，探索需求边界，输出设计文档</div>
+          </div>
+        </div>
+        <div class="workflow-step">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <div class="step-title">using-git-worktrees</div>
+            <div class="step-desc">创建隔离工作区，新分支 + 独立目录</div>
+          </div>
+        </div>
+        <div class="workflow-step">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <div class="step-title">writing-plans</div>
+            <div class="step-desc">拆分为 2-5 分钟任务，每个任务含文件路径 + 验证步骤</div>
+          </div>
+        </div>
+        <div class="workflow-step">
+          <div class="step-number">04</div>
+          <div class="step-content">
+            <div class="step-title">executing-plans</div>
+            <div class="step-desc">每个任务派发独立 subagent，两阶段审查</div>
+          </div>
+        </div>
+        <div class="workflow-step">
+          <div class="step-number">05</div>
+          <div class="step-content">
+            <div class="step-title">test-driven-development</div>
+            <div class="step-desc">RED-GREEN-REFACTOR 循环，强制测试先行</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-col">
+    <div class="card">
+      <div class="card-title">14 个核心 Skills</div>
+      <div class="card-content">
+        <div class="skill-list">
+          <span class="skill-tag">brainstorming</span>
+          <span class="skill-tag">writing-plans</span>
+          <span class="skill-tag">executing-plans</span>
+          <span class="skill-tag">test-driven-development</span>
+          <span class="skill-tag">requesting-code-review</span>
+          <span class="skill-tag">receiving-code-review</span>
+          <span class="skill-tag">using-git-worktrees</span>
+          <span class="skill-tag">finishing-a-development-branch</span>
+          <span class="skill-tag">dispatching-parallel-agents</span>
+          <span class="skill-tag">verification-before-completion</span>
+          <span class="skill-tag">systematic-debugging</span>
+          <span class="skill-tag">writing-skills</span>
+          <span class="skill-tag">subagent-driven-development</span>
+          <span class="skill-tag">using-superpowers</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">适合场景</div>
+      <div class="card-content">
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--accent-rust);">✓</span>
+            中大型项目，需要严格的代码质量
+          </li>
+          <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--accent-rust);">✓</span>
+            团队协作，需要可预测的开发流程
+          </li>
+          <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--accent-rust);">✓</span>
+            新功能开发，需要从设计到交付的完整链路
+          </li>
+          <li style="margin-bottom: 12px; padding-left: 20px; position: relative;">
+            <span style="position: absolute; left: 0; color: var(--accent-rust);">✓</span>
+            单人开发者，想要「虚拟团队」的审查机制
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="quote">
+        "Features that I previously shipped with minimal test coverage now arrive with comprehensive tests baked in from the start."
+      </div>
+      <div class="quote-author">— Richard Porter, Superpowers 用户</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

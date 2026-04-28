@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>05 · Agents 详解</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { background: var(--bg-base); }
+  .page { padding: 72px 90px 90px; height: 100%; display: flex; flex-direction: column; }
+  .header { margin-bottom: 44px; }
+  h1 { font-size: 58px; color: var(--text-primary); margin-bottom: 10px; }
+  .desc { font-size: 19px; color: var(--text-secondary); }
+
+  .content { flex: 1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+  .left { display: flex; flex-direction: column; gap: 20px; }
+  .right { display: flex; flex-direction: column; gap: 20px; }
+
+  .code-block {
+    background: rgba(0,0,0,0.5);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 32px;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .code-comment { color: var(--text-muted); }
+  .code-key     { color: var(--agent-color); }
+  .code-val     { color: var(--hook-color); }
+  .code-str     { color: #fca5a5; }
+
+  .flow-diagram {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 32px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .flow-title { font-size: 15px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 20px; }
+
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .flow-step:last-child { border-bottom: none; }
+
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(96,165,250,0.15);
+    border: 1px solid rgba(96,165,250,0.4);
+    color: var(--agent-color);
+    font-size: 14px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-text { font-size: 16px; color: var(--text-secondary); }
+  .step-text strong { color: var(--text-primary); }
+
+  .props-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .prop-item {
+    background: rgba(96,165,250,0.06);
+    border: 1px solid rgba(96,165,250,0.15);
+    border-radius: 10px;
+    padding: 14px 18px;
+  }
+  .prop-name { font-family: var(--font-mono); font-size: 14px; color: var(--agent-color); margin-bottom: 4px; }
+  .prop-desc { font-size: 14px; color: var(--text-secondary); }
+</style>
+<script src="../shared/slide-fx.js"></script>
+</head>
+<body>
+<div class="page">
+  <div class="header">
+    <div class="kicker"><div class="kicker-line"></div><span class="kicker-text">Chapter 04 · Agents</span></div>
+    <h1>Agents：专门化子代理</h1>
+    <p class="desc">Agent 是在独立上下文中运行的专门化 AI 实例，处理特定任务后返回摘要，不污染主对话</p>
+  </div>
+
+  <div class="content">
+    <div class="left">
+      <div style="font-size:13px;color:var(--text-muted);font-family:var(--font-mono);margin-bottom:4px;">agents/code-reviewer.md</div>
+      <div class="code-block">
+        <div><span class="code-comment">---</span></div>
+        <div><span class="code-key">name</span>: <span class="code-val">code-reviewer</span></div>
+        <div><span class="code-key">description</span>: <span class="code-str">Expert code review specialist</span></div>
+        <div><span class="code-key">model</span>: <span class="code-val">opus</span></div>
+        <div><span class="code-key">tools</span>: [Read, Grep, Glob, Bash]</div>
+        <div><span class="code-key">maxTurns</span>: <span class="code-val">20</span></div>
+        <div><span class="code-key">isolation</span>: <span class="code-val">worktree</span></div>
+        <div><span class="code-comment">---</span></div>
+        <div>&nbsp;</div>
+        <div style="color:var(--text-secondary)">你是一位专业的代码审查专家。</div>
+        <div style="color:var(--text-secondary)">重点检查：安全漏洞、性能问题、</div>
+        <div style="color:var(--text-secondary)">代码可读性和最佳实践。</div>
+      </div>
+
+      <div class="props-grid">
+        <div class="prop-item">
+          <div class="prop-name">model</div>
+          <div class="prop-desc">haiku / sonnet / opus</div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-name">isolation</div>
+          <div class="prop-desc">worktree 隔离执行</div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-name">tools</div>
+          <div class="prop-desc">限制可用工具集</div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-name">maxTurns</div>
+          <div class="prop-desc">最大执行轮次</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="flow-diagram">
+        <div class="flow-title">Agent 执行流程</div>
+        <div class="flow-step">
+          <div class="step-num">1</div>
+          <div class="step-text">Claude 识别任务，<strong>决定派发给 Agent</strong></div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">2</div>
+          <div class="step-text">Agent 在<strong>独立上下文</strong>中启动，加载自己的指令</div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">3</div>
+          <div class="step-text">Agent 使用分配的工具<strong>自主执行任务</strong>（多轮）</div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">4</div>
+          <div class="step-text">任务完成，Agent <strong>返回摘要</strong>给主对话</div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">5</div>
+          <div class="step-text">主对话<strong>继续进行</strong>，上下文保持干净</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="page-footer">
+  <span>Claude Code Marketplace</span>
+  <span>05 / 15</span>
+</div>
+</body>
+</html>
