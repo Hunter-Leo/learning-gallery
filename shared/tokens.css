@@ -1,0 +1,42 @@
+/* shared/tokens.css - Unified Design Tokens */
+
+:root {
+  /* Color System - Semantic Naming */
+  --void-black: #0a0a0a;
+  --deep-space: #0c0c0e;
+  --soft-mist: #1a1a1a;
+  --gentle-glow: rgba(255, 255, 255, 0.05);
+  --whisper-white: rgba(255, 255, 255, 0.9);
+  --muted-silver: rgba(255, 255, 255, 0.6);
+  --accent-cyan: #00d4ff;
+  --github-green: #238636;
+
+  /* Typography System */
+  --font-primary: -apple-system, "PingFang SC", "Segoe UI", sans-serif;
+  --font-mono: "SF Mono", "Fira Code", monospace;
+
+  /* Spacing System */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  /* Border Radius System */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  /* Shadow System */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.3);
+  --shadow-glow: 0 0 40px rgba(0, 212, 255, 0.2);
+
+  /* Transition System */
+  --transition-fast: 0.15s ease;
+  --transition-base: 0.2s ease;
+  --transition-slow: 0.3s ease;
+}
