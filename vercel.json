@@ -1,34 +1,4 @@
 {
-  "version": 2,
-  "name": "learning-gallery",
-  "builds": [
-    {
-      "src": "**/*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "shared/**/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "decks/**/*",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/decks/(.*)",
-      "dest": "/decks/$1"
-    },
-    {
-      "src": "/shared/(.*)",
-      "dest": "/shared/$1"
-    }
-  ],
   "headers": [
     {
       "source": "/shared/(.*)",
