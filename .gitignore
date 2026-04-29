@@ -32,3 +32,4 @@ yarn-error.log*
 
 # 设计文档
 docs/superpowers/
+.vercel
