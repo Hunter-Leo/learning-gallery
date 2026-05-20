@@ -177,11 +177,15 @@ window.DECK_HEIGHT = 1080;
 
       function onLoad() {
         frame.removeEventListener('load', onLoad);
-        overlay.classList.remove('active');
-        transitioning = false;
+        requestAnimationFrame(() => {
+          overlay.classList.remove('active');
+          transitioning = false;
+        });
       }
       frame.addEventListener('load', onLoad);
-      frame.src = deck[idx].file;
+      let slideSrc = deck[idx].file.replace(/\.html$/, '');
+      if (!slideSrc.endsWith('/')) slideSrc += '/';
+      frame.src = slideSrc;
 
       setTimeout(() => {
         if (transitioning) {
