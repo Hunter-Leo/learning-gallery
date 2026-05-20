@@ -1,0 +1,8 @@
+{
+  "id": "taskapp-framework-release",
+  "title": "taskapp-framework v0.3.0 Release",
+  "description": "基于 FastAPI + FastMCP + RQ 的异步任务框架首次发布 - 特性详解、快速入门、Agent Skill 安装与配置说明",
+  "tags": ["Python", "FastAPI", "MCP", "Framework", "Task Queue"],
+  "created": "2026-05-20",
+  "slides": 21
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P11 · Auto REST/MCP</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 03 · Core Features</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title">Auto <span class="accent">REST / MCP</span> Endpoints</div>
+    <div class="slide-subtitle">注册一个 Task，四类端点自动生成，零额外代码</div>
+
+    <div class="two-col">
+      <div class="col">
+        <h3>REST API Endpoints</h3>
+        <div class="code-block"><span class="comment"># 提交任务</span>
+POST /api/{task_name}
+<span class="keyword">Body</span>: {
+  <span class="string">"data"</span>: { ... },
+  <span class="string">"callback_url"</span>: <span class="string">"..."</span>,
+  <span class="string">"wait_seconds"</span>: <span class="num">0</span>
+}
+
+<span class="comment"># 查询状态 / 结果</span>
+GET|POST /api/task_query?JobId={job_id}
+
+<span class="comment"># 接收回调</span>
+POST /callback</div>
+        <div class="code-block"><span class="comment"># 终端测试示例</span>
+curl -X POST http:<span class="comment">//localhost:8000/api/echo \</span>
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -d <span class="string">'{"data": {"message": "hello"}}'</span></div>
+      </div>
+      <div class="col">
+        <h3>MCP Tool Integration</h3>
+        <div class="code-block"><span class="comment"># MCP 端点挂载到 /mcp</span>
+POST /mcp
+<span class="comment"># FastMCP.from_fastapi() 自动将</span>
+<span class="comment"># 所有路由映射为 MCP Tools</span>
+
+<span class="comment"># AI 助手可直接调用这些工具</span>
+<span class="comment"># 无需额外适配层</span></div>
+
+        <h3 style="font-size:13px;font-weight:600;color:var(--accent-cyan);letter-spacing:0.05em;text-transform:uppercase;">Auto-generated Typed API</h3>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.5;">
+          每个 Task 的输入/输出 Pydantic 模型自动生成 OpenAPI Schema：
+          <span style="display:block;margin-top:4px;font-family:var(--font-mono);color:var(--text-primary);font-size:12px;">
+          Pydantic Model → OpenAPI → FastAPI Routes → MCP Tools
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 03 · Auto REST/MCP Endpoints</span>
+    <span class="page-num">11 / 21</span>
+  </div>
+</body>
+</html>

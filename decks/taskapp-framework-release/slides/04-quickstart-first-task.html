@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P05 · Run Your First Task</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 01 · Quick Start</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title"><span class="accent">Run</span> Your First Task</div>
+    <div class="slide-subtitle">启动应用，通过 REST API 调用 Task</div>
+
+    <div class="two-col">
+      <div class="col">
+        <h3>Start the Server</h3>
+        <div class="code-block"><span class="comment"># 在 template/ 目录下</span>
+uv run python run.py
+
+<span class="comment"># 输出示例：</span>
+<span class="comment"># INFO TaskApp started</span>
+<span class="comment"># Uvicorn running on 0.0.0.0:8000</span>
+<span class="comment"># Registered tasks:</span>
+<span class="comment">#   echo     POST /api/echo</span>
+<span class="comment">#   ping     POST /api/ping</span>
+<span class="comment">#   analysis POST /api/analysis</span>
+<span class="comment">#   file_word_count POST /api/file_word_count</span></div>
+      </div>
+      <div class="col">
+        <h3>Test with Curl</h3>
+        <div class="code-block"><span class="comment"># 调用 echo task（同步等待结果）</span>
+curl -X POST http:<span class="comment">//localhost:8000/api/echo \</span>
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -d <span class="string">'{"data":{"message":"hello"}}'</span>
+
+<span class="comment"># 响应：</span>
+<span class="comment"># {</span>
+<span class="comment">#   "JobCode": "SUCCESS",</span>
+<span class="comment">#   "echo": "hello"</span>
+<span class="comment"># }</span>
+
+<span class="comment"># 调用 ping（eager 模式，即时返回）</span>
+curl -X POST http:<span class="comment">//localhost:8000/api/ping \</span>
+  -H <span class="string">"Content-Type: application/json"</span> \
+  -d <span class="string">'{"data":{}}'</span></div>
+
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <span class="tag tag-cyan">POST /api/{task_name}</span>
+          <span class="tag tag-amber">即时响应</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 01 · Quick Start · First Task</span>
+    <span class="page-num">4 / 21</span>
+  </div>
+</body>
+</html>

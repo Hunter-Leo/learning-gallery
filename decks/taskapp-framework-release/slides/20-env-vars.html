@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P20 · Environment Variables</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+  .env-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    align-content: start;
+  }
+  .env-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  .env-item .key {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    margin-bottom: 2px;
+  }
+  .env-item .desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+  }
+  .env-item .default {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+  .env-section {
+    grid-column: 1 / -1;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent-amber);
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+  }
+  .code-block {
+    font-size: 12px;
+    padding: 12px 16px;
+  }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 04 · Configuration</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title"><span class="accent">Environment</span> Variables</div>
+    <div class="slide-subtitle">全部 TASKAPP_* 环境变量一览，类型安全的 Pydantic Settings 配置</div>
+
+    <div style="flex:1;display:grid;grid-template-columns:1.1fr 0.9fr;gap:20px;">
+      <!-- Left: env grid -->
+      <div class="env-grid">
+        <div class="env-section">Server</div>
+        <div class="env-item">
+          <div class="key">TASKAPP_REDIS_URL</div>
+          <div class="desc">Redis 连接 URL。留空自动用 TcpFakeServer</div>
+          <div class="default">默认: —</div>
+        </div>
+        <div class="env-item">
+          <div class="key">TASKAPP_HOST / TASKAPP_PORT</div>
+          <div class="desc">服务监听地址和端口</div>
+          <div class="default">默认: 0.0.0.0:8000</div>
+        </div>
+
+        <div class="env-section">Worker</div>
+        <div class="env-item">
+          <div class="key">TASKAPP_WORKER_TYPE</div>
+          <div class="desc">coroutine (async) / process (子进程)</div>
+          <div class="default">默认: coroutine</div>
+        </div>
+        <div class="env-item">
+          <div class="key">TASKAPP_WORKER_MIN / _MAX</div>
+          <div class="desc">Worker 自动扩缩上下限</div>
+          <div class="default">默认: 1 / 4</div>
+        </div>
+        <div class="env-item">
+          <div class="key">TASKAPP_WORKER_MEMORY_THRESHOLD</div>
+          <div class="desc">内存使用率触发扩缩阈值</div>
+          <div class="default">默认: 80 (%)</div>
+        </div>
+        <div class="env-item">
+          <div class="key">TASKAPP_WORKER_SCALE_INTERVAL</div>
+          <div class="desc">Worker 检查间隔</div>
+          <div class="default">默认: 10 (s)</div>
+        </div>
+
+        <div class="env-section">Storage</div>
+        <div class="env-item">
+          <div class="key">TASKAPP_STORAGE_BACKEND</div>
+          <div class="desc">local / s3 / gcs / azblob / oss</div>
+          <div class="default">默认: local</div>
+        </div>
+        <div class="env-item">
+          <div class="key">TASKAPP_STORAGE_LOCAL_ROOT</div>
+          <div class="desc">本地存储根目录</div>
+          <div class="default">默认: ./taskapp_files</div>
+        </div>
+        <div class="env-item">
+          <div class="key">TASKAPP_STORAGE_S3_BUCKET / _ENDPOINT</div>
+          <div class="desc">S3/R2 存储配置</div>
+          <div class="default">—</div>
+        </div>
+      </div>
+
+      <!-- Right: full .env example -->
+      <div>
+        <h3 style="font-size:14px;font-weight:600;color:var(--accent-cyan);margin-bottom:8px;">完整 .env 配置示例</h3>
+        <div class="code-block"><span class="comment"># ── Server ──</span>
+TASKAPP_REDIS_URL=redis:<span class="comment">//localhost:6379</span>
+TASKAPP_HOST=<span class="num">0.0.0.0</span>
+TASKAPP_PORT=<span class="num">8000</span>
+
+<span class="comment"># ── Worker ──</span>
+TASKAPP_WORKER_TYPE=coroutine
+TASKAPP_WORKER_MIN=<span class="num">1</span>
+TASKAPP_WORKER_MAX=<span class="num">4</span>
+TASKAPP_WORKER_MEMORY_THRESHOLD=<span class="num">80</span>
+
+<span class="comment"># ── Storage (Local) ──</span>
+TASKAPP_STORAGE_BACKEND=local
+TASKAPP_STORAGE_LOCAL_ROOT=./data
+TASKAPP_STORAGE_LOCAL_SECRET_KEY=change-me
+
+<span class="comment"># ── Logging ──</span>
+TASKAPP_LOG_LEVEL=INFO
+TASKAPP_LOG_JSON=<span class="keyword">true</span>
+TASKAPP_LOG_CONSOLE=<span class="keyword">true</span>
+
+<span class="comment"># ── MCP ──</span>
+TASKAPP_MCP_ENABLED=<span class="keyword">true</span>
+TASKAPP_MCP_PATH=/mcp
+
+<span class="comment"># ── Workspace ──</span>
+TASKAPP_WORKSPACE_DIR=/tmp/taskapp
+TASKAPP_WORKSPACE_TTL=<span class="num">3600</span>
+
+<span class="comment"># ── App ──</span>
+TASKAPP_NAME=my-service
+<span class="comment"># AUTH_TOKEN=sk-xxx  （应用级）</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 04 · Environment Variables</span>
+    <span class="page-num">20 / 21</span>
+  </div>
+</body>
+</html>

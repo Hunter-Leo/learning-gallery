@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P10 · Hybrid Task Registration</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 03 · Core Features</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title">Hybrid Task <span class="accent">Registration</span></div>
+    <div class="slide-subtitle">两种 Task 定义方式，满足不同场景需求</div>
+
+    <div class="two-col">
+      <div class="col">
+        <h3>@task Decorator · 函数式</h3>
+        <div class="code-block"><span class="comment"># 自包含模型 + 实现，适合简单任务</span>
+<span class="decorator">@task</span>(<span class="string">"echo"</span>, timeout=<span class="num">30</span>)
+<span class="keyword">async def</span> <span class="func">echo</span>(input: EchoInput) -> EchoOutput:
+    <span class="keyword">return</span> EchoOutput(
+        echo=input.message,
+    )
+
+<span class="comment"># 注册到 app</span>
+app = TaskApp()
+app.register_task(echo)</div>
+        <div style="display:flex;gap:8px;">
+          <span class="tag tag-cyan">简单</span>
+          <span class="tag tag-amber">自包含</span>
+        </div>
+      </div>
+      <div class="col">
+        <h3>BaseTask Class · 面向对象</h3>
+        <div class="code-block"><span class="comment"># 生命周期钩子 + 进度追踪，适合复杂任务</span>
+<span class="keyword">class</span> <span class="cls">AnalysisTask</span>(BaseTask):
+    name = <span class="string">"analysis"</span>
+    timeout = <span class="num">120</span>
+    retry_count = <span class="num">2</span>
+
+    <span class="keyword">async def</span> <span class="func">run</span>(self, input):
+        <span class="var">self</span>.update_progress(<span class="num">1</span>/<span class="num">3</span>)
+        <span class="comment"># ... task logic ...</span>
+        <span class="keyword">return</span> AnalysisOutput(value=result)
+
+    <span class="keyword">async def</span> <span class="func">on_success</span>(self, result, elapsed):
+        <span class="var">self</span>.logger.info(<span class="string">"Done in %.2fs"</span>, elapsed)</div>
+        <div style="display:flex;gap:8px;">
+          <span class="tag tag-amber">生命周期</span>
+          <span class="tag tag-blue">进度追踪</span>
+          <span class="tag tag-cyan">日志</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 03 · Hybrid Task Registration</span>
+    <span class="page-num">10 / 21</span>
+  </div>
+</body>
+</html>

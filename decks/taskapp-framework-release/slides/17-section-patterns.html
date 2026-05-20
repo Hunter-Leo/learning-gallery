@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Section · Task Patterns</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body {
+    background: linear-gradient(160deg, #0d0d12 0%, #0f1a1a 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    position: relative;
+  }
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(45,212,191,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45,212,191,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+  .section-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-family: var(--font-mono);
+  }
+  .section-title {
+    font-size: 60px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .section-title .accent { color: var(--accent-cyan); }
+  .section-line {
+    width: 60px; height: 3px;
+    background: var(--accent-cyan);
+    border-radius: 2px;
+  }
+  .section-nav {
+    position: absolute;
+    bottom: 24px;
+    right: 32px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    letter-spacing: 0.05em;
+    background: rgba(0,0,0,0.4);
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+  .section-nav .num { color: var(--accent-cyan); font-weight: 600; }
+</style>
+</head>
+<body>
+  <div class="section-line"></div>
+  <div class="section-label">SECTION 04</div>
+  <div class="section-title">Task <span class="accent">Patterns</span></div>
+  <p style="font-size:18px;color:var(--text-secondary);max-width:500px;line-height:1.6;">
+    两种 Task 定义方式，覆盖简单到复杂的全部场景
+  </p>
+  <div class="section-nav">17 / 21 · <span class="num">Section 04</span></div>
+</body>
+</html>

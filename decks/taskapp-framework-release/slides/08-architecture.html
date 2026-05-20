@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P08 · Architecture</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+  .arch-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 28px;
+  }
+  .arch-diagram {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 14px;
+    padding: 32px;
+  }
+  .arch-layer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .arch-layer .layer-name {
+    font-size: 12px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  /* Architecture boxes */
+  .arch-box {
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    min-width: 140px;
+  }
+  .arch-box.api-layer {
+    background: linear-gradient(135deg, rgba(45,212,191,0.2), rgba(45,212,191,0.08));
+    border: 1px solid rgba(45,212,191,0.3);
+    color: var(--accent-cyan);
+  }
+  .arch-box.mcp-layer {
+    background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(245,158,11,0.08));
+    border: 1px solid rgba(245,158,11,0.3);
+    color: var(--accent-amber);
+  }
+  .arch-box.core-layer {
+    background: linear-gradient(135deg, rgba(59,130,246,0.2), rgba(59,130,246,0.08));
+    border: 1px solid rgba(59,130,246,0.3);
+    color: var(--accent-blue);
+  }
+  .arch-box.infra-layer {
+    background: var(--bg-code);
+    border: 1px solid var(--border-card);
+    color: var(--text-secondary);
+  }
+
+  .arch-arrows {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+  }
+
+  .arch-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 14px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .arch-panel h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent-cyan);
+  }
+  .arch-panel .desc {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .arch-panel .layer-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .arch-panel .layer-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-secondary);
+  }
+  .arch-panel .layer-item .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .dot.api { background: var(--accent-cyan); }
+  .dot.mcp { background: var(--accent-amber); }
+  .dot.core { background: var(--accent-blue); }
+  .dot.infra { background: var(--text-muted); }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 02 · Architecture</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title">System <span class="accent">Architecture</span></div>
+    <div class="slide-subtitle">TaskApp 的核心模块与执行流水线</div>
+
+    <div class="arch-grid">
+      <!-- Left: Architecture diagram -->
+      <div class="arch-diagram">
+        <div class="arch-layer">
+          <span class="layer-name">API Layer</span>
+          <div class="arch-box api-layer">FastAPI Server</div>
+          <div class="arch-arrows">↓ REST POST/GET</div>
+        </div>
+
+        <div class="arch-layer">
+          <span class="layer-name">MCP Layer</span>
+          <div class="arch-box mcp-layer">FastMCP Tools</div>
+          <div class="arch-arrows">↓ POST /mcp</div>
+        </div>
+
+        <div class="arch-layer">
+          <span class="layer-name">Core</span>
+          <div class="arch-box core-layer">TaskManager</div>
+          <div class="arch-arrows">↓ submit / poll / cancel</div>
+        </div>
+
+        <div class="arch-layer">
+          <span class="layer-name">Queue + Workers</span>
+          <div class="arch-box infra-layer">
+            RQ Queue · Workers (auto-scale)
+          </div>
+          <div class="arch-arrows">
+            ↓ TcpFakeServer (dev) / Redis (prod)
+          </div>
+        </div>
+
+        <div class="arch-layer">
+          <span class="layer-name">Infrastructure</span>
+          <div class="arch-box infra-layer">
+            FileRef I/O · Auth · Logging · Callback
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Info panel -->
+      <div class="arch-panel">
+        <h3>Execution Pipeline</h3>
+        <div class="desc">
+          所有执行路径（worker / eager / in-memory test）都通过同一套 <code style="color:var(--accent-cyan);font-family:var(--font-mono);font-size:13px;">execute_task_with_lifecycle()</code> 共享流水线。
+        </div>
+        <div class="layer-list">
+          <div class="layer-item"><span class="dot api"></span> FastAPI — 自动生成 REST 端点</div>
+          <div class="layer-item"><span class="dot mcp"></span> FastMCP — 自动生成 MCP Tools</div>
+          <div class="layer-item"><span class="dot core"></span> TaskManager — 队列调度 + 自动扩缩</div>
+          <div class="layer-item"><span class="dot infra"></span> FileRef — 文件输入输出自动管理</div>
+          <div class="layer-item"><span class="dot core"></span> AuthProvider — 可插拔认证</div>
+          <div class="layer-item"><span class="dot infra"></span> Workspace — 任务临时工作目录 + GC</div>
+        </div>
+
+        <h3 style="margin-top:8px;">Task Lifecycle</h3>
+        <div style="font-family:var(--font-mono);font-size:13px;color:var(--text-muted);line-height:1.8;">
+          QUEUED → STARTED → (DOWNLOADING → UPLOADING) → FINISHED<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ FAILED / TIMEOUT / CANCELED
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 02 · Architecture Overview</span>
+    <span class="page-num">8 / 21</span>
+  </div>
+</body>
+</html>

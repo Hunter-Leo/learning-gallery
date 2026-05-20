@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P03 · Two Paths</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+  .paths-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    align-content: center;
+  }
+  .path-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 14px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .path-card .path-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .path-card .path-badge {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    letter-spacing: 0.06em;
+  }
+  .path-badge.manual { background: rgba(59,130,246,0.15); color: var(--accent-blue); }
+  .path-badge.agent  { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+  .path-card h2 {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  .path-card .or-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-family: var(--font-mono);
+  }
+  .path-card .or-divider::before,
+  .path-card .or-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-subtle);
+  }
+  .path-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .path-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--bg-deep);
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: var(--font-mono);
+    line-height: 1.5;
+  }
+  .path-step .step-dot { color: var(--accent-cyan); font-weight: 700; flex-shrink: 0; }
+  .path-step .step-dot.blue { color: var(--accent-blue); }
+  .path-step .step-dot.amber { color: var(--accent-amber); }
+
+  .choose-tag {
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 01 · Quick Start</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title">Choose Your <span class="accent">Path</span></div>
+    <div class="slide-subtitle">两种方式上手，选一种开始</div>
+
+    <div class="paths-grid">
+      <!-- Option A: Manual -->
+      <div class="path-card">
+        <div class="path-header">
+          <span class="path-badge manual">OPTION A</span>
+        </div>
+        <h2>手动部署</h2>
+        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">
+          克隆仓库 → 配置 → 手动启动
+        </p>
+        <div class="path-steps">
+          <div class="path-step"><span class="step-dot blue">01</span> git clone https://cnb.cool/mirabobio.com/demostration/taskapp-framework.git</div>
+          <div class="path-step"><span class="step-dot blue">02</span> cd taskapp-framework &amp;&amp; uv sync</div>
+          <div class="path-step"><span class="step-dot blue">03</span> cp .env.example .env</div>
+          <div class="path-step"><span class="step-dot blue">04</span> vim .env <span style="color:var(--text-muted)"># 按需配置</span></div>
+          <div class="path-step"><span class="step-dot blue">05</span> uv run python run.py</div>
+        </div>
+      </div>
+
+      <!-- Option B: Agent Skill -->
+      <div class="path-card">
+        <div class="path-header">
+          <span class="path-badge agent">OPTION B</span>
+        </div>
+        <h2>Agent Skill</h2>
+        <p style="font-size:14px;color:var(--text-secondary);line-height:1.5;">
+          安装 skill，让 AI 处理搭建
+        </p>
+        <div class="path-steps">
+          <div class="path-step"><span class="step-dot">01</span> npx skills add "https://cnb.cool/mirabobio.com/demostration/taskapp-framework.git"</div>
+          <div class="path-step"><span class="step-dot">02</span> 告诉 AI 助手：</div>
+          <div style="margin-left:22px;padding:10px 14px;background:var(--bg-code);border:1px solid var(--border-card);border-radius:8px;font-size:13px;font-family:var(--font-mono);color:var(--accent-cyan);">
+            /taskapp-development<br>
+            <span style="color:var(--text-secondary);">Scaffold a service named 'my-service'</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-muted);margin-left:22px;line-height:1.5;">
+            AI 将自动执行：目录检查 → 脚手架 → uv sync → .env 配置
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="choose-tag">完成后进入下一页「运行第一个 Task」</div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 01 · Quick Start · Two Paths</span>
+    <span class="page-num">3 / 21</span>
+  </div>
+</body>
+</html>

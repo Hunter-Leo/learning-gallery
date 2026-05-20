@@ -1,0 +1,302 @@
+/* shared/tokens.css — taskapp-framework Release Deck Design Tokens */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+  /* Color System */
+  --bg-deep: #0d0d12;
+  --bg-card: #14141a;
+  --bg-code: #1a1a22;
+  --border-subtle: rgba(255,255,255,0.06);
+  --border-card: rgba(255,255,255,0.08);
+
+  --accent-cyan: #2dd4bf;
+  --accent-cyan-dim: rgba(45,212,191,0.15);
+  --accent-amber: #f59e0b;
+  --accent-amber-dim: rgba(245,158,11,0.15);
+  --accent-blue: #3b82f6;
+
+  --text-primary: rgba(255,255,255,0.92);
+  --text-secondary: rgba(255,255,255,0.6);
+  --text-muted: rgba(255,255,255,0.35);
+
+  /* Typography */
+  --font-sans: 'Inter', -apple-system, 'PingFang SC', 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+
+  /* Sizing */
+  --slide-w: 1920px;
+  --slide-h: 1080px;
+
+  /* Masthead */
+  --masthead-h: 48px;
+}
+
+/* ── Canvas Lock ── */
+body {
+  width: var(--slide-w);
+  height: var(--slide-h);
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-sans);
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ── Masthead (顶部导航条) ── */
+.masthead {
+  height: var(--masthead-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  border-bottom: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+.masthead-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--accent-cyan);
+}
+.masthead-left .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+}
+.masthead-right {
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* ── Slide Content Area ── */
+.slide-body {
+  flex: 1;
+  padding: 36px 56px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Page Footer ── */
+.page-footer {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  border-top: 1px solid var(--border-subtle);
+  flex-shrink: 0;
+}
+.page-footer .section-name {
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.page-footer .page-num {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Slide Content Regions ── */
+.slide-title {
+  font-size: 44px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.slide-title .accent {
+  color: var(--accent-cyan);
+}
+.slide-title .accent-amber {
+  color: var(--accent-amber);
+}
+.slide-subtitle {
+  font-size: 18px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+.slide-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── Code Blocks ── */
+.code-block {
+  background: var(--bg-code);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 14px 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: pre;
+  color: var(--text-primary);
+}
+.code-block .comment { color: var(--text-muted); font-style: italic; }
+.code-block .keyword { color: #c084fc; }
+.code-block .string { color: #34d399; }
+.code-block .func { color: #60a5fa; }
+.code-block .cls { color: #fbbf24; }
+.code-block .var { color: #f472b6; }
+.code-block .decorator { color: #2dd4bf; }
+.code-block .type { color: #818cf8; }
+.code-block .num { color: #fb923c; }
+
+/* ── Feature Card Grid ── */
+.feature-grid {
+  display: grid;
+  gap: 12px;
+}
+.feature-grid-2 { grid-template-columns: 1fr 1fr; }
+.feature-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+.feature-grid-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+.feature-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.feature-card .icon {
+  width: 30px; height: 30px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  margin-bottom: 0;
+}
+.feature-card .icon.cyan { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+.feature-card .icon.amber { background: var(--accent-amber-dim); color: var(--accent-amber); }
+.feature-card .icon.blue { background: rgba(59,130,246,0.15); color: var(--accent-blue); }
+.feature-card h3 {
+  font-size: 14px;
+  font-weight: 600;
+}
+.feature-card p {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.45;
+}
+
+/* ── Inline Tag ── */
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+.tag-cyan { background: var(--accent-cyan-dim); color: var(--accent-cyan); }
+.tag-amber { background: var(--accent-amber-dim); color: var(--accent-amber); }
+.tag-blue { background: rgba(59,130,246,0.15); color: var(--accent-blue); }
+
+/* ── List ── */
+.feature-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.feature-list li {
+  padding: 8px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 6px;
+  font-size: 13px;
+  line-height: 1.45;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.feature-list li::before {
+  content: '→';
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+  flex-shrink: 0;
+}
+
+/* ── Section Divider (full-page) ── */
+.section-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  height: 100%;
+}
+.section-slide .num {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--accent-cyan);
+  font-family: var(--font-mono);
+}
+.section-slide h2 {
+  font-size: 64px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ── Two-column layout ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  flex: 1;
+}
+.two-col .col {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.two-col .col h3 {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ── Arrow flow ── */
+.flow-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.flow-step {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+}
+.flow-arrow {
+  color: var(--text-muted);
+  font-size: 16px;
+  font-family: var(--font-mono);
+}

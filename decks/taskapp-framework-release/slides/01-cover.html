@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Cover · taskapp-framework Release</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body {
+    background: linear-gradient(160deg, #0d0d12 0%, #0a0a1a 40%, #0d0d12 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px;
+  }
+  /* Decorative grid lines */
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(45,212,191,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(45,212,191,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .version-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--accent-cyan-dim);
+    border: 1px solid rgba(45,212,191,0.25);
+    padding: 8px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--accent-cyan);
+    margin-bottom: 28px;
+    align-self: flex-start;
+    font-family: var(--font-mono);
+  }
+  .version-badge .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent-cyan);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .main-title {
+    font-size: 88px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .main-title .accent {
+    background: linear-gradient(135deg, #2dd4bf, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .tagline {
+    font-size: 24px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 40px;
+    max-width: 700px;
+  }
+
+  .meta-row {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    color: var(--text-secondary);
+  }
+  .meta-item span.label {
+    color: var(--text-muted);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .tech-stack {
+    display: flex;
+    gap: 10px;
+    margin-top: 48px;
+  }
+  .tech-stack .tag {
+    font-size: 12px;
+    padding: 5px 14px;
+  }
+</style>
+</head>
+<body>
+  <div class="version-badge">
+    <span class="dot"></span>
+    v0.3.0 · First Release
+  </div>
+
+  <div class="main-title">
+    <span class="accent">taskapp</span>-framework
+  </div>
+
+  <div class="tagline">
+    基于 FastAPI + FastMCP + RQ 的异步任务框架<br>
+    用最少的代码构建任务驱动型应用
+  </div>
+
+  <div class="meta-row">
+    <div class="meta-item">
+      <span class="label">Release</span>
+      2026-05-20
+    </div>
+    <div class="meta-item">
+      <span class="label">License</span>
+      Internal
+    </div>
+    <div class="meta-item">
+      <span class="label">Python</span>
+      3.11+
+    </div>
+  </div>
+
+  <div class="tech-stack">
+    <span class="tag tag-cyan">FastAPI</span>
+    <span class="tag tag-amber">FastMCP</span>
+    <span class="tag tag-blue">Redis Queue</span>
+    <span class="tag tag-cyan">Pydantic v2</span>
+    <span class="tag tag-amber">uv</span>
+  </div>
+</body>
+</html>

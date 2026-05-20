@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P05 · Agent Skill Usage</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+
+  .usage-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  .usage-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-card);
+    border-radius: 12px;
+    padding: 28px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .panel-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .icon-direct {
+    background: rgba(45,212,191,0.15);
+    color: var(--accent-cyan);
+  }
+  .icon-combo {
+    background: rgba(245,158,11,0.15);
+    color: var(--accent-amber);
+  }
+
+  .panel-title {
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .cmd-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .cmd-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg-deep);
+    border-radius: 6px;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-primary);
+  }
+  .cmd-marker {
+    color: var(--accent-cyan);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .cmd-marker.amber {
+    color: var(--accent-amber);
+  }
+
+  .install-line {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    padding: 10px 14px;
+    background: var(--bg-deep);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+  .install-line .label {
+    color: var(--text-muted);
+    font-style: italic;
+    font-family: inherit;
+  }
+
+  .cmd-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-left: 28px;
+    margin-top: -2px;
+    line-height: 1.5;
+  }
+
+  .divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 4px 0;
+  }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 01 · Agent Skill</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title"><span class="accent">Agent Skill</span> — Usage Guide</div>
+    <div class="slide-subtitle">安装后如何使用 taskapp-development skill 进行 AI 辅助开发</div>
+
+    <div class="usage-grid">
+
+      <!-- 左侧：直接使用 -->
+      <div class="usage-panel">
+        <div class="panel-header">
+          <div class="panel-icon icon-direct">→</div>
+          <div class="panel-title">直接使用</div>
+        </div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">
+          在 AI 助手中直接输入需求，skill 自动处理框架细节。
+        </div>
+        <div class="cmd-list">
+          <div>
+            <div class="cmd-item">
+              <span class="cmd-marker">01</span>
+              /taskapp-development 初始化当前项目为 taskapp 项目
+            </div>
+            <div class="cmd-desc">AI 分析目录结构 → 添加框架依赖 → 生成脚手架配置</div>
+          </div>
+          <div>
+            <div class="cmd-item">
+              <span class="cmd-marker">02</span>
+              /taskapp-development 在当前路径创建一个新的 taskapp 项目
+            </div>
+            <div class="cmd-desc">AI 创建项目骨架 → uv sync → 配置 .env → 引导启动</div>
+          </div>
+          <div>
+            <div class="cmd-item">
+              <span class="cmd-marker">03</span>
+              /taskapp-development 加一个音频转文字的任务
+            </div>
+            <div class="cmd-desc">AI 创建 Pydantic 模型 → 实现 Task → 注册路由 → 生成测试</div>
+          </div>
+          <div>
+            <div class="cmd-item">
+              <span class="cmd-marker">04</span>
+              /taskapp-development 给刚才的任务写测试
+            </div>
+            <div class="cmd-desc">AI 自动选用 InMemoryTaskExecutor，覆盖正常和异常路径</div>
+          </div>
+          <div>
+            <div class="cmd-item">
+              <span class="cmd-marker">05</span>
+              /taskapp-development 检查接口为什么返回 401
+            </div>
+            <div class="cmd-desc">AI 排查 auth 配置、环境变量、请求头格式</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧：搭配使用 -->
+      <div class="usage-panel">
+        <div class="panel-header">
+          <div class="panel-icon icon-combo">&</div>
+          <div class="panel-title">搭配需求驱动技能</div>
+        </div>
+        <div style="font-size:13px;color:var(--text-secondary);line-height:1.6;">
+          先安装 <span style="color:var(--accent-cyan);font-weight:600;">spec-coding-skill</span>，用需求驱动的方式编排开发流程。
+        </div>
+
+        <div class="install-line">
+          <span class="label"># 安装</span>
+          npx skills add https://github.com/Hunter-Leo/llm-agent-oop-coding-skill
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="cmd-list">
+          <div>
+            <div class="cmd-item">
+              <span class="cmd-marker amber">01</span>
+              /spec-coding-skill 请使用 taskapp-development 技能创建一个视频处理服务
+            </div>
+          </div>
+          <div>
+            <div class="cmd-item">
+              <span class="cmd-marker amber">02</span>
+              /spec-coding-skill 请使用 taskapp-development 技能迁移当前项目到 taskapp 框架
+            </div>
+          </div>
+          <div>
+            <div class="cmd-item">
+              <span class="cmd-marker amber">03</span>
+              /spec-coding-skill 请使用 taskapp-development 技能加一个音频转文字的任务
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:auto;">
+          <span class="tag tag-cyan">/taskapp-development</span>
+          <span class="tag tag-amber">需求驱动</span>
+          <span class="tag tag-blue">全流程辅助</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 01 · Agent Skill Usage</span>
+    <span class="page-num">5 / 21</span>
+  </div>
+</body>
+</html>

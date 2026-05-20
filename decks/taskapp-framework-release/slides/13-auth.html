@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P13 · Pluggable Auth</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 03 · Core Features</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title"><span class="accent">Pluggable</span> Authentication</div>
+    <div class="slide-subtitle">通过 AuthProvider 抽象接口实现可插拔认证，健康检查端点自动绕过</div>
+
+    <div class="two-col">
+      <div class="col">
+        <h3>内置实现：BearerTokenAuth</h3>
+        <div class="code-block"><span class="keyword">from</span> taskapp_core.server.auth <span class="keyword">import</span> BearerTokenAuth
+
+<span class="comment"># 一行开启 Bearer Token 认证</span>
+app = TaskApp(
+    title=<span class="string">"MyApp"</span>,
+    auth=BearerTokenAuth(
+        token=<span class="string">"sk-..."</span>
+    ),
+)
+
+<span class="comment"># 请求需携带头</span>
+<span class="comment"># Authorization: Bearer sk-...</span></div>
+        <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">
+          未认证请求返回 401。GET / 健康检查自动放行。
+        </p>
+      </div>
+      <div class="col">
+        <h3>自定义 AuthProvider</h3>
+        <div class="code-block"><span class="keyword">class</span> <span class="cls">CustomAuth</span>(AuthProvider):
+    <span class="keyword">async def</span> <span class="func">authenticate</span>(
+        self, request: Request
+    ) -> AuthResult:
+        <span class="comment"># 从 header / cookie / query 验证</span>
+        api_key = request.headers.get(
+            <span class="string">"X-API-Key"</span>
+        )
+        <span class="keyword">if</span> is_valid(api_key):
+            <span class="keyword">return</span> AuthResult(
+                authenticated=<span class="keyword">True</span>
+            )
+        <span class="keyword">return</span> AuthResult(
+            authenticated=<span class="keyword">False</span>
+        )
+
+<span class="comment"># 使用自定义认证</span>
+app = TaskApp(auth=CustomAuth())</div>
+        <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">
+          实现 AuthProvider 抽象类即可，open/closed 原则。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 03 · Pluggable Auth</span>
+    <span class="page-num">13 / 21</span>
+  </div>
+</body>
+</html>

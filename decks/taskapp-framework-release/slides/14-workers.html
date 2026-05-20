@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P14 · Worker Scaling</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 03 · Core Features</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title">Worker <span class="accent">Auto-Scaling</span></div>
+    <div class="slide-subtitle">基于内存阈值的 Worker 自动扩缩 + 始终在线的基础 Worker</div>
+
+    <div class="feature-grid feature-grid-2" style="grid-template-columns:1fr 1fr;flex:1;">
+      <div class="feature-card">
+        <h3 style="font-size:15px;">WorkerStrategy 协议</h3>
+        <div class="code-block"><span class="comment"># 两种策略实现</span>
+<span class="keyword">class</span> <span class="cls">ProcessWorkerStrategy</span>:
+    <span class="string">"""子进程 Worker（CPU 密集安全）"""</span>
+    <span class="keyword">def</span> <span class="func">start</span>(self, burst=<span class="keyword">True</span>):
+        ...
+
+<span class="keyword">class</span> <span class="cls">AsyncWorkerStrategy</span>:
+    <span class="string">"""协程 Worker（默认，I/O 密集优化）"""</span>
+    <span class="keyword">def</span> <span class="func">start</span>(self, burst=<span class="keyword">True</span>):
+        ...
+
+<span class="comment"># TASKAPP_WORKER_TYPE 切换</span>
+<span class="comment"># "coroutine" (default) | "process"</span></div>
+      </div>
+      <div class="feature-card">
+        <h3 style="font-size:15px;">Always-On Base Worker</h3>
+        <div class="code-block"><span class="comment"># burst=False → 常驻 Worker</span>
+<span class="comment"># 零延迟任务拾取</span>
+<span class="comment"># 无冷启动等待</span></div>
+        <h3 style="font-size:15px;">配置项</h3>
+        <div style="font-size:12px;color:var(--text-secondary);line-height:1.6;font-family:var(--font-mono);">
+          TASKAPP_WORKER_MIN &nbsp;&nbsp; 1 (默认)<br>
+          TASKAPP_WORKER_MAX &nbsp;&nbsp; 4 (默认)<br>
+          TASKAPP_WORKER_MEMORY_THRESHOLD &nbsp; 80%<br>
+          TASKAPP_WORKER_SCALE_INTERVAL &nbsp; 10s
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 03 · Worker Auto-Scaling</span>
+    <span class="page-num">14 / 21</span>
+  </div>
+</body>
+</html>

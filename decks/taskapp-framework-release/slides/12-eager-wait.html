@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P12 · Eager + Wait-and-Return</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 03 · Core Features</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title"><span class="accent">Eager</span> Execution + <span class="accent-amber">Wait-and-Return</span></div>
+    <div class="slide-subtitle">灵活的执行模式：快速任务跳过队列，慢速任务支持同步等待</div>
+
+    <div class="two-col">
+      <div class="col">
+        <h3>Eager=True · 即时执行</h3>
+        <div class="code-block"><span class="comment"># ping 任务跳过队列，inline 执行</span>
+<span class="decorator">@task</span>(<span class="string">"ping"</span>, timeout=<span class="num">5</span>, <span class="keyword">eager=True</span>)
+<span class="keyword">async def</span> <span class="func">ping</span>(input: PingInput) -> PingOutput:
+    <span class="keyword">return</span> PingOutput(response=<span class="string">"pong"</span>)
+
+<span class="comment"># POST /api/ping → 即时响应</span>
+<span class="comment"># 无需排队，无需 Worker</span></div>
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <span class="tag tag-cyan">零延迟</span>
+          <span class="tag tag-amber">同步返回</span>
+        </div>
+      </div>
+      <div class="col">
+        <h3>Wait_seconds=N · 同步等待</h3>
+        <div class="code-block"><span class="comment"># 提交并等待结果（最长 60 秒）</span>
+POST /api/analysis
+{
+  <span class="string">"data"</span>: { ... },
+  <span class="string">"wait_seconds"</span>: <span class="num">15</span>
+}
+
+<span class="comment"># 任务在 N 秒内完成 ➔ 直接返回结果</span>
+<span class="comment"># 超时 ➔ 返回 job_id，客户端轮询</span></div>
+        <div style="display:flex;gap:8px;margin-top:8px;">
+          <span class="tag tag-blue">灵活</span>
+          <span class="tag tag-cyan">降级轮询</span>
+        </div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.5;margin-top:8px;">
+          两种模式配合使用：快速幂等操作走 eager，耗时任务用 wait-and-return 降低客户端复杂度。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 03 · Eager + Wait-and-Return</span>
+    <span class="page-num">12 / 21</span>
+  </div>
+</body>
+</html>

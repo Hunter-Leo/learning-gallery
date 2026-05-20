@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P19 · BaseTask Class</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 04 · Task Patterns</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title"><span class="accent">BaseTask</span> Class Pattern</div>
+    <div class="slide-subtitle">完整的生命周期钩子 + 进度追踪 + Logger，适合复杂业务任务</div>
+
+    <div class="two-col">
+      <div class="col">
+        <h3>生命周期方法</h3>
+        <div class="code-block"><span class="keyword">class</span> <span class="cls">FileWordCountTask</span>(BaseTask):
+    name = <span class="string">"file_word_count"</span>
+    timeout = <span class="num">60</span>
+
+    <span class="keyword">async def</span> <span class="func">run</span>(self, input):
+        ws = self.workspace
+        text = open(input.file.location).read()
+        result = ws.file(<span class="string">"result.json"</span>)
+        result.write_text(json.dumps({
+            <span class="string">"count"</span>: len(text.split())
+        }))
+        <span class="keyword">return</span> FileWordCountOutput(
+            result_file=FileRef(
+                location=<span class="func">str</span>(result)
+            )
+        )</div>
+      </div>
+      <div class="col">
+        <h3>钩子 + 进度 + Log</h3>
+        <div class="code-block"><span class="comment"># Success 钩子</span>
+<span class="keyword">async def</span> <span class="func">on_success</span>(self, result,
+    elapsed_seconds=<span class="num">0.0</span>):
+    self.logger.info(
+        <span class="string">"Completed in %.2fs"</span>,
+        elapsed_seconds
+    )
+
+<span class="comment"># Failure 钩子</span>
+<span class="keyword">async def</span> <span class="func">on_failure</span>(self, error):
+    self.logger.error(
+        <span class="string">"Failed: %s"</span>, error
+    )
+
+<span class="comment"># Timeout 钩子</span>
+<span class="keyword">async def</span> <span class="func">on_timeout</span>(self):
+    self.logger.warning(
+        <span class="string">"Task timed out"</span>
+    )</div>
+        <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">
+          run() 支持 <code style="color:var(--accent-cyan);font-family:var(--font-mono);">async def</code> 和 <code style="color:var(--accent-cyan);font-family:var(--font-mono);">def</code> 两种风格，框架自动检测。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 04 · BaseTask Class</span>
+    <span class="page-num">19 / 21</span>
+  </div>
+</body>
+</html>

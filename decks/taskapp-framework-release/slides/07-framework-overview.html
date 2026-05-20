@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P07 · What is taskapp-framework</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 02 · Framework Overview</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title">框架<span class="accent">总览</span></div>
+    <div class="slide-subtitle">
+      taskapp-framework 是一个 Python 异步任务框架，将 FastAPI、FastMCP 和 Redis Queue 整合为统一的开发体验。
+      注册一个 Task = 自动获得 REST API + MCP Tool + 队列调度 + 文件管理。
+    </div>
+
+    <div style="flex:1;display:flex;flex-direction:column;gap:10px;">
+      <div class="feature-grid feature-grid-4">
+        <div class="feature-card">
+          <div class="icon cyan">⚡</div>
+          <h3>Hybrid Tasks</h3>
+          <p>@task 装饰器或 BaseTask 类，两种风格任选，灵活适配不同场景。</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon amber">🔌</div>
+          <h3>Auto REST/MCP</h3>
+          <p>注册即用 — 自动生成 REST 端点和 MCP Tool，零配置。</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon blue">📦</div>
+          <h3>FileRef I/O</h3>
+          <p>文件输入输出自动管理：下载 → 处理 → 上传，全生命周期托管。</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon cyan">🔄</div>
+          <h3>Worker Scaling</h3>
+          <p>基于内存阈值的自动扩缩 + 始终在线的基础 Worker。</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon amber">🧪</div>
+          <h3>Zero-Config Dev</h3>
+          <p>TcpFakeServer 在开发模式下模拟 Redis，无需外部依赖。</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon blue">🔐</div>
+          <h3>Pluggable Auth</h3>
+          <p>AuthProvider 接口 + BearerTokenAuth 内置实现，可自定义。</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon cyan">⚙️</div>
+          <h3>Pydantic Config</h3>
+          <p>类型安全的环境变量配置，TASKAPP_* 前缀全量覆盖。</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon amber">🔧</div>
+          <h3>Agent Skill</h3>
+          <p>配套 coding agent skill，AI 辅助脚手架搭建和任务开发。</p>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:12px;align-items:center;">
+        <span class="tag tag-cyan">Python 3.11+</span>
+        <span class="tag tag-amber">FastAPI 0.104+</span>
+        <span class="tag tag-blue">FastMCP 3.0+</span>
+        <span class="tag tag-cyan">RQ 2.7+</span>
+        <span class="tag tag-amber">Pydantic v2</span>
+        <span class="tag tag-blue">uv workspace</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 02 · Framework Overview</span>
+    <span class="page-num">7 / 21</span>
+  </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P15 · TcpFakeServer</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 03 · Core Features</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title"><span class="accent">Zero-Config</span> Development</div>
+    <div class="slide-subtitle">TcpFakeServer — 无需 Redis 即可本地开发的秘密武器</div>
+
+    <div class="two-col">
+      <div class="col">
+        <h3>工作原理</h3>
+        <div class="code-block"><span class="comment"># 不设置 REDIS_URL 时自动启用</span>
+<span class="comment"># TcpFakeServer 监听本地端口</span>
+<span class="comment"># 模拟 Redis 协议的子集：</span>
+<span class="comment">#   · LPUSH / BRPOP / BLPOP</span>
+<span class="comment">#   · GET / SET / DEL / EXISTS</span>
+<span class="comment">#   · SMEMBERS / SADD / SREM</span>
+<span class="comment">#   · ZADD / ZREMRANGEBYSCORE</span>
+<span class="comment">#   · EXPIRE</span>
+
+<span class="comment"># 完全在内存中运行</span>
+<span class="comment"># 进程重启数据即清除</span></div>
+      </div>
+      <div class="col">
+        <h3>开发 vs 生产</h3>
+        <div class="feature-list">
+          <li><strong>本地开发</strong> — 不设 REDIS_URL，零依赖开箱即用</li>
+          <li><strong>CI / 测试</strong> — InMemoryTaskExecutor + fakeredis，无需基础设施</li>
+          <li><strong>生产</strong> — 设置 TASKAPP_REDIS_URL，自动切换真实 Redis</li>
+        </div>
+        <div class="code-block" style="margin-top:12px;"><span class="comment"># 生产 .env 一行启用 Redis</span>
+TASKAPP_REDIS_URL=redis:<span class="comment">//localhost:6379/0</span></div>
+        <p style="font-size:13px;color:var(--text-secondary);margin-top:8px;">
+          开发与生产无缝切换，同一套代码无需任何改动。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 03 · TcpFakeServer</span>
+    <span class="page-num">15 / 21</span>
+  </div>
+</body>
+</html>

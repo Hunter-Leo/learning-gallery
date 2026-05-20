@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>P18 · @task Decorator</title>
+<link href="../shared/tokens.css" rel="stylesheet">
+<style>
+  body { background: var(--bg-deep); }
+</style>
+</head>
+<body>
+  <div class="masthead">
+    <div class="masthead-left"><span class="dot"></span> taskapp-framework</div>
+    <div class="masthead-right">Section 04 · Task Patterns</div>
+  </div>
+
+  <div class="slide-body">
+    <div class="slide-title"><span class="accent">@task</span> Decorator Pattern</div>
+    <div class="slide-subtitle">函数式任务定义 — 自包含 Model + 实现，一目了然</div>
+
+    <div class="two-col">
+      <div class="col">
+        <h3>Input / Output 模型</h3>
+        <div class="code-block"><span class="keyword">class</span> <span class="cls">EchoInput</span>(BaseModel):
+    message: <span class="type">str</span> = Field(
+        description=<span class="string">"Message to echo"</span>
+    )
+
+<span class="keyword">class</span> <span class="cls">EchoOutput</span>(TaskResultBase):
+    JobCode: <span class="type">str</span> = <span class="string">"SUCCESS"</span>
+    echo: <span class="type">str</span></div>
+
+        <h3 style="margin-top:16px;">Eager 模式（跳过队列）</h3>
+        <div class="code-block"><span class="decorator">@task</span>(<span class="string">"ping"</span>, eager=<span class="keyword">True</span>)
+<span class="keyword">async def</span> <span class="func">ping</span>(input: PingInput):
+    <span class="keyword">return</span> PingOutput(
+        response=<span class="string">"pong"</span>
+    )
+
+<span class="comment"># 适合：健康检查、缓存刷新</span></div>
+
+        <div style="display:flex;gap:8px;">
+          <span class="tag tag-cyan">简洁</span>
+          <span class="tag tag-amber">自包含</span>
+          <span class="tag tag-blue">可测试</span>
+        </div>
+      </div>
+      <div class="col">
+        <h3>Progress 注入</h3>
+        <div class="code-block"><span class="comment"># 声明 progress 参数即可获取</span>
+<span class="decorator">@task</span>(<span class="string">"process-data"</span>, timeout=<span class="num">60</span>)
+<span class="keyword">async def</span> <span class="func">process</span>(
+    input: DataRequest,
+    <span class="var">progress</span>: TaskProgress,
+) -> DataResult:
+    <span class="var">progress</span>.update(
+        <span class="string">"processing"</span>, <span class="num">50</span>,
+        <span class="string">"Processing records..."</span>
+    )
+    <span class="keyword">return</span> DataResult(data=<span class="func">await</span> transform(input))
+
+<span class="comment"># 配合 app.register_task() 注册</span>
+app = TaskApp()
+app.register_task(process)</div>
+
+        <h3 style="margin-top:16px;">注册方式</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <span class="tag tag-cyan">app.register_task(task)</span>
+          <span class="tag tag-amber">app.task() 装饰器</span>
+          <span class="tag tag-blue">独立 @task()</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="section-name">Section 04 · @task Decorator</span>
+    <span class="page-num">18 / 21</span>
+  </div>
+</body>
+</html>
