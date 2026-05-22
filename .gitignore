@@ -33,3 +33,6 @@ yarn-error.log*
 # 设计文档
 docs/superpowers/
 .vercel
+
+# 缓存目录
+.cache/

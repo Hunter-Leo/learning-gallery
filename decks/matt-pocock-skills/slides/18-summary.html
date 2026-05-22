@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>18 · Summary</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  body { background: var(--canvas); }
+  .summary {
+    width: 1920px; height: 1080px;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center; padding: 100px 160px;
+    position: relative;
+  }
+  .summary::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 100%, var(--accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .summary h1 {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 72px;
+    color: var(--heading);
+    line-height: 1.1;
+    margin-bottom: var(--space-lg);
+  }
+  .summary h1 .accent { color: var(--accent); }
+  .summary .tag-line {
+    font-size: var(--text-lg);
+    color: var(--muted);
+    margin-bottom: var(--space-xl);
+  }
+  .summary .principles {
+    display: flex;
+    gap: var(--space-2xl);
+    margin-bottom: var(--space-2xl);
+  }
+  .summary .principles span {
+    font-size: var(--text-sm);
+    color: var(--body);
+  }
+  .summary .principles strong {
+    display: block;
+    color: var(--accent);
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .summary .cta {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--on-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: 600;
+    padding: 14px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+  }
+  .summary .cta code {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 18px;
+    background: rgba(0,0,0,0.15);
+    padding: 2px 10px;
+    border-radius: 4px;
+  }
+  .summary .footer-meta {
+    margin-top: var(--space-2xl);
+    font-size: var(--text-sm);
+    color: var(--muted-soft);
+  }
+</style>
+</head>
+<body>
+<div class="summary">
+  <h1>Skills for <span class="accent">Real Engineers</span></h1>
+  <div class="tag-line">3 大技能类别 · 28 个可组合技能 · 80K+ 社区 Stars</div>
+  <div class="principles">
+    <span><strong>Small</strong>单一职责</span>
+    <span><strong>Composable</strong>可组装</span>
+    <span><strong>Adaptable</strong>可定制</span>
+    <span><strong>Model‑Agnostic</strong>模型无关</span>
+  </div>
+  <div style="font-size:20px;color:var(--body);margin-bottom:var(--space-xl);max-width:700px;line-height:1.6;font-style:italic;font-family:var(--font-english);">
+    "The rate of feedback is your speed limit"
+  </div>
+  <div class="cta">
+    npx skills@latest add <code>mattpocock/skills</code>
+  </div>
+  <div class="footer-meta">github.com/mattpocock/skills · 18 / 18</div>
+</div>
+</body>
+</html>

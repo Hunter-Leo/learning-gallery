@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>11 · Architecture + Prototype</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .term-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .term-item { background:var(--surface); border-radius:var(--radius-sm); padding:10px 14px; border:1px solid var(--hairline); }
+  .term-item .term { font-family:var(--font-english); font-weight:700; font-size:15px; color:var(--accent); }
+  .term-item .def { font-size:13px; color:var(--muted); margin-top:2px; }
+  .rule-list { background:var(--surface); border-radius:var(--radius-sm); padding:12px 16px; border:1px solid var(--hairline); font-size:14px; line-height:1.8; color:var(--body); }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="kicker">Section 03 · Implementation</div>
+  <div class="page-title">Architecture + Prototype <span class="light">| 深化与验证</span></div>
+  <div class="subtitle-en">Deep modules &amp; throwaway prototypes</div>
+  <div class="content">
+    <div class="two-col" style="gap:24px;">
+      <div class="col">
+        <div class="col-title">架构深化核心概念</div>
+        <div class="term-grid">
+          <div class="term-item"><div class="term">Module</div><div class="def">有接口和实现的任何东西</div></div>
+          <div class="term-item"><div class="term">Depth</div><div class="def">小接口包大量行为（深模块）</div></div>
+          <div class="term-item"><div class="term">Seam</div><div class="def">不修改原处即改变行为的位置</div></div>
+          <div class="term-item"><div class="term">Leverage</div><div class="def">调用者从深模块获得的价值</div></div>
+        </div>
+        <div style="margin-top:12px;background:var(--accent-light);border-radius:var(--radius-sm);padding:10px 14px;font-size:14px;color:var(--accent);">
+          <strong>删除测试：</strong>删掉模块 → 复杂度消失（透传）还是分散到 N 处（在干活）？
+        </div>
+        <div style="margin-top:8px;font-size:14px;color:var(--muted);line-height:1.6;">
+          <strong style="color:var(--body);">流程：</strong>Explore → HTML 报告（Mermaid + Before/After）→ Grilling 循环 → 实时更新 CONTEXT.md + ADR
+        </div>
+      </div>
+      <div class="col">
+        <div class="col-title">Prototype<span class="badge">可丢弃</span></div>
+        <div style="font-size:15px;color:var(--body);margin-bottom:8px;">原型 = 回答一个问题的可丢弃代码</div>
+        <div class="rule-list">
+          <strong style="color:var(--accent);">两条分支：</strong><br>
+          <span style="color:var(--heading);">逻辑验证</span> → 交互式终端，推状态机边界<br>
+          <span style="color:var(--heading);">UI 验证</span> → 多变体同路由，URL 参数切换<br><br>
+          <strong style="color:var(--accent);">六条铁律：</strong><br>
+          ① 标记可丢弃  ② 一键可跑  ③ 无持久化<br>
+          ④ 无测试     ⑤ 显式状态  ⑥ 答完即删<br><br>
+          只保留答案：commit / ADR / Issue / NOTES.md
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="section-name">Section 03 · Implementation</span>
+    <span>11 / 18</span>
+  </div>
+</div>
+</body>
+</html>

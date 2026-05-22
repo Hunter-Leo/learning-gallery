@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>17 · Criticism &amp; Ecosystem</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .crit-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; flex:1; min-height:0; }
+  .crit-list { display:flex; flex-direction:column; gap:8px; }
+  .crit-item { background:var(--surface); border-radius:var(--radius-sm); padding:10px 14px; border:1px solid var(--hairline); font-size:14px; color:var(--body); line-height:1.5; }
+  .crit-item.positive { border-left:3px solid #5db872; }
+  .crit-item.mixed { border-left:3px solid #e8a55a; }
+  .crit-item .crit-type { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:0.04em; }
+  .crit-item.positive .crit-type { color:#5db872; }
+  .crit-item.mixed .crit-type { color:#e8a55a; }
+  .ecosystem-table { background:var(--surface); border-radius:var(--radius-md); padding:12px 16px; border:1px solid var(--hairline); }
+  .note-box { background:var(--accent-light); border-radius:var(--radius-sm); padding:10px 14px; font-size:13px; color:var(--accent); margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="kicker">Section 05 · Community</div>
+  <div class="page-title">评价与生态 <span class="light">| Review &amp; Landscape</span></div>
+  <div class="subtitle-en">Honest feedback and how it fits in the ecosystem</div>
+  <div class="content">
+    <div class="crit-grid">
+      <div class="col">
+        <div class="col-title" style="font-size:18px;">社区反馈</div>
+        <div class="crit-list">
+          <div class="crit-item positive">
+            <div class="crit-type">✓ 正面</div>
+            格式简洁（纯 Markdown），一学即用。读 SKILL.md 本身就有工程方法论价值。
+          </div>
+          <div class="crit-item positive">
+            <div class="crit-type">✓ 正面</div>
+            验证了"反馈回路 = 速度上限"的理念——在 AI 时代比以往更重要。
+          </div>
+          <div class="crit-item mixed">
+            <div class="crit-type">△ 混合</div>
+            /tdd 对隔离函数效果好，但复杂 UI 组件"测试太难提前指定"。
+          </div>
+          <div class="crit-item mixed">
+            <div class="crit-type">△ 混合</div>
+            GitHub-centric，to-issues / to-prd 绑定 GitHub Issues，Jira/Linear 用户需适配。
+          </div>
+          <div class="crit-item mixed">
+            <div class="crit-type">△ 混合</div>
+            Skills 本身也会熵增——需要版本管理和维护，否则像代码一样腐烂。
+          </div>
+          <div class="crit-item mixed">
+            <div class="crit-type">△ 混合</div>
+            需要代码库有清晰模块边界才能发挥。快速原型场景下流程感太重。
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="col-title" style="font-size:18px;">生态位分析</div>
+        <div class="ecosystem-table">
+          <table style="font-size:13px;">
+            <tr><th>项目</th><th>定位</th><th>优势</th></tr>
+            <tr><td><strong style="color:var(--accent);">mattpocock/skills</strong></td><td>Claude Code 格式之王</td><td>先发优势，Shell 简单</td></tr>
+            <tr><td>awesome-codex-skills</td><td>Codex 索引</td><td>组织支持，分类清晰</td></tr>
+            <tr><td>pi-mono</td><td>多模型通用</td><td>无模型锁定</td></tr>
+          </table>
+        </div>
+        <div class="note-box" style="margin-top:12px;">
+          <strong>风险：</strong>如 Anthropic 推出官方 skills 注册中心，mattpocock/skills 战略价值可能稀释
+        </div>
+        <div style="background:var(--surface);border-radius:var(--radius-sm);padding:12px 14px;border:1px solid var(--hairline);margin-top:8px;font-size:14px;color:var(--body);line-height:1.6;">
+          <strong style="color:var(--heading);">但无论生态如何变化</strong>，其中编码的工程方法论——需求对齐、测试驱动、系统调试、架构深化——是永恒的。这才是这个仓库真正的价值。
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="section-name">Section 05 · Community</span>
+    <span>17 / 18</span>
+  </div>
+</div>
+</body>
+</html>

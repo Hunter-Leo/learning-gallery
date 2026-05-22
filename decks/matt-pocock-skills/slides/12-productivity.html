@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>12 · Productivity</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .prod-cards { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; flex:1; min-height:0; }
+  .prod-card { background:var(--surface); border-radius:var(--radius-md); padding:20px 24px; border:1px solid var(--hairline); display:flex; flex-direction:column; }
+  .prod-card .pc-icon { font-family:var(--font-english); font-size:28px; font-weight:700; color:var(--accent); line-height:1; margin-bottom:4px; }
+  .prod-card .pc-title { font-family:var(--font-display); font-weight:700; font-size:22px; color:var(--heading); margin-bottom:8px; }
+  .prod-card .pc-desc { font-size:14px; color:var(--muted); line-height:1.6; flex:1; }
+  .prod-card .pc-example { background:var(--canvas-soft); border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; color:var(--body); margin-top:8px; border:1px solid var(--hairline); }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="kicker">Section 04 · Productivity</div>
+  <div class="page-title">生产力工具 <span class="light">| Productivity Tools</span></div>
+  <div class="subtitle-en">贯穿全工作流的高效通信与交接</div>
+  <div class="content">
+    <div class="prod-cards">
+      <div class="prod-card">
+        <div class="pc-icon">01</div>
+        <div class="pc-title">Caveman</div>
+        <div class="pc-desc">极简通信模式，省 ~75% token。去冠词/废话/客套。模式：[事物] [动作] [原因]。例外：安全警告、不可逆操作。</div>
+        <div class="pc-example">"Sure, I'd be happy to help!"<br>→ "Bug in auth middleware. Fix:"</div>
+      </div>
+      <div class="prod-card">
+        <div class="pc-icon">02</div>
+        <div class="pc-title">Handoff</div>
+        <div class="pc-desc">压缩当前对话为交接文档，保存到系统临时目录。含"建议技能"章节，引用已有 artifact 不重复，隐去敏感信息。</div>
+        <div class="pc-example">建议技能：grill-with-docs, tdd, diagnose<br>引用：PRD-42, ADR-0003, git diff</div>
+      </div>
+      <div class="prod-card">
+        <div class="pc-icon">03</div>
+        <div class="pc-title">Zoom-Out</div>
+        <div class="pc-desc">一句话技能：走上一层抽象，用领域术语输出完整模块 + 调用者地图。适合接手不熟悉代码区域。</div>
+        <div class="pc-example">"I don't know this area. Go up a layer. Give me a map of all modules and callers."</div>
+      </div>
+    </div>
+    <div class="tag-row" style="margin-top:16px;">
+      <span class="tag-outline">triage · 五状态 Issue 状态机</span>
+      <span class="tag-outline">write-a-skill · 创建自定义 skill</span>
+      <span class="tag-outline">zoom-out · 高层视角</span>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="section-name">Section 04 · Productivity</span>
+    <span>12 / 18</span>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>07 · To-PRD + To-Issues</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .vs-diagram { display:flex; gap:32px; margin-top:8px; }
+  .vs-diagram .side { flex:1; background:var(--surface); border-radius:var(--radius-md); padding:16px 20px; border:1px solid var(--hairline); }
+  .vs-diagram .side.wrong { border-left:3px solid #c64545; }
+  .vs-diagram .side.right { border-left:3px solid #5db872; }
+  .vs-diagram .side .vs-label { font-size:11px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; margin-bottom:8px; }
+  .vs-diagram .side.wrong .vs-label { color:#c64545; }
+  .vs-diagram .side.right .vs-label { color:#5db872; }
+  .vs-diagram .side code { display:block; font-size:13px; line-height:1.7; color:var(--body); }
+  .vs-diagram .side .ok { color:#5db872; }
+  .vs-diagram .side .no { color:#c64545; }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="kicker">Section 02 · Alignment</div>
+  <div class="page-title">To-PRD + To-Issues <span class="light">| 规划与分解</span></div>
+  <div class="subtitle-en">From conversation to structured plan</div>
+  <div class="content">
+    <div class="two-col" style="gap:24px;">
+      <div class="col">
+        <div class="col-title">To-PRD<span class="badge">不面试</span></div>
+        <div style="font-size:15px;color:var(--muted);margin-bottom:8px;">综合已有讨论，合成 PRD 文档</div>
+        <div style="background:var(--surface);border-radius:var(--radius-sm);padding:12px 16px;border:1px solid var(--hairline);font-size:14px;line-height:1.7;">
+          <span style="color:var(--accent);font-weight:600;">PRD 结构：</span><br>
+          Problem Statement → Solution → User Stories →<br>
+          Implementation Decisions → Testing → Out of Scope
+        </div>
+        <div style="font-size:14px;color:var(--muted);margin-top:8px;">不含具体文件路径（会过时）</div>
+        <div style="margin-top:16px;">
+          <div class="col-title" style="font-size:20px;">Triage</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+            <div style="background:var(--surface);padding:8px 12px;border-radius:var(--radius-sm);border:1px solid var(--hairline);font-size:12px;"><span style="color:var(--accent);">●</span> needs-triage</div>
+            <div style="background:var(--surface);padding:8px 12px;border-radius:var(--radius-sm);border:1px solid var(--hairline);font-size:12px;"><span style="color:#e8a55a;">●</span> needs-info</div>
+            <div style="background:var(--surface);padding:8px 12px;border-radius:var(--radius-sm);border:1px solid var(--hairline);font-size:12px;"><span style="color:#5db872;">●</span> ready-for-agent</div>
+            <div style="background:var(--surface);padding:8px 12px;border-radius:var(--radius-sm);border:1px solid var(--hairline);font-size:12px;"><span style="color:#6a9bcc;">●</span> ready-for-human</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="col-title">To-Issues<span class="badge">垂直切片</span></div>
+        <div class="vs-diagram" style="flex-direction:column;gap:8px;">
+          <div class="side wrong">
+            <div class="vs-label"><span class="no">✗</span> 水平切片（错误）</div>
+            <code>Issue 1: schema → Issue 2: API → Issue 3: UI</code>
+          </div>
+          <div class="side right">
+            <div class="vs-label"><span class="ok">✓</span> 垂直切片（正确）</div>
+            <code>Issue 1: 用户配置读写 → 贯穿 schema/API/UI/test</code>
+            <code>Issue 2: 配置编辑页 → 全栈通</code>
+          </div>
+        </div>
+        <div style="font-size:14px;color:var(--muted);margin-top:8px;line-height:1.6;">
+          每切片贯穿所有层，完成即可 demo。<br>
+          分 HITL（需人参与）和 AFK（自动完成）。
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="section-name">Section 02 · Alignment</span>
+    <span>07 / 18</span>
+  </div>
+</div>
+</body>
+</html>

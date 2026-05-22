@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>16 · Adoption Patterns</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .adopt-grid { display:grid; grid-template-columns:1.3fr 1fr; gap:20px; flex:1; min-height:0; }
+  .adopt-table { background:var(--surface); border-radius:var(--radius-md); padding:12px 16px; border:1px solid var(--hairline); }
+  .adopt-table table td:first-child { font-weight:600; color:var(--heading); white-space:nowrap; }
+  .praise-list { display:flex; flex-direction:column; gap:8px; }
+  .praise-item { background:var(--surface); border-radius:var(--radius-sm); padding:10px 14px; border:1px solid var(--hairline); font-size:14px; color:var(--body); line-height:1.5; }
+  .praise-item .src { font-size:11px; color:var(--muted-soft); }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="kicker">Section 05 · Community</div>
+  <div class="page-title">社区采纳模式 <span class="light">| Adoption</span></div>
+  <div class="subtitle-en">What the community recommends and how they use it</div>
+  <div class="content">
+    <div class="adopt-grid">
+      <div class="col" style="gap:12px;">
+        <div class="col-title" style="font-size:18px;">渐进采纳路径</div>
+        <div class="adopt-table">
+          <table style="font-size:14px;">
+            <tr><th>阶段</th><th>安装</th><th>目标</th></tr>
+            <tr><td>Week 1</td><td>grill-me + git-guardrails</td><td>习惯需求对齐</td></tr>
+            <tr><td>Week 2</td><td>+ tdd（新功能）</td><td>测试优先习惯</td></tr>
+            <tr><td>Week 3</td><td>+ to-prd + to-issues + diagnose</td><td>完整工作流</td></tr>
+            <tr><td>Week 4</td><td>+ improve-architecture</td><td>每周架构审查</td></tr>
+            <tr><td>持续</td><td>write-a-skill 自建</td><td>团队定制化</td></tr>
+          </table>
+        </div>
+        <div style="margin-top:8px;">
+          <div class="col-title" style="font-size:18px;">社区三件套</div>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <div style="background:var(--surface);padding:8px 14px;border-radius:999px;border:1px solid var(--hairline);font-size:13px;"><span style="color:var(--accent);">1</span> git-guardrails</div>
+            <div style="background:var(--surface);padding:8px 14px;border-radius:999px;border:1px solid var(--hairline);font-size:13px;"><span style="color:var(--accent);">2</span> grill-me</div>
+            <div style="background:var(--surface);padding:8px 14px;border-radius:999px;border:1px solid var(--hairline);font-size:13px;"><span style="color:var(--accent);">3</span> tdd</div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="col-title" style="font-size:18px;">社区评价亮点</div>
+        <div class="praise-list">
+          <div class="praise-item">"grill-with-docs 改变了我们每次对话的方式——明显更好"</div>
+          <div class="praise-item">"caveman 被严重低估——经验用户省 75% token"</div>
+          <div class="praise-item">"diagnose 在错误信息误导时最有价值"</div>
+          <div class="praise-item">"不是工具集合，是 AI 时代的软件工程操作系统"</div>
+          <div class="praise-item">"工程智慧密度极高"<br><span class="src">DDD, TDD, Pragmatic Programmer, Ousterhout</span></div>
+        </div>
+        <div style="margin-top:8px;background:var(--accent-light);border-radius:var(--radius-sm);padding:8px 12px;font-size:13px;color:var(--accent);">
+          已有简体中文本地化翻译：vinvcn/mattpocock-skills-zh-CN
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="section-name">Section 05 · Community</span>
+    <span>16 / 18</span>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>03 · 四大失败模式</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .card-grid { gap: 16px; }
+  .card { padding: 20px 24px; }
+  .card .card-num { font-size: 28px; margin-bottom: 2px; }
+  .card h3 { font-size: 20px; margin-bottom: 4px; }
+  .card p { font-size: 14px; }
+  .card .fix { margin-top: 8px; }
+
+  .inspiration-row {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-xl);
+    margin-top: var(--space-md);
+    padding-top: var(--space-md);
+    border-top: 1px solid var(--hairline);
+  }
+  .inspiration-row .item {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .inspiration-row .item strong {
+    color: var(--body);
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="kicker">Section 01 · Philosophy</div>
+  <div class="page-title">四大失败模式 <span class="light">| Four Failure Modes</span></div>
+  <div class="subtitle-en">Agent 协作中最常见的四个问题，每个对应一套解决方案</div>
+  <div class="content">
+    <div class="card-grid card-grid-4">
+      <div class="card">
+        <div class="card-num">01</div>
+        <h3>Agent 没做对事</h3>
+        <p>理解偏差，构建与意图不符</p>
+        <div class="fix"><code>/grill-me</code> · 需求面试</div>
+      </div>
+      <div class="card">
+        <div class="card-num">02</div>
+        <h3>Agent 太啰嗦</h3>
+        <p>20 个词说 1 个词的话，token 膨胀</p>
+        <div class="fix"><code>CONTEXT.md</code> · 领域语言</div>
+      </div>
+      <div class="card">
+        <div class="card-num">03</div>
+        <h3>代码不工作</h3>
+        <p>缺乏反馈回路，飞盲飞</p>
+        <div class="fix"><code>/tdd</code> + <code>/diagnose</code></div>
+      </div>
+      <div class="card">
+        <div class="card-num">04</div>
+        <h3>代码成泥球</h3>
+        <p>Agent 加速软件熵</p>
+        <div class="fix"><code>/improve-codebase-architecture</code></div>
+      </div>
+    </div>
+    <div class="inspiration-row">
+      <div class="item"><strong>Pragmatic Programmer</strong>反馈回路</div>
+      <div class="item"><strong>DDD · Eric Evans</strong>共享语言</div>
+      <div class="item"><strong>XP · Kent Beck</strong>每日优化</div>
+      <div class="item"><strong>Ousterhout</strong>深模块</div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="section-name">Section 01 · Philosophy</span>
+    <span>03 / 18</span>
+  </div>
+</div>
+</body>
+</html>

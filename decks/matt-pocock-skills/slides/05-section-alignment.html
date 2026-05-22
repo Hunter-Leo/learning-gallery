@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>05 · Alignment</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .flow-row { display:flex; align-items:center; justify-content:center; gap:12px; margin-top:32px; font-family:var(--font-body); }
+  .flow-row .step { background:var(--surface); border:1px solid var(--hairline); border-radius:var(--radius-sm); padding:8px 18px; font-size:15px; color:var(--body); }
+  .flow-row .step.accent { background:var(--accent-light); border-color:var(--accent); color:var(--accent); font-weight:600; }
+  .flow-row .arr { color:var(--muted-soft); font-size:18px; }
+</style>
+</head>
+<body>
+<div class="section-divider">
+  <div class="section-num">Section 02</div>
+  <h1>Alignment <span class="highlight">&amp;</span> Planning</h1>
+  <p>Idea → Interview → CONTEXT → ADR → PRD → Issues</p>
+  <div class="flow-row">
+    <span class="step accent">grill-with-docs</span>
+    <span class="arr">→</span>
+    <span class="step">CONTEXT.md</span>
+    <span class="arr">→</span>
+    <span class="step">ADR</span>
+    <span class="arr">→</span>
+    <span class="step">PRD</span>
+    <span class="arr">→</span>
+    <span class="step">Issues</span>
+  </div>
+</div>
+</body>
+</html>

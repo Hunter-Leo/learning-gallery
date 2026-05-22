@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>10 · Diagnose</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .phase-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px; }
+  .phase-card { background:var(--surface); border-radius:var(--radius-sm); padding:12px 14px; border:1px solid var(--hairline); }
+  .phase-card .phase-num { font-family:var(--font-english); font-size:20px; font-weight:700; color:var(--accent); line-height:1; }
+  .phase-card .phase-title { font-family:var(--font-display); font-weight:700; font-size:16px; color:var(--heading); margin:2px 0 4px; }
+  .phase-card p { font-size:13px; color:var(--muted); line-height:1.5; }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="kicker">Section 03 · Implementation</div>
+  <div class="page-title">Diagnose <span class="light">| 六阶段调试</span></div>
+  <div class="subtitle-en">"This is the skill. Everything else is mechanical."</div>
+  <div class="content">
+    <div class="two-col" style="gap:24px;">
+      <div class="col">
+        <div class="col-title">六阶段循环</div>
+        <div class="phase-grid">
+          <div class="phase-card">
+            <div class="phase-num">1</div>
+            <div class="phase-title">构建反馈回路</div>
+            <p>快速确定性 pass/fail 信号。最重要，花不成比例时间。</p>
+          </div>
+          <div class="phase-card">
+            <div class="phase-num">2</div>
+            <div class="phase-title">复现</div>
+            <p>确认用户描述的 Bug，多次运行确认确定性。</p>
+          </div>
+          <div class="phase-card">
+            <div class="phase-num">3</div>
+            <div class="phase-title">假设</div>
+            <p>生成 3-5 个可证伪假设，先展示给用户排序。</p>
+          </div>
+          <div class="phase-card">
+            <div class="phase-num">4</div>
+            <div class="phase-title">探测</div>
+            <p>一次变一个变量，日志打 [DEBUG-xxxx] 标记。</p>
+          </div>
+          <div class="phase-card">
+            <div class="phase-num">5</div>
+            <div class="phase-title">修复+回归测试</div>
+            <p>先写回归测试再修复。需正确接缝。</p>
+          </div>
+          <div class="phase-card">
+            <div class="phase-num">6</div>
+            <div class="phase-title">复盘</div>
+            <p>清标记 + 记根因。架构问题推给 improve-architecture。</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="col-title">反馈回路构建方法 <span class="badge">优先级排列</span></div>
+        <div style="background:var(--surface);border-radius:var(--radius-sm);padding:12px 16px;border:1px solid var(--hairline);font-size:13px;line-height:1.9;color:var(--body);flex:1;">
+          1. 失败测试<br>
+          2. Curl 脚本<br>
+          3. CLI 调用+diff<br>
+          4. Playwright 浏览器<br>
+          5. 回放流量<br>
+          6. 临时测试台<br>
+          7. 模糊循环<br>
+          8. git bisect<br>
+          9. 差分对比<br>
+          10. HITL 脚本（最后手段）
+        </div>
+        <div style="margin-top:8px;background:var(--accent-light);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;color:var(--accent);">
+          <strong>关键原则：</strong>没回路不推进到 Phase 2。2 秒确定性回路是调试超能力。
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="section-name">Section 03 · Implementation</span>
+    <span>10 / 18</span>
+  </div>
+</div>
+</body>
+</html>

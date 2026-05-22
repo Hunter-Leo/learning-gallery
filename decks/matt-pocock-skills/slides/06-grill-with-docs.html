@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>06 · Grill-with-Docs</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="kicker">Section 02 · Alignment</div>
+  <div class="page-title">Grill-with-Docs <span class="light">| 构建共享语言</span></div>
+  <div class="subtitle-en">Stress‑test your plan against the existing domain model</div>
+  <div class="content">
+    <div class="two-col">
+      <div class="col">
+        <div class="col-title">工作流程</div>
+        <ul class="timeline">
+          <li><div class="tl-step">Step 1</div><div class="tl-title">需求面试</div><div class="tl-desc">逐分支遍历设计树，每问附带推荐答案</div></li>
+          <li><div class="tl-step">Step 2</div><div class="tl-title">术语即时审查</div><div class="tl-desc">检测冲突："你说 X，但代码做 Y——哪个对？"</div></li>
+          <li><div class="tl-step">Step 3</div><div class="tl-title">模糊语言精炼</div><div class="tl-desc">"account 指 Customer 还是 User？不同东西。"</div></li>
+          <li><div class="tl-step">Step 4</div><div class="tl-title">场景测试边界</div><div class="tl-desc">用具体场景验证领域关系</div></li>
+          <li><div class="tl-step">Step 5</div><div class="tl-title">实时更新 CONTEXT.md</div><div class="tl-desc">术语解决即写入，不批量</div></li>
+          <li><div class="tl-step">Step 6</div><div class="tl-title">适时提议 ADR</div><div class="tl-desc">满足三条件（难逆转+惊讶+权衡）才创建</div></li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="col-title">CONTEXT.md 格式</div>
+        <div class="code-block" style="flex:1;">## Language
+
+**Order**:
+A request for goods/services from a customer.
+_Avoid_: Purchase, transaction
+
+**Customer**:
+A person or organization that places orders.
+_Avoid_: Client, buyer, account</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+          <span class="tag">有主见 · 多词同义选最佳</span>
+          <span class="tag">只放领域特有术语</span>
+          <span class="tag">单/多上下文</span>
+        </div>
+        <div class="col-title" style="margin-top:16px;">ADR 三条件</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+          <div style="background:var(--surface);border-radius:var(--radius-sm);padding:12px;text-align:center;border:1px solid var(--hairline);">
+            <div style="font-size:24px;color:var(--accent);font-weight:700;">1</div>
+            <div style="font-size:13px;color:var(--muted);">难逆转</div>
+          </div>
+          <div style="background:var(--surface);border-radius:var(--radius-sm);padding:12px;text-align:center;border:1px solid var(--hairline);">
+            <div style="font-size:24px;color:var(--accent);font-weight:700;">2</div>
+            <div style="font-size:13px;color:var(--muted);">惊讶</div>
+          </div>
+          <div style="background:var(--surface);border-radius:var(--radius-sm);padding:12px;text-align:center;border:1px solid var(--hairline);">
+            <div style="font-size:24px;color:var(--accent);font-weight:700;">3</div>
+            <div style="font-size:13px;color:var(--muted);">真实权衡</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="section-name">Section 02 · Alignment</span>
+    <span>06 / 18</span>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>09 · TDD</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .vs-code { background:var(--surface); border-radius:var(--radius-sm); padding:12px 16px; border:1px solid var(--hairline); font-family:'SF Mono','Fira Code',monospace; font-size:13px; line-height:1.7; }
+  .vs-code .bad { color:#c64545; }
+  .vs-code .good { color:#5db872; }
+  .checklist { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+  .checklist .item { display:flex; align-items:center; gap:8px; font-size:14px; color:var(--body); background:var(--surface); border-radius:var(--radius-sm); padding:6px 12px; border:1px solid var(--hairline); }
+  .checklist .item::before { content:'□'; color:var(--muted-soft); font-family:var(--font-body); }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="kicker">Section 03 · Implementation</div>
+  <div class="page-title">TDD <span class="light">| 垂直切片驱动</span></div>
+  <div class="subtitle-en">Tests should verify behavior through public interfaces</div>
+  <div class="content">
+    <div class="two-col" style="gap:24px;">
+      <div class="col">
+        <div class="col-title">哲学</div>
+        <div style="font-size:15px;color:var(--body);line-height:1.6;margin-bottom:12px;">
+          <strong style="color:var(--heading);">好测试</strong> = 集成风格，公共接口，描述 WHAT，重构后存活<br>
+          <strong style="color:var(--heading);">坏测试</strong> = mock 内部协作，测私有方法，绕过接口
+        </div>
+        <div class="col-title" style="margin-top:8px;">四步循环</div>
+        <ul class="timeline" style="flex:1;">
+          <li><div class="tl-step">1. Planning</div><div class="tl-desc">确认接口 + 行为优先级 + 深模块机会（用户批准）</div></li>
+          <li><div class="tl-step">2. Tracer Bullet</div><div class="tl-desc">一个测试 → 最小实现 → 通过，证明端到端路径</div></li>
+          <li><div class="tl-step">3. Incremental Loop</div><div class="tl-desc">一次一个，不超前实现未来测试</div></li>
+          <li><div class="tl-step">4. Refactor</div><div class="tl-desc">全绿后提取/深化/SOLID，每步跑测试</div></li>
+        </ul>
+      </div>
+      <div class="col">
+        <div class="col-title">水平 vs 垂直<span class="badge">核心区别</span></div>
+        <div class="vs-code" style="margin-bottom:12px;">
+          <span class="bad">✗ 水平切片（测试想象的行为）：</span><br>
+          RED: test1, test2, test3 ← 全写再实现<br>
+          GREEN: impl1, impl2, impl3
+        </div>
+        <div class="vs-code" style="margin-bottom:16px;">
+          <span class="good">✓ 垂直切片（回应学到的东西）：</span><br>
+          RED→GREEN: test1→impl1<br>
+          RED→GREEN: test2→impl2
+        </div>
+        <div class="col-title">检查清单</div>
+        <div class="checklist">
+          <div class="item">测试描述行为非实现</div>
+          <div class="item">仅用公共接口</div>
+          <div class="item">重构后测试应存活</div>
+          <div class="item">代码最小化</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="section-name">Section 03 · Implementation</span>
+    <span>09 / 18</span>
+  </div>
+</div>
+</body>
+</html>

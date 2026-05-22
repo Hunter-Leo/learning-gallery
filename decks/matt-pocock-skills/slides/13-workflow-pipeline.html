@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>13 · Workflow Pipeline</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .wf-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; flex:1; min-height:0; }
+  .wf-phase { background:var(--surface); border-radius:var(--radius-md); padding:16px 18px; border:1px solid var(--hairline); display:flex; flex-direction:column; }
+  .wf-phase .wf-num { font-family:var(--font-english); font-weight:700; font-size:16px; color:var(--accent); margin-bottom:2px; }
+  .wf-phase .wf-title { font-family:var(--font-display); font-weight:700; font-size:20px; color:var(--heading); margin-bottom:8px; }
+  .wf-phase .wf-item { font-size:13px; color:var(--muted); line-height:1.7; }
+  .wf-phase .wf-item .hl { color:var(--accent); font-weight:500; }
+  .wf-phase .wf-arrow { color:var(--muted-soft); margin:0 4px; }
+  .wf-phase .wf-out {
+    margin-top:auto;
+    padding-top:8px;
+    font-size:11px;
+    color:var(--muted-soft);
+    border-top:1px solid var(--hairline);
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="kicker">Section 04 · Productivity</div>
+  <div class="page-title">端到端工作流 <span class="light">| End‑to‑End Pipeline</span></div>
+  <div class="subtitle-en">四个阶段，从想法到交付的完整路径</div>
+  <div class="content">
+    <div class="wf-grid">
+      <div class="wf-phase">
+        <div class="wf-num">Phase 1</div>
+        <div class="wf-title">对齐</div>
+        <div class="wf-item">
+          <span class="hl">/grill-with-docs</span>
+          <span class="wf-arrow">→</span>
+          <span class="hl">CONTEXT.md</span> + ADR
+        </div>
+        <div class="wf-out">统一术语，记录决策</div>
+      </div>
+      <div class="wf-phase">
+        <div class="wf-num">Phase 2</div>
+        <div class="wf-title">规划</div>
+        <div class="wf-item">
+          <span class="hl">/to-prd</span> → PRD Issue<br>
+          <span class="hl">/to-issues</span> → 垂直切片列表<br>
+          <span class="hl">/triage</span> → 状态机管理
+        </div>
+        <div class="wf-out">可执行的任务清单</div>
+      </div>
+      <div class="wf-phase">
+        <div class="wf-num">Phase 3</div>
+        <div class="wf-title">实现</div>
+        <div class="wf-item">
+          <span class="hl">/tdd</span> → 红绿重构迭代<br>
+          <span class="hl">/diagnose</span> → Bug 调试<br>
+          <span class="hl">/improve-arch</span> → 架构深化
+        </div>
+        <div class="wf-out">可靠的功能交付</div>
+      </div>
+      <div class="wf-phase">
+        <div class="wf-num">Phase 4</div>
+        <div class="wf-title">验证</div>
+        <div class="wf-item">
+          <span class="hl">/prototype</span> → 快速验证<br>
+          回归测试 → 反馈回路<br>
+          复盘 → 记录预防措施
+        </div>
+        <div class="wf-out">确认方向正确</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;text-align:center;font-size:14px;color:var(--muted);padding:12px;background:var(--surface);border-radius:var(--radius-sm);border:1px solid var(--hairline);">
+      贯穿全流程：<span style="color:var(--accent);">caveman</span> · <span style="color:var(--accent);">handoff</span> · <span style="color:var(--accent);">zoom-out</span> 三件套支撑
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="section-name">Section 04 · Productivity</span>
+    <span>13 / 18</span>
+  </div>
+</div>
+</body>
+</html>

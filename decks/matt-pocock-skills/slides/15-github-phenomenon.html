@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><title>15 · GitHub Phenomenon</title>
+<link rel="stylesheet" href="../shared/tokens.css">
+<style>
+  .stat-row { display:flex; gap:16px; margin-bottom:16px; }
+  .stat-box { flex:1; background:var(--surface); border-radius:var(--radius-md); padding:16px 20px; border:1px solid var(--hairline); text-align:center; }
+  .stat-box .stat-num { font-family:var(--font-english); font-size:38px; font-weight:700; color:var(--accent); line-height:1; }
+  .stat-box .stat-label { font-size:13px; color:var(--muted); margin-top:4px; }
+  .signal-cards { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; flex:1; }
+  .signal-card { background:var(--surface); border-radius:var(--radius-md); padding:20px; border:1px solid var(--hairline); display:flex; flex-direction:column; }
+  .signal-card .sc-num { font-family:var(--font-english); font-size:20px; font-weight:700; color:var(--accent); line-height:1; margin-bottom:4px; }
+  .signal-card .sc-title { font-family:var(--font-display); font-weight:700; font-size:18px; color:var(--heading); margin-bottom:8px; }
+  .signal-card .sc-desc { font-size:13px; color:var(--muted); line-height:1.6; flex:1; }
+  .signal-card .sc-quote { font-size:12px; color:var(--body); background:var(--canvas-soft); border-radius:var(--radius-sm); padding:8px 12px; margin-top:8px; border:1px solid var(--hairline); font-style:italic; }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+  <div class="kicker">Section 05 · Community</div>
+  <div class="page-title">GitHub 现象级增长 <span class="light">| Virality</span></div>
+  <div class="subtitle-en">Two months, 80K+ stars, #1 trending — what happened?</div>
+  <div class="content">
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num">80K+</div><div class="stat-label">GitHub Stars</div></div>
+      <div class="stat-box"><div class="stat-num">#1</div><div class="stat-label">GitHub Trending</div></div>
+      <div class="stat-box"><div class="stat-num">8.2%</div><div class="stat-label">Fork/Star 比</div></div>
+      <div class="stat-box"><div class="stat-num">28</div><div class="stat-label">Skills</div></div>
+    </div>
+    <div class="signal-cards">
+      <div class="signal-card">
+        <div class="sc-num">01</div>
+        <div class="sc-title">AI 时代的 dotfiles</div>
+        <div class="sc-desc">如当年 .vimrc / .zshrc 的分享文化——个人 AI 生产力配置开始被系统化共享。.claude/ 目录成了新的"我的配置"。</div>
+        <div class="sc-quote">每个开发者的 .claude/ 都是可分享的工程 artifact</div>
+      </div>
+      <div class="signal-card">
+        <div class="sc-num">02</div>
+        <div class="sc-title">Anti‑"Vibe Coding" 宣言</div>
+        <div class="sc-desc">副标题 "Skills for Real Engineers — not vibe coding" 正中社区痛点。AI 不应该替代工程思维，而应放大它。</div>
+        <div class="sc-quote">"AI 写代码比你快 10 倍，你还剩什么？"</div>
+      </div>
+      <div class="signal-card">
+        <div class="sc-num">03</div>
+        <div class="sc-title">团队知识传承载体</div>
+        <div class="sc-desc">高级工程师的最佳实践编码为可复用工作流。新人"装上就能自动执行"。被称为"AI 工作流的 npm 时代"。</div>
+        <div class="sc-quote">"不是工具集合，是 AI 时代的软件工程操作系统"</div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span class="section-name">Section 05 · Community</span>
+    <span>15 / 18</span>
+  </div>
+</div>
+</body>
+</html>

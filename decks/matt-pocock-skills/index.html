@@ -2,30 +2,27 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<title>taskapp-framework · v0.3.0 Release</title>
+<title>Matt Pocock Skills</title>
 <script>
 window.DECK_MANIFEST = [
-  { file: "slides/01-cover.html",             label: "封面" },
-  { file: "slides/02-section-quickstart.html",label: "Quick Start" },
-  { file: "slides/03-quickstart-paths.html",  label: "Choose Your Path" },
-  { file: "slides/04-quickstart-first-task.html", label: "Run Your First Task" },
-  { file: "slides/05-quickstart-agent-skill.html", label: "Agent Skill Usage" },
-  { file: "slides/06-section-overview.html",  label: "Framework Overview" },
-  { file: "slides/07-framework-overview.html",label: "What is taskapp-framework" },
-  { file: "slides/08-architecture.html",      label: "Architecture" },
-  { file: "slides/09-section-features.html",  label: "Core Features" },
-  { file: "slides/10-hybrid-tasks.html",      label: "Hybrid Task Registration" },
-  { file: "slides/11-auto-endpoints.html",    label: "Auto REST/MCP Endpoints" },
-  { file: "slides/12-eager-wait.html",        label: "Eager + Wait-and-Return" },
-  { file: "slides/13-auth.html",              label: "Pluggable Auth" },
-  { file: "slides/14-workers.html",           label: "Worker Auto-Scaling" },
-  { file: "slides/15-tcpfakeserver.html",     label: "Dev without Redis" },
-  { file: "slides/16-fileref.html",           label: "FileRef I/O System" },
-  { file: "slides/17-section-patterns.html",  label: "Task Patterns" },
-  { file: "slides/18-task-decorator.html",    label: "@task Decorator" },
-  { file: "slides/19-basetask-class.html",    label: "BaseTask Class" },
-  { file: "slides/20-env-vars.html",          label: "Environment Variables" },
-  { file: "slides/21-summary.html",           label: "Summary" },
+  { file: "slides/01-cover.html",              label: "封面" },
+  { file: "slides/02-section-philosophy.html", label: "Design Philosophy" },
+  { file: "slides/03-four-failure-modes.html", label: "四大失败模式" },
+  { file: "slides/04-skill-architecture.html", label: "技能体系架构" },
+  { file: "slides/05-section-alignment.html",  label: "Alignment" },
+  { file: "slides/06-grill-with-docs.html",    label: "Grill-with-Docs" },
+  { file: "slides/07-to-prd-issues.html",      label: "To-PRD + To-Issues" },
+  { file: "slides/08-section-implementation.html", label: "Implementation" },
+  { file: "slides/09-tdd.html",                label: "TDD" },
+  { file: "slides/10-diagnose.html",           label: "Diagnose" },
+  { file: "slides/11-architecture-prototype.html", label: "Architecture + Prototype" },
+  { file: "slides/12-productivity.html",       label: "Productivity Tools" },
+  { file: "slides/13-workflow-pipeline.html",  label: "Workflow Pipeline" },
+  { file: "slides/14-section-community.html",  label: "Community" },
+  { file: "slides/15-github-phenomenon.html",  label: "GitHub Phenomenon" },
+  { file: "slides/16-adoption-patterns.html",  label: "Adoption Patterns" },
+  { file: "slides/17-criticism-ecosystem.html", label: "Criticism & Ecosystem" },
+  { file: "slides/18-summary.html",            label: "Summary" },
 ];
 
 window.DECK_WIDTH = 1920;
@@ -35,7 +32,7 @@ window.DECK_HEIGHT = 1080;
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body {
     height: 100%;
-    background: #0a0a0a;
+    background: #181715;
     overflow: hidden;
     font-family: -apple-system, "PingFang SC", sans-serif;
   }
@@ -44,12 +41,12 @@ window.DECK_HEIGHT = 1080;
     top: 50%; left: 50%;
     transform-origin: top left;
     will-change: transform;
-    box-shadow: 0 10px 60px rgba(0,0,0,0.4);
+    box-shadow: 0 10px 60px rgba(0,0,0,0.5);
   }
   #transition-overlay {
     position: fixed;
     inset: 0;
-    background: #0a0a0a;
+    background: #181715;
     pointer-events: none;
     opacity: 0;
     z-index: 200;
@@ -61,14 +58,14 @@ window.DECK_HEIGHT = 1080;
     height: 100%;
     border: 0;
     display: block;
-    background: #0d0d12;
+    background: #181715;
   }
   .counter {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background: rgba(0,0,0,0.65);
-    color: #fff;
+    background: rgba(0,0,0,0.7);
+    color: #c4c1b9;
     padding: 6px 14px;
     border-radius: 999px;
     font-size: 13px;
@@ -80,7 +77,7 @@ window.DECK_HEIGHT = 1080;
     transition: opacity 0.2s;
   }
   .counter:hover { opacity: 1; }
-  .counter .label { color: rgba(255,255,255,0.7); margin-left: 8px; }
+  .counter .label { color: rgba(255,255,255,0.5); margin-left: 8px; }
   .nav-zone {
     position: fixed;
     top: 0; bottom: 0;
@@ -95,8 +92,8 @@ window.DECK_HEIGHT = 1080;
     top: 50%; transform: translateY(-50%);
     width: 44px; height: 44px;
     border-radius: 999px;
-    background: rgba(255,255,255,0.08);
-    color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.06);
+    color: rgba(255,255,255,0.4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -109,7 +106,7 @@ window.DECK_HEIGHT = 1080;
   .nav-zone:hover .nav-hint { opacity: 1; }
   @media print {
     @page { size: 1920px 1080px; margin: 0; }
-    html, body { background: #0d0d12; overflow: visible; height: auto; }
+    html, body { background: #181715; overflow: visible; height: auto; }
     #stage { position: static; transform: none !important; box-shadow: none; }
     .counter, .nav-zone { display: none !important; }
     .print-stack { display: block; }
@@ -118,7 +115,7 @@ window.DECK_HEIGHT = 1080;
       height: 1080px;
       page-break-after: always;
       display: block;
-      background: #0d0d12;
+      background: #181715;
     }
   }
 </style>
