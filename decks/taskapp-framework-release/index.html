@@ -42,11 +42,7 @@ window.DECK_HEIGHT = 1080;
   #stage {
     position: fixed;
     top: 0; left: 0;
-    transform-origin: 0 0;
-    will-change: transform;
     box-shadow: 0 10px 60px rgba(0,0,0,0.4);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
   }
   #transition-overlay {
     position: fixed;
@@ -112,7 +108,7 @@ window.DECK_HEIGHT = 1080;
   @media print {
     @page { size: 1920px 1080px; margin: 0; }
     html, body { background: #0d0d12; overflow: visible; height: auto; }
-    #stage { position: static; transform: none !important; box-shadow: none; }
+    #stage { position: static; zoom: 1 !important; transform: none !important; box-shadow: none; }
     .counter, .nav-zone { display: none !important; }
     .print-stack { display: block; }
     .print-stack iframe {
@@ -153,9 +149,10 @@ window.DECK_HEIGHT = 1080;
 
   function fit() {
     const s = Math.min(window.innerWidth / W, window.innerHeight / H);
-    const x = Math.round((window.innerWidth  - W * s) / 2);
-    const y = Math.round((window.innerHeight - H * s) / 2);
-    stage.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${s})`;
+    stage.style.zoom = s;
+    stage.style.transform = 'none';
+    stage.style.left = Math.round((window.innerWidth - W * s) / 2) + 'px';
+    stage.style.top  = Math.round((window.innerHeight - H * s) / 2) + 'px';
   }
 
   const overlay = document.getElementById('transition-overlay');

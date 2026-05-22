@@ -49,12 +49,8 @@
   #stage {
     position: fixed;
     top: 0; left: 0;
-    transform-origin: 0 0;
-    will-change: transform;
     background: #fff;
     box-shadow: 0 10px 60px rgba(0,0,0,0.4);
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
     /* size set by JS from DECK_WIDTH/HEIGHT */
   }
   iframe {
@@ -156,9 +152,10 @@
 
   function fit() {
     const s = Math.min(window.innerWidth / W, window.innerHeight / H);
-    const x = Math.round((window.innerWidth  - W * s) / 2);
-    const y = Math.round((window.innerHeight - H * s) / 2);
-    stage.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${s})`;
+    stage.style.zoom = s;
+    stage.style.transform = 'none';
+    stage.style.left = Math.round((window.innerWidth - W * s) / 2) + 'px';
+    stage.style.top  = Math.round((window.innerHeight - H * s) / 2) + 'px';
   }
 
   function show(idx) {
