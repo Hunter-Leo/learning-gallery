@@ -48,11 +48,13 @@
   }
   #stage {
     position: fixed;
-    top: 50%; left: 50%;
-    transform-origin: top left;
+    top: 0; left: 0;
+    transform-origin: 0 0;
     will-change: transform;
     background: #fff;
     box-shadow: 0 10px 60px rgba(0,0,0,0.4);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
     /* size set by JS from DECK_WIDTH/HEIGHT */
   }
   iframe {
@@ -154,11 +156,9 @@
 
   function fit() {
     const s = Math.min(window.innerWidth / W, window.innerHeight / H);
-    const x = (window.innerWidth  - W * s) / 2;
-    const y = (window.innerHeight - H * s) / 2;
-    stage.style.transform = `translate(${x}px, ${y}px) scale(${s})`;
-    stage.style.top = '0';
-    stage.style.left = '0';
+    const x = Math.round((window.innerWidth  - W * s) / 2);
+    const y = Math.round((window.innerHeight - H * s) / 2);
+    stage.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${s})`;
   }
 
   function show(idx) {
